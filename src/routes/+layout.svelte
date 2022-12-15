@@ -94,7 +94,7 @@
   }
 </script>
 
-<main class={`${showCart ? 'h-screen' : 'min-h-screen'} text-white overflow-hidden`}>
+<main class={`${showCart ? 'h-screen' : 'min-h-screen'} text-white overflow-hidden font-overpass`}>
   {#if showCart}
     <ShoppingCart
       items={cartItems}
@@ -106,7 +106,7 @@
     />
   {/if}
   <Header on:openCart={openCart} />
-  <div class="min-h-screen overflow-scroll">
+  <div class="min-h-screen">
     <slot />
     <Footer />
   </div>

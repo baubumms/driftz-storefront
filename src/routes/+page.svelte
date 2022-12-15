@@ -1,46 +1,57 @@
 <script>
-  import ThreeItemGrid from '$components/ThreeItemGrid.svelte';
-  import Carousel from '$components/Carousel.svelte';
+  import { indexedObjToArray } from '$utils/object';
 
   /** @type {import('./$types').PageData} */
   export let data;
 
-  $: clothesCollection = data[0]?.node?.products?.edges;
-  $: featuredCollection = data[1]?.node?.products?.edges;
+  // $: clothesCollection = data[0]?.node?.products?.edges;
+  // $: featuredCollection = data[1]?.node?.products?.edges;
+
+  import ProductCard from '$components/ProductCard.svelte';
+
+  let collections = indexedObjToArray(data);
+
+  console.log(collections);
 </script>
 
 <svelte:head>
   <title>Home – SvelteKit Commerce</title>
 </svelte:head>
 
-<main>
-  <section>
-    <div class="lg:h-[90vh]">
-      <ThreeItemGrid products={featuredCollection} />
+<main class="flex flex-col space-y-10">
+  <section class="relative md:container mt-10">
+    <img
+      src="/home-header.jpg"
+      alt="Header background"
+      class="w-full md:rounded-lg object-cover md:h-96"
+    />
+    <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+      <h2 class="text-5xl md:text-8xl stroke-black text-center drop-shadow-2xl font-black">
+        what’s your<br />next build?
+      </h2>
     </div>
   </section>
   <section>
-    <Carousel items={clothesCollection} />
-  </section>
-  <section>
-    <div
-      class="flex flex-col px-8 py-20 text-white border border-black bg-dark lg:flex-row lg:items-center"
-    >
-      <div
-        class="flex-none mb-4 mr-8 text-3xl font-black text-left md:text-4xl lg:mb-0 lg:w-1/3 lg:text-right lg:text-6xl"
-      >
-        Dessert dragée halvah croissant.
-      </div>
-      <div>
-        <div class="lg:text-2xl">
-          Cupcake ipsum dolor sit amet lemon drops pastry cotton candy. Sweet carrot cake macaroon
-          bonbon croissant fruitcake jujubes macaroon oat cake. Soufflé bonbon caramels jelly beans.
-          Tiramisu sweet roll cheesecake pie carrot cake.
+    <div class="container flex flex-col space-y-10">
+      {#each collections as collection}
+        <div>
+          <h1 class="font-medium text-3xl mb-2">{collection.node.title}</h1>
+
+          <div class="w-full overflow-x-auto">
+            <div class="grid grid-cols-2 md:flex md:gap-0 overflow-x-auto gap-2 md:space-x-5 w-fit">
+              {#each collection.node.products.edges as product}
+                <ProductCard
+                  title={product.node.shortTitle ?? product.node.title}
+                  price={product.node.priceRange.maxVariantPrice.amount}
+                  currencyCode={product.node.priceRange.maxVariantPrice.currencyCode}
+                  imageSrc={product.node.images?.edges[0]?.node.originalSrc}
+                  handle={product.node.handle}
+                />
+              {/each}
+            </div>
+          </div>
         </div>
-        <button class="mt-4 font-bold text-svelteOrange hover:text-svelteDark lg:text-2xl">
-          Read it here
-        </button>
-      </div>
+      {/each}
     </div>
   </section>
 </main>

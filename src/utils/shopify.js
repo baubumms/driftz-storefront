@@ -110,6 +110,7 @@ export async function getAllCollections() {
         collections(first: 100) {
              edges {
                 node {
+                    title
                     handle
                     products(
                         first: 100,
@@ -179,6 +180,9 @@ export async function getAllCollections() {
                                             height
                                         }
                                     }
+                                }
+                                shortTitle: metafield(namespace: "custom", key: "short_title") {
+                                  value
                                 }
                             }
                         }
@@ -318,6 +322,45 @@ export async function getProduct(handle) {
     variables: {
       handle
     }
+  });
+}
+
+export async function getAllArticles() {
+  return shopifyFetch({
+    query: `{
+              articles(first: 50) {
+                nodes {
+                  id
+                  title
+                  handle
+                  contentHtml
+                  content
+                  image {
+                    id
+                    width
+                    height
+                    url
+                  }
+                  seo {
+                    title
+                    description
+                  }
+                  tags
+                  authorName: metafield(namespace: "custom", key: "authorName") {
+                    type
+                    value
+                  }
+                  authorPicture: metafield(namespace: "custom", key: "authorPicture") {
+                    type
+                    value
+                  }
+                  authorBio: metafield(namespace: "custom", key: "authorBio") {
+                    type
+                    value
+                  }
+                }
+              }
+            }`
   });
 }
 

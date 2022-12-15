@@ -27,7 +27,7 @@
   >
     <img
       alt={title}
-      class={`w-full md:w-1/2 lg:w-full flex-none transition duration-300 ease-in-out ${
+      class={`w-full md:w-1/2 md:w-full flex-none transition duration-300 ease-in-out ${
         hover ? 'scale-110' : ''
       }`}
       fetchpriority={priority === 'eager' ? 'high' : 'low'}

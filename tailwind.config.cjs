@@ -1,13 +1,25 @@
 module.exports = {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
+    fontFamily: {
+      aleo: ['Aleo', 'serif'],
+      overpass: ['Overpass', 'sans-serif'],
+    },
+    container: {
+      center: true,
+      padding: '0.7rem',
+    },
     extend: {
       colors: {
         svelteOrange: '#FF3E00',
         svelteDark: '#F03A00',
         hotPink: '#FF1966',
         dark: '#111111',
-        light: '#FAFAFA'
+        light: '#FAFAFA',
+
+
+        "light-grey": "#C7C7C7",
+        "dark-blue": "#07212C",
       }
     }
   },

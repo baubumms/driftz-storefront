@@ -5,10 +5,10 @@ import { error } from '@sveltejs/kit';
 export async function load({ url }) {
   const res = await getAllCollections();
   if (res.status === 200) {
-    const products = res.body?.data?.collections?.edges;
+    const collections = res.body?.data?.collections?.edges;
 
-    if (products) {
-      return products;
+    if (collections) {
+      return collections;
     } 
     throw error(404)
   } else {

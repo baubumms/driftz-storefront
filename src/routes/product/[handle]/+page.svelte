@@ -175,10 +175,10 @@
         />
       </div>
     </div>
-    <div class="px-4 py-8">
+    <!-- <div class="px-4 py-8">
       <div class="mb-4 text-3xl font-bold">Related Products</div>
       <ul class="grid grid-flow-row grid-cols-2 gap-4 md:grid-cols-4">
-        {#each data.body.featuredProducts as product, i (product.node.id)}
+        {#each data.body?.featuredProducts ?? [] as product, i (product.node.id)}
           <li>
             <div
               class="group relative block aspect-square overflow-hidden border border-white/20 bg-zinc-800/50"
@@ -192,7 +192,7 @@
           </li>
         {/each}
       </ul>
-    </div>
+    </div> -->
   {/if}
 </div>
 
