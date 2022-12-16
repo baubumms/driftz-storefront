@@ -94,7 +94,7 @@
   }
 </script>
 
-<main class={`${showCart ? 'h-screen' : 'min-h-screen'} text-white overflow-hidden font-overpass`}>
+<main class={`${showCart ? 'h-screen' : 'min-h-screen'} text-white font-overpass`}>
   {#if showCart}
     <ShoppingCart
       items={cartItems}
@@ -105,9 +105,11 @@
       bind:loading
     />
   {/if}
-  <Header on:openCart={openCart} />
-  <div class="min-h-screen">
-    <slot />
+  <div class="min-h-screen flex flex-col">
+    <Header on:openCart={openCart} />
+    <div class="flex-grow flex-shrink-0">
+      <slot />
+    </div>
     <Footer />
   </div>
 </main>

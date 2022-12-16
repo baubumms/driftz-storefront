@@ -316,6 +316,15 @@ export async function getProduct(handle) {
                     }
                 }
                 }
+                highlights: metafield(namespace:"custom", key:"highlights"){
+                  value
+                }
+                quantityUnitSingle: metafield(namespace:"custom", key:"quantity_unit_single"){
+                  value
+                }
+                quantityUnitMultiple: metafield(namespace:"custom", key:"quantity_unit_multiple"){
+                  value
+                }
             }
         }
     `,

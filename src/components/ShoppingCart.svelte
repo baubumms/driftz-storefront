@@ -1,6 +1,8 @@
 <script>
   import Icons from './Icons.svelte';
   import { createEventDispatcher } from 'svelte';
+  import { formatPrice } from '$utils/price';
+
   const dispatch = createEventDispatcher();
   export let loading = false;
   export let items = [];
@@ -39,11 +41,11 @@
   }
 </script>
 
-<div
+<button
   on:click|self
-  class="absolute inset-0 z-50 flex max-h-screen w-full justify-end overflow-hidden bg-black/50"
+  class="absolute top-0 left-0 inset-0 z-50 flex h-screen w-full justify-end overflow-hidden bg-black/50"
 >
-  <div class="z-50 w-full bg-black p-6 md:w-1/2 md:w-1/3 relative">
+  <div class="z-50 w-full md:h-full bg-black p-6 md:w-[430px] relative flex flex-col">
     {#if loading}
       <div class="absolute inset-0 bg-black/50 z-50" />
     {/if}
@@ -59,23 +61,23 @@
         <div class="mt-6 text-center text-2xl font-bold">Your cart is empty.</div>
       </div>
     {/if}
-    <div class="overflow-y-auto" style="height: 80%;">
+    <div class="overflow-y-auto flex-grow">
       {#each items as item, i (i)}
         <div class="mb-2 flex w-full">
           <img
             alt={item.node.merchandise.product.title}
             decoding="async"
             loading="lazy"
-            class="w-20 flex-none bg-white"
+            class="w-20 flex-none bg-white rounded-md"
             src={item.node.merchandise.product.images.edges[0].node.originalSrc}
           />
           <div class="ml-4 flex w-full flex-col justify-between">
-            <div class="flex w-full justify-between">
+            <div class="flex w-full justify-between text-left">
               <di>
                 <p class="text-lg font-medium">{item.node.merchandise.product.title}</p>
                 <p class="text-sm">{item.node.merchandise.title}</p>
               </di>
-              <p class="font-medium">${item.node.estimatedCost.totalAmount.amount}</p>
+              <p class="font-medium">{formatPrice(item.node.estimatedCost.totalAmount.amount)}</p>
             </div>
           </div>
         </div>
@@ -129,7 +131,7 @@
       </button>
     {/if}
   </div>
-</div>
+</button>
 
 <style>
   .lds-ring {

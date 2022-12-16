@@ -1,9 +1,12 @@
 <script>
-  import Icons from '$components/Icons.svelte';
+  import { Icon } from '@steeze-ui/svelte-icon';
+  import { ChevronRight } from '@steeze-ui/heroicons';
   import { fade } from 'svelte/transition';
+  import cn from 'classnames';
 
   export let title;
   export let description;
+  export let descriptionHtml;
 
   let toggle = false;
 </script>
@@ -12,30 +15,21 @@
   on:click={() => {
     toggle = !toggle;
   }}
-  class="flex w-full border-b border-white/50 py-4 text-sm "
+  class="flex w-full border-b border-white/50 py-4 text-sm items-center"
 >
-  <div class={`opacity-50 h-6 w-6 rotate ${toggle ? 'down' : ''}`}>
-    <Icons type="caretRight" strokeColor="#fff" />
-  </div>
-  <div class="ml-4">
-    <div class="mb-2">{title}</div>
-    {#if toggle}
-      <div transition:fade={{ duration: 300 }}>{description}</div>
-    {/if}
+  <Icon
+    src={ChevronRight}
+    theme="mini"
+    class={cn('w-6 h-6 transition-all', { 'rotate-90': toggle })}
+  />
+  <div class="ml-4 text-left">
+    <div class={cn({ 'mb-4': toggle })}>{title}</div>
+    <div class={cn({ hidden: !toggle })}>
+      {#if descriptionHtml}
+        {@html descriptionHtml}
+      {:else}
+        {description}
+      {/if}
+    </div>
   </div>
 </button>
-
-<style>
-  .rotate {
-    -moz-transition: all 0.3s linear;
-    -webkit-transition: all 0.3s linear;
-    transition: all 0.3s linear;
-  }
-
-  .rotate.down {
-    -ms-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
-  }
-</style>

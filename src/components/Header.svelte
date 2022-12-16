@@ -38,7 +38,7 @@
   }
 </script>
 
-<nav class="border-b border-zinc-700 p-4">
+<nav class="border-b border-zinc-700 p-4 sticky top-0 z-20 bg-black bg-opacity-95">
   <div class="flex items-center container">
     <div class="flex items-center ">
       <a href="/" data-sveltekit-prefetch class="text-2xl pt-2 md:p-0 font-bold font-aleo">
