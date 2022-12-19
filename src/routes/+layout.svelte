@@ -94,6 +94,10 @@
   }
 </script>
 
+<svelte:head>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</svelte:head>
+
 <main class={`${showCart ? 'h-screen' : 'min-h-screen'} text-white font-overpass`}>
   {#if showCart}
     <ShoppingCart

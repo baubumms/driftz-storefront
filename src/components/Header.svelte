@@ -22,7 +22,7 @@
       tabs = collections.map((collection) => {
         return {
           name: collection.node.title,
-          path: `/collections/${collection.node.handle}`
+          path: `/search/${collection.node.handle}`
         };
       });
       tabs.push({

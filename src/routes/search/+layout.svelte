@@ -31,7 +31,7 @@
       </li>
     </ul>
   </nav>
-  <div class="min-h-screen">
+  <div class="min-h-screen mt-3">
     <slot />
   </div>
 </div>

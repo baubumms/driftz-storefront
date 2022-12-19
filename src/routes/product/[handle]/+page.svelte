@@ -5,7 +5,7 @@
   import { getCartItems } from '../../../store.js';
   import cn from 'classnames';
   import { Icon } from '@steeze-ui/svelte-icon';
-  import { Check } from '@steeze-ui/heroicons';
+  import { Check, ChevronRight, ChevronLeft } from '@steeze-ui/heroicons';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -14,6 +14,9 @@
   let cartLoading = false;
   let currentImageIndex = 0;
   const product = data?.body?.product;
+  const options = data.body.product.options.filter(
+    (option) => option.name != 'Title' && option.values[0] !== 'Default Title'
+  );
 
   $: highlightedImageSrc = data?.body?.product?.images?.edges[currentImageIndex]?.node?.originalSrc;
 
@@ -70,16 +73,16 @@
   <title>{data.body.product.title}</title>
 </svelte:head>
 
-<div>
+<div class="mt-3 flex flex-col space-y-5">
   {#if data.body.product}
-    <div class="flex flex-col space-y-5 md:container md:grid md:grid-cols-2">
+    <div class="flex flex-col space-y-5 md:space-y-0 container md:grid md:grid-cols-2 md:gap-5">
       <div class="w-full">
         {#key highlightedImageSrc}
-          <div class="relative">
+          <div class="relative rounded-lg">
             <ProductImage imageSrc={highlightedImageSrc} imageAlt={data.body.product.title} />
             {#if data.body.product?.images?.edges.length > 1}
               <div
-                class="absolute flex items-center justify-between right-0 top-0 w-full h-full z-40 px-1"
+                class="absolute flex items-center justify-between right-0 top-0 w-full h-full z-10 px-1 text-black"
               >
                 <button
                   on:click={() => {
@@ -88,7 +91,7 @@
                   class="h-full flex items-center w-1/4"
                 >
                   <span class="p-1 bg-white bg-opacity-50 rounded-full shadow-xl">
-                    <Icons type="arrowLeft" />
+                    <Icon src={ChevronLeft} theme="solid" class="w-5" />
                   </span>
                 </button>
                 <button
@@ -98,28 +101,28 @@
                   class="h-full flex justify-end items-center w-1/4"
                 >
                   <span class="p-1 bg-white bg-opacity-50 rounded-full shadow-xl">
-                    <Icons type="arrowRight" />
+                    <Icon src={ChevronRight} theme="solid" class="w-5" />
                   </span>
                 </button>
               </div>
             {/if}
           </div>
         {/key}
-        <div class="flex h-20 items-center space-x-2 bg-white overflow-x-auto">
+        <div class="flex h-20 items-center space-x-2 overflow-x-auto mt-2">
           {#each data.body.product.images.edges as variant, i}
             <button
               on:click={() => {
                 currentImageIndex = i;
               }}
-              class="h-full aspect-square overflow-hidden bg-white flex-shrink-0"
+              class="h-full aspect-4/3 overflow-hidden bg-white flex-shrink-0 rounded-lg"
             >
               <ProductImage imageSrc={variant.node.originalSrc} imageAlt={variant.node.title} />
             </button>
           {/each}
         </div>
       </div>
-      <div class="h-full container">
-        <div class="flex flex-col space-y-2 container">
+      <div class="h-full md:pt-2">
+        <div class="flex flex-col space-y-2">
           <h1 class="text-3xl font-bold">{product.title}</h1>
           <div class="flex flex-col font-light">
             <table class="border-separate border-spacing-y-1">
@@ -134,7 +137,7 @@
             </table>
           </div>
         </div>
-        {#each data.body.product.options as option}
+        {#each options as option}
           <div class="mb-8">
             <div class="mb-4 text-sm uppercase tracking-wide">{option.name}</div>
             <div class="flex space-x-2 overflow-x-auto">
@@ -144,7 +147,7 @@
                     selectedOptions = { ...selectedOptions, [option.name]: value };
                   }}
                   class={cn(
-                    'px-3 py-1 transition duration-300 ease-in-out hover:bg-opacity-100  rounded-lg border-white border flex-shrink-0',
+                    'px-3 py-1 transition duration-300 ease-in-out hover:bg-opacity-100 rounded-lg border-white border flex-shrink-0',
                     {
                       'bg-dark-blue text-white': selectedOptions[option.name] !== value,
                       'bg-light text-black': selectedOptions[option.name] === value
@@ -171,14 +174,16 @@
             </div>
           {/if}
         </button>
-        <DescriptionToggle
-          title="Care"
-          description="This is a limited edition production run. Printing starts when the drop ends."
-        />
-        <DescriptionToggle title="Details" descriptionHtml={product.descriptionHtml} />
-        <!-- {@html article.contentHtml} -->
       </div>
     </div>
+    {#if product.descriptionHtml}
+      <div class="container">
+        <hr class="h-hr bg-white" />
+        <div class="shopify-editor md:w-2/3">
+          {@html product.descriptionHtml}
+        </div>
+      </div>
+    {/if}
   {/if}
 </div>
 

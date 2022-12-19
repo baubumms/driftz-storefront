@@ -3,3 +3,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  /* general */
+  .shopify-editor h1 {
+    @apply text-3xl uppercase font-black mt-4 mb-2;
+  }
+  .shopify-editor h2 {
+    @apply text-2xl uppercase font-medium mt-4 mb-2;
+  }
+  .shopify-editor iframe {
+    @apply max-w-full;
+  }
+  .shopify-editor a {
+    @apply font-medium hover:underline;
+  }
+  .shopify-editor p:not(td p),
+  table {
+    @apply mb-3;
+  }
+
+  /* table */
+  .shopify-editor table {
+    @apply border-spacing-0 text-sm font-thin md:text-base md:font-normal;
+  }
+
+  .shopify-editor tr:nth-child(even) {
+    @apply bg-gray-900;
+  }
+}

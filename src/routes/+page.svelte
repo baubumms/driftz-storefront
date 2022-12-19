@@ -21,7 +21,8 @@
 <main class="flex flex-col space-y-10">
   <section class="relative md:container mt-10">
     <img
-      src="/home-header.jpg"
+      loading="lazy"
+      src="/media/home-hero.jpg"
       alt="Header background"
       class="w-full md:rounded-lg object-cover md:h-96"
     />
