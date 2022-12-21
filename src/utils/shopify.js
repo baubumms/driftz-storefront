@@ -12,7 +12,6 @@ validateEnv(STOREFRONT_API_TOKEN, 'VITE_SHOPIFY_STOREFRONT_API_TOKEN');
 export async function shopifyFetch({ query, variables }) {
   try {
     const langCode = get(locale);
-    console.log(langCode)
     const payload = { query, variables: {...variables, locale: langCode.toUpperCase()} };
 
     const result = await fetch(API_ENDPOINT, {
@@ -206,7 +205,7 @@ export async function getAllCollections() {
 export async function loadCart(cartId) {
   return shopifyFetch({
     query: `
-        query GetCart($cartId: ID!) {
+        query GetCart($cartId: ID!, $locale: LanguageCode!)  @inContext(language: $locale) {
           cart(id: $cartId) {
             checkoutUrl
               estimatedCost {
@@ -261,7 +260,7 @@ export async function loadCart(cartId) {
 export async function getProduct(handle) {
   return shopifyFetch({
     query: ` 
-        query getProduct($handle: String!) {
+        query getProduct($handle: String!, $locale: LanguageCode!)  @inContext(language: $locale) {
             productByHandle(handle: $handle) {
                 id
                 handle
@@ -385,7 +384,7 @@ export async function getAllArticles() {
 export async function createCart() {
   return shopifyFetch({
     query: `
-      mutation calculateCart($lineItems: [CartLineInput!]) {
+      mutation calculateCart($lineItems: [CartLineInput!], $locale: LanguageCode!)  @inContext(language: $locale) {
         cartCreate(input: { lines: $lineItems }) {
           cart {
             checkoutUrl
@@ -401,7 +400,7 @@ export async function createCart() {
 export async function updateCart({ cartId, lineId, variantId, quantity }) {
   return shopifyFetch({
     query: `
-      mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+      mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!, $locale: LanguageCode!)  @inContext(language: $locale) {
         cartLinesUpdate(cartId: $cartId, lines: $lines) {
           userErrors {
             field
@@ -426,7 +425,7 @@ export async function updateCart({ cartId, lineId, variantId, quantity }) {
 export async function addToCart({ cartId, variantId }) {
   return shopifyFetch({
     query: `
-      mutation addToCart($cartId: ID!, $lines: [CartLineInput!]!) {
+      mutation addToCart($cartId: ID!, $lines: [CartLineInput!]!, $locale: LanguageCode!)  @inContext(language: $locale){
         cartLinesAdd(cartId: $cartId, lines: $lines) {
           cart {
             lines(first: 100) {

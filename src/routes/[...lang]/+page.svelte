@@ -1,6 +1,7 @@
 <script>
   import { indexedObjToArray } from '$utils/object';
   import { _ } from 'svelte-i18n';
+  import Link from '$components/Link.svelte';
 
   /** @type {import('./$types').PageData} */
   export let data;

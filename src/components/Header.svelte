@@ -6,6 +6,7 @@
   import { createEventDispatcher } from 'svelte';
   import { getAllCollections } from '$utils/shopify';
   import { indexedObjToArray } from '$utils/object';
+  import Link from '$components/Link.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -41,18 +42,15 @@
 <nav class="border-b border-zinc-700 p-4 sticky top-0 z-20 bg-black bg-opacity-95">
   <div class="flex items-center container">
     <div class="flex items-center ">
-      <a href="/" data-sveltekit-prefetch class="text-2xl pt-2 md:p-0 font-bold font-aleo">
-        driftz.
-      </a>
+      <Link href="/" class="text-2xl pt-2 md:p-0 font-bold font-aleo">driftz.</Link>
       <div class="hidden md:flex">
         {#each tabs as tab, i (tab.name)}
           <div class:active={currentRoute === tab.path}>
-            <a
-              data-sveltekit-prefetch
+            <Link
               href={tab.path}
               class={`hover:opacity-100 px-2 py-1 text-white rounded-lg ${
                 currentRoute === tab.path ? 'opacity-100' : 'opacity-75'
-              }`}>{tab.name}</a
+              }`}>{tab.name}</Link
             >
           </div>
         {/each}
@@ -116,12 +114,11 @@
                   showMenu = false;
                 }}
               >
-                <a
-                  data-sveltekit-prefetch
+                <Link
                   href={tab.path}
                   class={`hover:opacity-100 px-2 py-1 text-white font-bold text-xl rounded-lg ${
                     currentRoute === tab.path ? 'opacity-100' : 'opacity-75'
-                  }`}>{tab.name}</a
+                  }`}>{tab.name}</Link
                 >
               </div>
             {/each}

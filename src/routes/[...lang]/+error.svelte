@@ -1,5 +1,6 @@
 <script>
   import Icons from '$components/Icons.svelte';
+  import Link from '$components/Link.svelte';
 </script>
 
 <div class="flex h-screen flex-col items-center justify-center ">
@@ -11,12 +12,11 @@
       <div class="mx-6 h-20 w-px bg-white" />
       <div class="text-lg font-medium">Opps! The page you're looking for doesn't exist.</div>
     </div>
-    <a
+    <Link
       href="/"
-      data-sveltekit-prefetch
       class="w-full bg-white/90 p-3 text-center text-sm font-medium uppercase text-black hover:bg-white/100"
     >
       Return to Home Page
-    </a>
+    </Link>
   </div>
 </div>

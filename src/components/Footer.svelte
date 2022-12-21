@@ -1,6 +1,7 @@
 <script>
   import { getAllCollections } from '$utils/shopify';
   import { indexedObjToArray } from '$utils/object';
+  import Link from '$components/Link.svelte';
 
   let categories = [];
 
@@ -83,7 +84,7 @@
         <h3 class="md:text-xl font-black mb-3 uppercase">{categorie.title}</h3>
         <ul class="flex flex-col space-y-3 text-sm md:text-base">
           {#each categorie.items as item}
-            <a href={item.href} class="">{item.title}</a>
+            <Link href={item.href} class="">{item.title}</Link>
           {/each}
         </ul>
       </div>

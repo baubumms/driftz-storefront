@@ -7,7 +7,6 @@
 <div class="w-full aspect-4/3 overflow-hidden rounded-lg">
   <div
     data-test="grid-tile w-full h-full"
-    data-sveltekit-prefetch
     class="focus:border-blue-500 focus:border-2 relative flex h-full w-full items-center justify-center hover:cursor-pointer"
   >
     <img

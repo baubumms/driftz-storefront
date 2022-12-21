@@ -7,10 +7,11 @@
   export let handle;
 
   import { formatPrice } from '$utils/price';
+  import Link from '$components/Link.svelte';
 </script>
 
 <!-- Render the Product card -->
-<a
+<Link
   href="/product/{handle}"
   class="flex flex-col space-y-2 md:w-72 transition-opacity duration-500 rounded-lg group"
 >
@@ -30,4 +31,4 @@
       {/if}
     </div>
   </div>
-</a>
+</Link>
