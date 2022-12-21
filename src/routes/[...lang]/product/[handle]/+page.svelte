@@ -2,7 +2,7 @@
   import ProductImage from '$components/ProductImage.svelte';
   import DescriptionToggle from '$components/DescriptionToggle.svelte';
   import Icons from '$components/Icons.svelte';
-  import { getCartItems } from '../../../store.js';
+  import { getCartItems } from '$/store.js';
   import cn from 'classnames';
   import { Icon } from '@steeze-ui/svelte-icon';
   import { Check, ChevronRight, ChevronLeft } from '@steeze-ui/heroicons';
@@ -120,6 +120,7 @@
             </button>
           {/each}
         </div>
+        <hr class="h-hr bg-white hidden md:block md:mt-10" />
       </div>
       <div class="h-full md:pt-2">
         <div class="flex flex-col space-y-2">
@@ -130,7 +131,7 @@
                 {#each JSON.parse(product.highlights.value ?? '[]') as highlight}
                   <tr class="pb-5">
                     <td class="flex h-full"><Icon src={Check} theme="mini" class="w-6" /></td>
-                    <td class="text-md">{highlight}</td>
+                    <td class="text-md w-full">{highlight}</td>
                   </tr>
                 {/each}
               </tbody>
@@ -178,8 +179,9 @@
     </div>
     {#if product.descriptionHtml}
       <div class="container">
-        <hr class="h-hr bg-white" />
+        <hr class="h-hr bg-white md:hidden" />
         <div class="shopify-editor md:w-2/3">
+          <h1>Details</h1>
           {@html product.descriptionHtml}
         </div>
       </div>

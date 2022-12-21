@@ -2,6 +2,7 @@
   import Icons from './Icons.svelte';
   import { createEventDispatcher } from 'svelte';
   import { formatPrice } from '$utils/price';
+  import { getCheckoutUrl } from '$utils/shopify';
 
   const dispatch = createEventDispatcher();
   export let loading = false;
@@ -35,8 +36,11 @@
   }
   async function checkout() {
     loading = true;
-    let checkoutUrl = localStorage.getItem('cartUrl');
-    window.open(JSON.parse(checkoutUrl), '_blank');
+    const cartId = JSON.parse(localStorage.getItem('cartId'));
+    getCheckoutUrl(cartId).then((url) => {
+      window.open(url, '_blank');
+      loading = false;
+    });
     loading = false;
   }
 </script>

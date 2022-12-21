@@ -1,9 +1,9 @@
 <script>
-  import '../app.css';
+  import '$/app.css';
   import Header from '$components/Header.svelte';
   import Footer from '$components/Footer.svelte';
   import ShoppingCart from '$components/ShoppingCart.svelte';
-  import { getCartItems } from '../store';
+  import { getCartItems } from '$/store';
   import { onMount } from 'svelte';
   import { createCart } from '$utils/shopify';
 

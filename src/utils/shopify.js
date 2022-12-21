@@ -1,19 +1,28 @@
+import { locale } from 'svelte-i18n';
+import {  get  } from 'svelte/store';
+import { validateEnv } from './env';
+
+
+const API_ENDPOINT = import.meta.env.VITE_SHOPIFY_API_ENDPOINT;
+validateEnv(API_ENDPOINT, 'VITE_SHOPIFY_API_ENDPOINT');
+const STOREFRONT_API_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_API_TOKEN;
+validateEnv(STOREFRONT_API_TOKEN, 'VITE_SHOPIFY_STOREFRONT_API_TOKEN');
+
+
 export async function shopifyFetch({ query, variables }) {
-  const endpoint =
-    import.meta.env.VITE_SHOPIFY_API_ENDPOINT ||
-    'https://next-js-store.myshopify.com/api/2021-10/graphql.json';
-  const key =
-    import.meta.env.VITE_SHOPIFY_STOREFRONT_API_TOKEN || 'ef7d41c7bf7e1c214074d0d3047bcd7b';
-
-
   try {
-    const result = await fetch(endpoint, {
+    const langCode = get(locale);
+    console.log(langCode)
+    const payload = { query, variables: {...variables, locale: langCode.toUpperCase()} };
+
+    const result = await fetch(API_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': key
+        'X-Shopify-Storefront-Access-Token': STOREFRONT_API_TOKEN,
+        'Accept-Language': langCode,
       },
-      body: { query, variables } && JSON.stringify({ query, variables })
+      body: JSON.stringify(payload)
     });
     
     return {
@@ -415,7 +424,6 @@ export async function updateCart({ cartId, lineId, variantId, quantity }) {
 }
 
 export async function addToCart({ cartId, variantId }) {
-
   return shopifyFetch({
     query: `
       mutation addToCart($cartId: ID!, $lines: [CartLineInput!]!) {
@@ -452,3 +460,40 @@ export async function addToCart({ cartId, variantId }) {
     }
   });
 }
+
+export async function generateCheckout(lines) {
+  return shopifyFetch({
+    query: `
+      mutation createCheckout($locale: LanguageCode!, $lines: [CheckoutLineItemInput!]) @inContext(language: $locale) {
+        checkoutCreate(
+          input: {
+            lineItems: $lines
+          }
+        ) {
+          checkout {
+            webUrl
+          }
+        }
+      }
+    `,
+    variables: {
+      lines
+    }
+  });
+}
+
+export const getCheckoutUrl = (cartId) => new Promise((resolve, reject) => {
+  loadCart(cartId).then(res => {
+    const lines = res.body.data.cart.lines.edges.map(function (item) {
+      return {variantId: item.node.merchandise.id, quantity: item.node.quantity};
+    });
+
+    generateCheckout(lines).then(res => {
+      if(res.status) {
+        resolve(res.body.data.checkoutCreate.checkout.webUrl);
+      }else {
+        reject(res);
+      }
+    });
+  });
+});

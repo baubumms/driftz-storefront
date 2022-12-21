@@ -1,5 +1,6 @@
 <script>
   import { indexedObjToArray } from '$utils/object';
+  import { _ } from 'svelte-i18n';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -10,12 +11,10 @@
   import ProductCard from '$components/ProductCard.svelte';
 
   let collections = indexedObjToArray(data);
-
-  console.log(collections);
 </script>
 
 <svelte:head>
-  <title>Home – SvelteKit Commerce</title>
+  <title>{$_('general.page_title')}</title>
 </svelte:head>
 
 <main class="flex flex-col space-y-10">

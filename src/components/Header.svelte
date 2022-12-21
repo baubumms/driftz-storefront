@@ -1,10 +1,10 @@
 <script>
   import { page } from '$app/stores';
   import Icons from '$components/Icons.svelte';
-  import { cartQuantity } from '../store';
+  import { cartQuantity } from '$/store';
   import SearchBar from '$components/SearchBar.svelte';
   import { createEventDispatcher } from 'svelte';
-  import { getAllCollections } from '../utils/shopify';
+  import { getAllCollections } from '$utils/shopify';
   import { indexedObjToArray } from '$utils/object';
 
   const dispatch = createEventDispatcher();

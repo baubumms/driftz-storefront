@@ -2,7 +2,7 @@ import { getAllCollections } from '$utils/shopify';
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
-export async function load({ url }) {
+export async function load({ params }) {
   const res = await getAllCollections();
   if (res.status === 200) {
     const collections = res.body?.data?.collections?.edges;

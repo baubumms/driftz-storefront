@@ -7,7 +7,10 @@ const config = {
     adapter: adapter(),
     alias: {
       $components: 'src/components',
-      $utils: 'src/utils'
+      $utils: 'src/utils',
+      $locales: 'src/locales',      
+      $lib: 'src/lib',
+      $: 'src',
     }
   },
   preprocess: [

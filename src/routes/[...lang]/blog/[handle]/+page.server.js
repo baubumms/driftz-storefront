@@ -1,6 +1,6 @@
 import { getProduct, getAllProducts } from '$utils/shopify';
 import { error } from '@sveltejs/kit';
-import { getAllArticles } from '../../../utils/shopify';
+import { getAllArticles } from '$utils/shopify';
 
 export async function load({ params }) {
   

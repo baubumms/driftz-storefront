@@ -1,6 +1,6 @@
 <!-- This file is the landing page for the shops blog section. All Blogs are listed here. -->
 <script>
-  import { getAllArticles } from '../../utils/shopify';
+  import { getAllArticles } from '$utils/shopify';
 
   let articles = [];
 
