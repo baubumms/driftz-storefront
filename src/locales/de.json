@@ -1,5 +1,19 @@
 {
   "general": {
     "page_title": "dritz.eu - Was ist dein nächstes Projekt?"
+  },
+  "search": {
+    "search_prompt": "Suche nach Produkten..."
+  },
+  "navigation": {
+    "contact": "Kontakt",
+    "about": "Über driftz.",
+    "FAQ": "FAQ",
+    "leagal": "Rechtliches",
+    "imprint": "Impressum",
+    "privacy": "Datenschutzerklärung",
+    "terms_of_service": "",
+    "shipping_and_refund": "Versand & Rückgabe",
+    "acceptable_use": "Nutzungsbedingungen"
   }
 }

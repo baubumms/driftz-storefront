@@ -2,6 +2,7 @@
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import Icons from './Icons.svelte';
+  import { _ } from 'svelte-i18n';
 
   let value = $page.url.searchParams.get('q');
 
@@ -22,7 +23,7 @@
     id="searchInput"
     type="text"
     bind:value
-    placeholder="Search for products..."
+    placeholder={$_('search.search_prompt')}
     autocomplete="off"
     class="w-full border border-white/30 bg-transparent p-2"
   />

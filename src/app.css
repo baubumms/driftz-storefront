@@ -31,4 +31,9 @@
   .shopify-editor tr:nth-child(even) {
     @apply bg-gray-900;
   }
+
+  /* list */
+  .shopify-editor ul {
+    @apply list-disc list-inside;
+  }
 }

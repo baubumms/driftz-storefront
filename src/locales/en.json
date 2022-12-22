@@ -1,5 +1,8 @@
 {
   "general": {
     "page_title": "dritz.eu - What's your next project?"
+  },
+  "search": {
+    "search_prompt": "Search for Products..."
   }
 }

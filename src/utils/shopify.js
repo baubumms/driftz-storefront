@@ -3,10 +3,12 @@ import {  get  } from 'svelte/store';
 import { validateEnv } from './env';
 
 
-const API_ENDPOINT = import.meta.env.VITE_SHOPIFY_API_ENDPOINT;
-validateEnv(API_ENDPOINT, 'VITE_SHOPIFY_API_ENDPOINT');
+const SHOPIFY_STORE_NAME = import.meta.env.VITE_SHOPIFY_STORE_NAME;
+validateEnv(SHOPIFY_STORE_NAME, 'VITE_SHOPIFY_STORE_NAME');
 const STOREFRONT_API_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_API_TOKEN;
 validateEnv(STOREFRONT_API_TOKEN, 'VITE_SHOPIFY_STOREFRONT_API_TOKEN');
+
+const apiEndpoint = `https://${SHOPIFY_STORE_NAME}.myshopify.com/api/2022-10/graphql.json`
 
 
 export async function shopifyFetch({ query, variables }) {
@@ -14,7 +16,7 @@ export async function shopifyFetch({ query, variables }) {
     const langCode = get(locale);
     const payload = { query, variables: {...variables, locale: langCode.toUpperCase()} };
 
-    const result = await fetch(API_ENDPOINT, {
+    const result = await fetch(apiEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

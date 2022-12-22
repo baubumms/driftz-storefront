@@ -9,3 +9,13 @@ export const getLocaleFromParms = (params: {lang}) => {
     return defaultLocale;
   }
 }
+
+export const urlLangValid = (params: {[key: string]: any}) => {
+  const langCode = params.lang;
+
+  if(additionalLocales.includes(langCode) || langCode == "") {
+    return true;
+  }else {
+    return false;
+  }
+}
