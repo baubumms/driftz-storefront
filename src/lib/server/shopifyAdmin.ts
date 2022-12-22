@@ -11,11 +11,16 @@ const adminFetch = async (query: string, variables: Record<string, any>) => {
   return await shopifyFetch(endpointUrl, {admin: ADMIN_API_TOKEN}, {query, variables});
 };
 
-gql`{
-  shop{
-    shopPolicies{
-      type
-      body
-    }
-  }
-}`
+// export const getShopPolicies = async () => {
+//   const result = await adminFetch(shopPoliciesQuery, {});
+//   return result;
+// };
+
+// const shopPoliciesQuery = gql`{
+//   shop{
+//     shopPolicies{
+//       type
+//       body
+//     }
+//   }
+// }`
