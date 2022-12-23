@@ -14,7 +14,7 @@
 
   let showMenu = false;
 
-  $: tabs = $navigation.main.items;
+  $: tabs = $navigation.main?.items;
 
   $: console.log(
     tabs[0].url,

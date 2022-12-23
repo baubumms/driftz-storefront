@@ -16,44 +16,39 @@ interface INavigationCategory {
 }
 
 interface INavigationStore {
-  main: INavigationCategory;
+  main?: INavigationCategory;
   legal?: INavigationCategory;
   social?: INavigationCategory;
   about?: INavigationCategory;
 }
 
-const collections = await getAllCollections().then((resp) => {
-  if (resp.status == 200) {
-    const collections = indexedObjToArray(resp.body.data.collections.edges);
-
-    const tabs: INavigationItem[] = collections.map((collection) => {
-      return {
-        title: collection.node.title,
-        url: `/search/${collection.node.handle}`
-      };
-    });
-
-    tabs.push({
-      title: 'Blog',
-      url: '/blog'
-    });
-
-    return tabs;
-  }
-
-  throw new Error("Couldn't fetch collections");
-});
-
-export const navigation = writable<INavigationStore>({
-  main: {
-    title: 'Shop',
-    items: collections
-  }
-});
+export const navigation = writable<INavigationStore>({});
 
 let initialized = false;
 
-export const initNavigation = () => {
+export const initNavigation = async () => {
+  const collections = await getAllCollections().then((resp) => {
+    if (resp.status == 200) {
+      const collections = indexedObjToArray(resp.body.data.collections.edges);
+
+      const tabs: INavigationItem[] = collections.map((collection) => {
+        return {
+          title: collection.node.title,
+          url: `/search/${collection.node.handle}`
+        };
+      });
+
+      tabs.push({
+        title: 'Blog',
+        url: '/blog'
+      });
+
+      return tabs;
+    }
+
+    throw new Error("Couldn't fetch collections");
+  });
+
   if (initialized) {
     return;
   }
@@ -62,7 +57,10 @@ export const initNavigation = () => {
 
   _.subscribe((t) => {
     navigation.update((currentState) => ({
-      ...currentState,
+      main: {
+        title: 'Shop',
+        items: collections
+      },
       legal: {
         title: t('navigation.legal_title'),
         items: [

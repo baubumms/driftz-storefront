@@ -1,6 +1,6 @@
-import { validateEnv } from "$lib/env";
-import { shopifyFetch } from "$lib/graphqlWrapper";
-import { getLocale, defaultLocale } from "$lib/i18n";
+import { validateEnv } from '$lib/env';
+import { shopifyFetch } from '$lib/shopifyApi';
+import { getLocale, defaultLocale } from '$lib/i18n';
 
 const SHOPIFY_STORE_NAME = import.meta.env.VITE_SHOPIFY_STORE_NAME;
 validateEnv(SHOPIFY_STORE_NAME, 'VITE_SHOPIFY_STORE_NAME');
@@ -14,8 +14,8 @@ interface IAdminFetchProps {
   variables?: Record<string, any>;
 }
 
-const adminFetch = async ({query, variables} : IAdminFetchProps) => {
-  return await shopifyFetch(endpointUrl, {admin: ADMIN_API_TOKEN}, {query, variables});
+const adminFetch = async ({ query, variables }: IAdminFetchProps) => {
+  return await shopifyFetch(endpointUrl, { admin: ADMIN_API_TOKEN }, { query, variables });
 };
 
 export const getShopPolicies = async () => {
@@ -26,7 +26,7 @@ export const getShopPolicies = async () => {
 export const getShopPoliciesTransalted = async () => {
   const result = await adminFetch(shopPoliciesQueryTranslated);
   return result;
-}
+};
 
 const shopPoliciesQuery = {
   query: `{
@@ -36,8 +36,8 @@ const shopPoliciesQuery = {
         body
       }
     }
-  }`,
-}
+  }`
+};
 
 const shopPoliciesQueryTranslated = {
   query: `
@@ -50,5 +50,5 @@ const shopPoliciesQueryTranslated = {
         }
       }
     } 
-  }`,
-}
+  }`
+};
