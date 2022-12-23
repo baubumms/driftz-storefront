@@ -1,90 +1,20 @@
 <script>
-  import { getAllCollections } from '$utils/shopify';
-  import { indexedObjToArray } from '$utils/object';
+  import { indexedObjToArray } from '$lib/object';
+  import { _ } from 'svelte-i18n';
   import Link from '$components/Link.svelte';
+  import { navigation } from '$stores/navigation';
 
-  let categories = [];
-
-  getAllCollections().then((resp) => {
-    if (resp.status == 200) {
-      const collections = indexedObjToArray(resp.body.data.collections.edges ?? {});
-
-      categories = [
-        {
-          title: 'Shop',
-          items: collections.map((categorie) => ({
-            title: categorie.node.title,
-            href: '/product/' + categorie.node.handle
-          }))
-        },
-        {
-          title: 'Terms and Policies',
-          items: [
-            {
-              title: 'Legal Notice/Disclaimer',
-              href: '/terms/legal-notice'
-            },
-            {
-              title: 'Privacy Policy',
-              href: '/terms/privacy-policy'
-            },
-            {
-              title: 'Terms of Service',
-              href: '/terms/terms-of-service'
-            },
-            {
-              title: 'Shipping & Refund Policy',
-              href: '/terms/refund-policy'
-            },
-            {
-              title: 'Acceptable Use Policy',
-              href: '/terms/acceptable-use-policy'
-            }
-          ]
-        },
-        {
-          title: 'About Us',
-          items: [
-            {
-              title: 'FAQ',
-              href: '/terms/legal-notice'
-            },
-            {
-              title: 'Contact Us',
-              href: '/terms/privacy-policy'
-            }
-          ]
-        },
-        {
-          title: 'Social',
-          items: [
-            {
-              title: 'Instagram',
-              href: 'https://www.instagram.com/realdriftz'
-            },
-            {
-              title: 'Discord',
-              href: '#'
-            },
-            {
-              title: 'YouTube',
-              href: 'https://www.youtube.com/@driftz.'
-            }
-          ]
-        }
-      ];
-    }
-  });
+  let categories = [$navigation.main, $navigation.legal, $navigation.social, $navigation.about];
 </script>
 
 <div class="py-10 mt-20 bg-dark-blue">
-  <div class="grid grid-cols-2 md:grid-cols-4 container text-center gap-x-2 gap-y-7">
+  <div class="grid grid-cols-2 md:grid-cols-4 container text-center md:text-left gap-x-2 gap-y-7">
     {#each categories as categorie}
       <div>
         <h3 class="md:text-xl font-black mb-3 uppercase">{categorie.title}</h3>
-        <ul class="flex flex-col space-y-3 text-sm md:text-base">
+        <ul class="flex flex-col space-y-3 text-sm md:text-base md:pl-2">
           {#each categorie.items as item}
-            <Link href={item.href} class="">{item.title}</Link>
+            <Link href={item.href} target={item.newtab ? '_blank' : ''}>{item.title}</Link>
           {/each}
         </ul>
       </div>

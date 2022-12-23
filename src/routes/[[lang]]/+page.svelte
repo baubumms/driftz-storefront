@@ -1,13 +1,9 @@
 <script>
-  import { indexedObjToArray } from '$utils/object';
+  import { indexedObjToArray } from '$lib/object';
   import { _ } from 'svelte-i18n';
-  import Link from '$components/Link.svelte';
 
   /** @type {import('./$types').PageData} */
   export let data;
-
-  // $: clothesCollection = data[0]?.node?.products?.edges;
-  // $: featuredCollection = data[1]?.node?.products?.edges;
 
   import ProductCard from '$components/ProductCard.svelte';
 
@@ -15,7 +11,7 @@
 </script>
 
 <svelte:head>
-  <title>{$_('general.page_title')}</title>
+  <title>{$_('home.page_title')}</title>
 </svelte:head>
 
 <main class="flex flex-col space-y-10">
@@ -27,8 +23,10 @@
       class="w-full md:rounded-lg object-cover md:h-96"
     />
     <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-      <h2 class="text-5xl md:text-8xl stroke-black text-center drop-shadow-2xl font-black">
-        what’s your<br />next build?
+      <h2
+        class="text-5xl md:text-8xl stroke-black text-center drop-shadow-2xl font-black uppercase"
+      >
+        {$_('home.hero_title')}
       </h2>
     </div>
   </section>

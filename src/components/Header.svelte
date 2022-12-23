@@ -1,12 +1,12 @@
 <script>
   import { page } from '$app/stores';
   import Icons from '$components/Icons.svelte';
-  import { cartQuantity } from '$/store';
+  import { cartQuantity } from '$stores/cart';
   import SearchBar from '$components/SearchBar.svelte';
   import { createEventDispatcher } from 'svelte';
-  import { getAllCollections } from '$utils/shopify';
-  import { indexedObjToArray } from '$utils/object';
   import Link from '$components/Link.svelte';
+  import { navigation } from '$stores/navigation';
+  import { i18nUrl } from '$lib/i18n';
 
   const dispatch = createEventDispatcher();
 
@@ -14,24 +14,14 @@
 
   let showMenu = false;
 
-  let tabs = [];
+  $: tabs = $navigation.main.items;
 
-  getAllCollections().then((resp) => {
-    if (resp.status == 200) {
-      const collections = indexedObjToArray(resp.body.data.collections.edges);
-
-      tabs = collections.map((collection) => {
-        return {
-          name: collection.node.title,
-          path: `/search/${collection.node.handle}`
-        };
-      });
-      tabs.push({
-        name: 'Blog',
-        path: '/blog'
-      });
-    }
-  });
+  $: console.log(
+    tabs[0].url,
+    i18nUrl(tabs[0].url),
+    currentRoute,
+    currentRoute === i18nUrl(tabs[0].url)
+  );
 
   function openCart() {
     showMenu = false;
@@ -39,18 +29,18 @@
   }
 </script>
 
-<nav class="border-b border-zinc-700 p-4 sticky top-0 z-20 bg-black bg-opacity-95">
+<nav class="p-4 sticky top-0 z-20 bg-dark-blue bg-opacity-95">
   <div class="flex items-center container">
     <div class="flex items-center ">
-      <Link href="/" class="text-2xl pt-2 md:p-0 font-bold font-aleo">driftz.</Link>
-      <div class="hidden md:flex">
-        {#each tabs as tab, i (tab.name)}
-          <div class:active={currentRoute === tab.path}>
+      <Link href="/" class="text-2xl pt-2 md:pt-0 md:pb-1 font-bold font-aleo">driftz.</Link>
+      <div class="hidden md:flex md:pl-2 text-lg">
+        {#each tabs as tab}
+          <div class:active={currentRoute === i18nUrl(tab.url)}>
             <Link
-              href={tab.path}
+              href={tab.url}
               class={`hover:opacity-100 px-2 py-1 text-white rounded-lg ${
-                currentRoute === tab.path ? 'opacity-100' : 'opacity-75'
-              }`}>{tab.name}</Link
+                currentRoute === tab.url ? 'opacity-100' : 'opacity-75'
+              }`}>{tab.title}</Link
             >
           </div>
         {/each}
@@ -107,18 +97,18 @@
             </button>
           </div>
           <div class="mt-6 flex w-full flex-col">
-            {#each tabs as tab, i (tab.name)}
+            {#each tabs as tab}
               <div
-                class:active={currentRoute === tab.path}
+                class:active={currentRoute === i18nUrl(tab.url)}
                 on:click={() => {
                   showMenu = false;
                 }}
               >
                 <Link
-                  href={tab.path}
+                  href={tab.url}
                   class={`hover:opacity-100 px-2 py-1 text-white font-bold text-xl rounded-lg ${
-                    currentRoute === tab.path ? 'opacity-100' : 'opacity-75'
-                  }`}>{tab.name}</Link
+                    currentRoute === tab.url ? 'opacity-100' : 'opacity-75'
+                  }`}>{tab.title}</Link
                 >
               </div>
             {/each}

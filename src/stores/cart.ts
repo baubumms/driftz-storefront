@@ -1,8 +1,7 @@
 import { writable } from 'svelte/store';
-import { shopifyFetch } from './utils/shopify.js';
-import { loadCart } from '$utils/shopify';
+import { loadCart } from '$lib/shopifyStorefront';
 
-export const cartQuantity = writable('');
+export const cartQuantity = writable(0);
 export const cart = writable([]);
 export const search = writable('');
 

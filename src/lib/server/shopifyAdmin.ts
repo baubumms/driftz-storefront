@@ -1,26 +1,54 @@
-import { validateEnv } from "$utils/env";
-import gql from 'graphql-tag';
+import { validateEnv } from "$lib/env";
 import { shopifyFetch } from "$lib/graphqlWrapper";
+import { getLocale, defaultLocale } from "$lib/i18n";
 
+const SHOPIFY_STORE_NAME = import.meta.env.VITE_SHOPIFY_STORE_NAME;
+validateEnv(SHOPIFY_STORE_NAME, 'VITE_SHOPIFY_STORE_NAME');
 const ADMIN_API_TOKEN = import.meta.env.VITE_SHOPIFY_ADMIN_API_TOKEN;
 validateEnv(ADMIN_API_TOKEN, 'VITE_SHOPIFY_ADMIN_API_TOKEN');
 
-const endpointUrl = `https://${ADMIN_API_TOKEN}.myshopify.com/admin/api/2022-10/graphql.json`;
+const endpointUrl = `https://${SHOPIFY_STORE_NAME}.myshopify.com/admin/api/2022-10/graphql.json`;
 
-const adminFetch = async (query: string, variables: Record<string, any>) => {
+interface IAdminFetchProps {
+  query: string;
+  variables?: Record<string, any>;
+}
+
+const adminFetch = async ({query, variables} : IAdminFetchProps) => {
   return await shopifyFetch(endpointUrl, {admin: ADMIN_API_TOKEN}, {query, variables});
 };
 
-// export const getShopPolicies = async () => {
-//   const result = await adminFetch(shopPoliciesQuery, {});
-//   return result;
-// };
+export const getShopPolicies = async () => {
+  const result = await adminFetch(shopPoliciesQuery);
+  return result;
+};
 
-// const shopPoliciesQuery = gql`{
-//   shop{
-//     shopPolicies{
-//       type
-//       body
-//     }
-//   }
-// }`
+export const getShopPoliciesTransalted = async () => {
+  const result = await adminFetch(shopPoliciesQueryTranslated);
+  return result;
+}
+
+const shopPoliciesQuery = {
+  query: `{
+    shop ($locale: String!){
+      shopPolicies{
+        type
+        body
+      }
+    }
+  }`,
+}
+
+const shopPoliciesQueryTranslated = {
+  query: `
+  query($locale: String!){
+    shop{
+      shopPolicies{
+        type
+        translations (locale: $locale){
+          value
+        }
+      }
+    } 
+  }`,
+}

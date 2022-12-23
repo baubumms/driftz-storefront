@@ -1,9 +1,9 @@
-import { getAllCollections } from '$utils/shopify';
+import { getAllCollectionsWithContent } from '$lib/shopifyStorefront';
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
 export async function load({ params }) {
-  const res = await getAllCollections();
+  const res = await getAllCollectionsWithContent();
   if (res.status === 200) {
     const collections = res.body?.data?.collections?.edges;
 

@@ -2,10 +2,12 @@
   import ProductImage from '$components/ProductImage.svelte';
   import DescriptionToggle from '$components/DescriptionToggle.svelte';
   import Icons from '$components/Icons.svelte';
-  import { getCartItems } from '$/store.js';
+  import { getCartItems } from '$stores/cart';
   import cn from 'classnames';
   import { Icon } from '@steeze-ui/svelte-icon';
   import { Check, ChevronRight, ChevronLeft } from '@steeze-ui/heroicons';
+  import { _ } from 'svelte-i18n';
+  import { DEFAULT_VARIANT_TITLE } from '$lib/product';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -15,7 +17,7 @@
   let currentImageIndex = 0;
   const product = data?.body?.product;
   const options = data.body.product.options.filter(
-    (option) => option.name != 'Title' && option.values[0] !== 'Default Title'
+    (option) => option?.values[0] !== DEFAULT_VARIANT_TITLE
   );
 
   $: highlightedImageSrc = data?.body?.product?.images?.edges[currentImageIndex]?.node?.originalSrc;
@@ -165,7 +167,7 @@
           on:click={addToCart}
           class="mt-6 flex w-full items-center justify-center bg-light p-4 text-sm uppercase tracking-wide text-black opacity-90 hover:opacity-100"
         >
-          <span>Add To Cart</span>
+          <span>{$_('cart.add_to_cart')}</span>
           {#if cartLoading}
             <div class="lds-ring ml-4">
               <div />

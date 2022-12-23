@@ -25,7 +25,7 @@
     bind:value
     placeholder={$_('search.search_prompt')}
     autocomplete="off"
-    class="w-full border border-white/30 bg-transparent p-2"
+    class="w-full border border-white/30 bg-transparent p-2 rounded-lg"
   />
 </form>
 

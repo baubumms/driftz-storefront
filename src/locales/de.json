@@ -1,6 +1,7 @@
 {
-  "general": {
-    "page_title": "dritz.eu - Was ist dein nächstes Projekt?"
+  "home": {
+    "page_title": "dritz.eu - wenn es rollen soll",
+    "hero_title": "Wenn es Rollen soll"
   },
   "search": {
     "search_prompt": "Suche nach Produkten..."
@@ -8,12 +9,21 @@
   "navigation": {
     "contact": "Kontakt",
     "about": "Über driftz.",
-    "FAQ": "FAQ",
-    "leagal": "Rechtliches",
-    "imprint": "Impressum",
-    "privacy": "Datenschutzerklärung",
-    "terms_of_service": "",
-    "shipping_and_refund": "Versand & Rückgabe",
-    "acceptable_use": "Nutzungsbedingungen"
+    "faq": "FAQ",
+    "legal_title": "Rechtliches",
+    "legal_notice": "Impressum",
+    "privacy_policy": "Datenschutz",
+    "terms_of_service": "Nutzungsbedingungen",
+    "shipping_policy": "Versand & Lieferung",
+    "refund_policy": "Rückgabe & Umtausch"
+  },
+  "cart": {
+    "title": "Warenkorb",
+    "empty": "Dein Warenkorb ist leer.",
+    "subtotal": "Zwischensumme",
+    "shipping": "Versand",
+    "total": "Gesamt",
+    "checkout": "Zur Kasse",
+    "add_to_cart": "In den Warenkorb"
   }
 }

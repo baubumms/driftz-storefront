@@ -1,46 +1,23 @@
-import { locale } from 'svelte-i18n';
-import {  get  } from 'svelte/store';
-import { validateEnv } from './env';
-
+import { shopifyFetch } from '$lib/shopifyApi';
+import { validateEnv } from '$lib/env';
 
 const SHOPIFY_STORE_NAME = import.meta.env.VITE_SHOPIFY_STORE_NAME;
 validateEnv(SHOPIFY_STORE_NAME, 'VITE_SHOPIFY_STORE_NAME');
 const STOREFRONT_API_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_API_TOKEN;
 validateEnv(STOREFRONT_API_TOKEN, 'VITE_SHOPIFY_STOREFRONT_API_TOKEN');
 
-const apiEndpoint = `https://${SHOPIFY_STORE_NAME}.myshopify.com/api/2022-10/graphql.json`
+const apiEndpoint = `https://${SHOPIFY_STORE_NAME}.myshopify.com/api/2022-10/graphql.json`;
 
-
-export async function shopifyFetch({ query, variables }) {
-  try {
-    const langCode = get(locale);
-    const payload = { query, variables: {...variables, locale: langCode.toUpperCase()} };
-
-    const result = await fetch(apiEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': STOREFRONT_API_TOKEN,
-        'Accept-Language': langCode,
-      },
-      body: JSON.stringify(payload)
-    });
-    
-    return {
-      status: result.status,
-      body: await result.json()
-    };
-  } catch (error) {
-    console.error('Error:', error);
-    return {
-      status: 500,
-      error: 'Error receiving data'
-    };
-  }
+interface IFetchStorefrontProps {
+  query: string;
+  variables?: Record<string, any>;
 }
 
+export const fetchStorefront = ({ query, variables }: IFetchStorefrontProps) =>
+  shopifyFetch(apiEndpoint, { storefront: STOREFRONT_API_TOKEN }, { query, variables });
+
 export async function getAllProducts() {
-  return shopifyFetch({
+  return fetchStorefront({
     query: `{
       products(sortKey: TITLE, first: 100) {
           edges{
@@ -115,7 +92,22 @@ export async function getAllProducts() {
 }
 
 export async function getAllCollections() {
-  return shopifyFetch({
+  return fetchStorefront({
+    query: `{
+        collections(first: 100) {
+             edges {
+                node {
+                    title
+                    handle
+                    }
+                }
+            }
+        }`
+  });
+}
+
+export async function getAllCollectionsWithContent() {
+  return fetchStorefront({
     query: `{
         collections(first: 100) {
              edges {
@@ -205,7 +197,7 @@ export async function getAllCollections() {
 }
 
 export async function loadCart(cartId) {
-  return shopifyFetch({
+  return fetchStorefront({
     query: `
         query GetCart($cartId: ID!, $locale: LanguageCode!)  @inContext(language: $locale) {
           cart(id: $cartId) {
@@ -260,7 +252,7 @@ export async function loadCart(cartId) {
 }
 
 export async function getProduct(handle) {
-  return shopifyFetch({
+  return fetchStorefront({
     query: ` 
         query getProduct($handle: String!, $locale: LanguageCode!)  @inContext(language: $locale) {
             productByHandle(handle: $handle) {
@@ -345,7 +337,7 @@ export async function getProduct(handle) {
 }
 
 export async function getAllArticles() {
-  return shopifyFetch({
+  return fetchStorefront({
     query: `{
               articles(first: 50) {
                 nodes {
@@ -384,7 +376,7 @@ export async function getAllArticles() {
 }
 
 export async function createCart() {
-  return shopifyFetch({
+  return fetchStorefront({
     query: `
       mutation calculateCart($lineItems: [CartLineInput!], $locale: LanguageCode!)  @inContext(language: $locale) {
         cartCreate(input: { lines: $lineItems }) {
@@ -400,7 +392,7 @@ export async function createCart() {
 }
 
 export async function updateCart({ cartId, lineId, variantId, quantity }) {
-  return shopifyFetch({
+  return fetchStorefront({
     query: `
       mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!, $locale: LanguageCode!)  @inContext(language: $locale) {
         cartLinesUpdate(cartId: $cartId, lines: $lines) {
@@ -425,7 +417,7 @@ export async function updateCart({ cartId, lineId, variantId, quantity }) {
 }
 
 export async function addToCart({ cartId, variantId }) {
-  return shopifyFetch({
+  return fetchStorefront({
     query: `
       mutation addToCart($cartId: ID!, $lines: [CartLineInput!]!, $locale: LanguageCode!)  @inContext(language: $locale){
         cartLinesAdd(cartId: $cartId, lines: $lines) {
@@ -463,7 +455,7 @@ export async function addToCart({ cartId, variantId }) {
 }
 
 export async function generateCheckout(lines) {
-  return shopifyFetch({
+  return fetchStorefront({
     query: `
       mutation createCheckout($locale: LanguageCode!, $lines: [CheckoutLineItemInput!]) @inContext(language: $locale) {
         checkoutCreate(
@@ -483,18 +475,19 @@ export async function generateCheckout(lines) {
   });
 }
 
-export const getCheckoutUrl = (cartId) => new Promise((resolve, reject) => {
-  loadCart(cartId).then(res => {
-    const lines = res.body.data.cart.lines.edges.map(function (item) {
-      return {variantId: item.node.merchandise.id, quantity: item.node.quantity};
-    });
+export const getCheckoutUrl = (cartId) =>
+  new Promise<string>((resolve, reject) => {
+    loadCart(cartId).then((res) => {
+      const lines = res.body.data.cart.lines.edges.map(function (item) {
+        return { variantId: item.node.merchandise.id, quantity: item.node.quantity };
+      });
 
-    generateCheckout(lines).then(res => {
-      if(res.status) {
-        resolve(res.body.data.checkoutCreate.checkout.webUrl);
-      }else {
-        reject(res);
-      }
+      generateCheckout(lines).then((res) => {
+        if (res.status) {
+          resolve(res.body.data.checkoutCreate.checkout.webUrl);
+        } else {
+          reject(res);
+        }
+      });
     });
   });
-});

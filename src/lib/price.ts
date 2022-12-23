@@ -1,4 +1,4 @@
-import { numberToString } from './number';
+import { numberToString } from '$lib/number';
 
 export const CURRENCY = '€';
 

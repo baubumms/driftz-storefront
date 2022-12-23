@@ -1,11 +1,13 @@
 <script>
+  console.log('svelte');
+
   import '$/app.css';
   import Header from '$components/Header.svelte';
   import Footer from '$components/Footer.svelte';
   import ShoppingCart from '$components/ShoppingCart.svelte';
-  import { getCartItems } from '$/store';
+  import { getCartItems } from '$stores/cart';
   import { onMount } from 'svelte';
-  import { createCart } from '$utils/shopify';
+  import { createCart } from '$lib/shopifyStorefront';
 
   let cartId;
   let checkoutUrl;

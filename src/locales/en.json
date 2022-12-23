@@ -1,8 +1,29 @@
 {
-  "general": {
-    "page_title": "dritz.eu - What's your next project?"
+  "home": {
+    "page_title": "dritz.eu - if it's supposed to roll",
+    "hero_title": "If it's supposed to roll"
   },
   "search": {
     "search_prompt": "Search for Products..."
+  },
+  "navigation": {
+    "contact": "Contact",
+    "about": "About",
+    "faq": "FAQ",
+    "leagal_title": "Legal",
+    "legal_notice": "Legal Notice",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
+    "shipping_policy": "Shipping Policy",
+    "return_policy": "Refund Policy"
+  },
+  "cart": {
+    "title": "My Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "add_to_cart": "Add to Cart"
   }
 }

@@ -1,4 +1,4 @@
-import { filledString } from './string';
+import { filledString } from '$lib/string';
 
 
 export const numberToString = (

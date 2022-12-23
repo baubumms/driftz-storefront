@@ -1,4 +1,4 @@
-import { getProduct, getAllProducts } from '$utils/shopify';
+import { getProduct, getAllProducts } from '$lib/shopifyStorefront';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {

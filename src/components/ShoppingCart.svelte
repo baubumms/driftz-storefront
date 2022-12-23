@@ -1,8 +1,12 @@
 <script>
-  import Icons from './Icons.svelte';
   import { createEventDispatcher } from 'svelte';
-  import { formatPrice } from '$utils/price';
-  import { getCheckoutUrl } from '$utils/shopify';
+  import { formatPrice } from '$lib/price';
+  import { getCheckoutUrl } from '$lib/shopifyStorefront';
+  import { _ } from 'svelte-i18n';
+  import { getLocale } from '$lib/i18n';
+  import { Icon } from '@steeze-ui/svelte-icon';
+  import { Minus, Plus, ShoppingBag } from '@steeze-ui/heroicons';
+  import { DEFAULT_VARIANT_TITLE } from '$lib/product';
 
   const dispatch = createEventDispatcher();
   export let loading = false;
@@ -24,16 +28,7 @@
       }
     });
   }
-  function removeEntireItem(item, i) {
-    loading = true;
-    dispatch('removeProduct', {
-      body: {
-        variantId: item.node.merchandise.id,
-        quantity: 0,
-        lineId: item.node.id
-      }
-    });
-  }
+
   async function checkout() {
     loading = true;
     const cartId = JSON.parse(localStorage.getItem('cartId'));
@@ -45,97 +40,95 @@
   }
 </script>
 
-<button
-  on:click|self
-  class="absolute top-0 left-0 inset-0 z-50 flex h-screen w-full justify-end overflow-hidden bg-black/50"
->
-  <div class="z-50 w-full md:h-full bg-black p-6 md:w-[430px] relative flex flex-col">
-    {#if loading}
-      <div class="absolute inset-0 bg-black/50 z-50" />
-    {/if}
-    <div class="mb-6 flex w-full items-center justify-between">
-      <div class="text-2xl font-medium">My Cart</div>
-      <button on:click class="text-sm uppercase opacity-80 hover:opacity-100">close</button>
-    </div>
+<div class="fixed right-0 top-0 z-50 w-full h-full bg-dark-blue md:w-[430px] flex flex-col">
+  {#if loading}
+    <div class="absolute inset-0  z-50" />
+  {/if}
+  <div class="flex w-full items-center justify-between">
+    <div class="text-2xl font-medium pl-6">{$_('cart.title')}</div>
+    <button on:click class="p-6 hover:opacity-100">X</button>
+  </div>
+  <div class="flex-grow flex flex-col px-6">
     {#if items.length === 0}
-      <div class="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
+      <div class="flex-grow flex w-full flex-col items-center justify-center overflow-hidden">
         <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white">
-          <Icons type="cart" strokeColor="#000" />
+          <Icon src={ShoppingBag} theme="solid" class="h-10 text-black" />
         </div>
-        <div class="mt-6 text-center text-2xl font-bold">Your cart is empty.</div>
+        <span class="mt-6 text-center text-2xl font-bold">{$_('cart.empty')}</span>
       </div>
-    {/if}
-    <div class="overflow-y-auto flex-grow">
-      {#each items as item, i (i)}
-        <div class="mb-2 flex w-full">
-          <img
-            alt={item.node.merchandise.product.title}
-            decoding="async"
-            loading="lazy"
-            class="w-20 flex-none bg-white rounded-md"
-            src={item.node.merchandise.product.images.edges[0].node.originalSrc}
-          />
-          <div class="ml-4 flex w-full flex-col justify-between">
-            <div class="flex w-full justify-between text-left">
-              <di>
-                <p class="text-lg font-medium">{item.node.merchandise.product.title}</p>
-                <p class="text-sm">{item.node.merchandise.title}</p>
-              </di>
-              <p class="font-medium">{formatPrice(item.node.estimatedCost.totalAmount.amount)}</p>
+    {:else}
+      <div class="overflow-y-auto flex-grow">
+        {#each items as item, i (i)}
+          <div class="mb-2 flex w-full">
+            <img
+              alt={item.node.merchandise.product.title}
+              decoding="async"
+              loading="lazy"
+              class="w-20 flex-none bg-white rounded-md"
+              src={item.node.merchandise.product.images.edges[0].node.originalSrc}
+            />
+            <div class="ml-4 flex w-full flex-col justify-between">
+              <div class="flex w-full justify-between text-left">
+                <di>
+                  <p class="text-lg font-medium">{item.node.merchandise.product.title}</p>
+                  {#if item.node.merchandise.title !== DEFAULT_VARIANT_TITLE}
+                    <p class="text-sm">{item.node.merchandise.title}</p>
+                  {/if}
+                </di>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="mb-4 flex w-full">
-          <button
-            on:click={() => {
-              removeEntireItem(item, i);
-            }}
-            class="mr-2 flex h-8 w-8 items-center justify-center border border-white/40 bg-white/0 hover:bg-white/10"
-          >
-            <Icons type="close" strokeColor="#fff" />
-          </button>
-          <div class="flex h-8 w-full border border-white/40">
-            <div class="flex h-full items-center px-2 ">
-              {item.node.quantity}
+          <div class="my-4 flex w-full justify-between items-center">
+            <label class="flex h-8 border border-gray-400 text-white">
+              <button
+                on:click={() => {
+                  removeOneItem(item, i);
+                }}
+                class="p-2"
+              >
+                <Icon src={Minus} theme="solid" class="h-full" />
+              </button>
+              <input
+                class="bg-transparent w-min text-center pt-1"
+                disabled
+                value={item.node.quantity}
+                on:change={(e) => {
+                  addItem(item, e.target.value.parseInt());
+                }}
+                size="3"
+              />
+              <button
+                on:click={() => {
+                  addOneItem(item, i);
+                }}
+                class="p-2"
+              >
+                <Icon src={Plus} theme="solid" class="h-full text-white" />
+              </button>
+            </label>
+            <p class="">{formatPrice(item.node.estimatedCost.totalAmount.amount)}</p>
+          </div>
+        {/each}
+      </div>
+      {#if items.length !== 0}
+        <button
+          on:click={checkout}
+          class="my-6 flex w-full items-center justify-center bg-white p-3 text-sm font-medium uppercase text-black opacity-90 hover:opacity-100"
+        >
+          <span>{$_('cart.checkout')}</span>
+          {#if loading}
+            <div class="lds-ring ml-4">
+              <div />
+              <div />
+              <div />
+              <div />
             </div>
-            <button
-              on:click={() => {
-                removeOneItem(item, i);
-              }}
-              class="ml-auto flex h-8 w-8 items-center justify-center border-l border-white/40 bg-white/0 hover:bg-white/10"
-            >
-              <Icons type="minus" strokeColor="#fff" />
-            </button>
-            <button
-              on:click={() => {
-                addOneItem(item, i);
-              }}
-              class="flex h-8 w-8 items-center justify-center border-l border-white/40 bg-white/0 hover:bg-white/10"
-            >
-              <Icons type="plus" strokeColor="#fff" />
-            </button>
-          </div>
-        </div>
-      {/each}
-    </div>
-    {#if items.length !== 0}
-      <button
-        on:click={checkout}
-        class="mt-6 flex w-full items-center justify-center bg-white p-3 text-sm font-medium uppercase text-black opacity-90 hover:opacity-100"
-      >
-        <span>Proceed to Checkout</span>
-        {#if loading}
-          <div class="lds-ring ml-4">
-            <div />
-            <div />
-            <div />
-            <div />
-          </div>
-        {/if}
-      </button>
+          {/if}
+        </button>
+      {/if}
     {/if}
   </div>
-</button>
+</div>
 
 <style>
   .lds-ring {

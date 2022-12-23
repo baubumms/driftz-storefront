@@ -6,7 +6,7 @@
   export let imageAltText;
   export let handle;
 
-  import { formatPrice } from '$utils/price';
+  import { formatPrice } from '$lib/price';
   import Link from '$components/Link.svelte';
 </script>
 
@@ -24,7 +24,7 @@
   </div>
   <div class="flex flex-col items-start justify-center">
     <h2 class="text-lg font-medium">{title}</h2>
-    <div class="flex space-x-2 text-light-grey">
+    <div class="flex space-x-2 text-light-gray">
       <span>{formatPrice(price)}</span>
       {#if compareAtPrice}
         <s class="line-through">{formatPrice(compareAtPrice)}</s>
