@@ -3,7 +3,6 @@
   import { formatPrice } from '$lib/price';
   import { getCheckoutUrl } from '$lib/shopifyStorefront';
   import { _ } from 'svelte-i18n';
-  import { getLocale } from '$lib/i18n';
   import { Icon } from '@steeze-ui/svelte-icon';
   import { Minus, Plus, ShoppingBag } from '@steeze-ui/heroicons';
   import { DEFAULT_VARIANT_TITLE } from '$lib/product';
