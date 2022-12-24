@@ -1,6 +1,5 @@
 import { validateEnv } from '$lib/env';
 import { shopifyFetch } from '$lib/shopifyApi';
-import { getLocale, defaultLocale } from '$lib/i18n';
 
 const SHOPIFY_STORE_NAME = import.meta.env.VITE_SHOPIFY_STORE_NAME;
 validateEnv(SHOPIFY_STORE_NAME, 'VITE_SHOPIFY_STORE_NAME');
