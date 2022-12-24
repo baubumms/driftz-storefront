@@ -15,7 +15,7 @@
 </svelte:head>
 
 <main class="flex flex-col space-y-10">
-  <section class="relative md:container mt-10">
+  <section class="relative md:container">
     <img
       loading="lazy"
       src="/media/home-hero.jpg"
@@ -43,7 +43,19 @@
                   title={product.node.shortTitle ?? product.node.title}
                   price={product.node.priceRange.maxVariantPrice.amount}
                   currencyCode={product.node.priceRange.maxVariantPrice.currencyCode}
-                  imageSrc={product.node.images?.edges[0]?.node.originalSrc}
+                  image={{
+                    width: product.node.images?.edges[0]?.node.width,
+                    height: product.node.images?.edges[0]?.node.height,
+                    alt: product.node.images?.edges[0]?.node.altText,
+                    srcSet: {
+                      w360: product.node.images?.edges[0]?.node.w360,
+                      w720: product.node.images?.edges[0]?.node.w720,
+                      w1400: product.node.images?.edges[0]?.node.w1400,
+                      w2000: product.node.images?.edges[0]?.node.w2000,
+                      wMax: product.node.images?.edges[0]?.node.wMax,
+                      fallbackSrc: product.node.images?.edges[0]?.node.fallbackSrc
+                    }
+                  }}
                   handle={product.node.handle}
                 />
               {/each}

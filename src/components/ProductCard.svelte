@@ -1,13 +1,15 @@
-<script>
+<script lang="ts">
+  import type { IResponsiveImage } from '$/types/ResponsiveImage';
+
   export let title;
   export let price;
   export let compareAtPrice;
-  export let imageSrc;
-  export let imageAltText;
+  export let image: IResponsiveImage;
   export let handle;
 
   import { formatPrice } from '$lib/price';
   import Link from '$components/Link.svelte';
+  import ResponsiveImage from '$components/ResponsiveImage.svelte';
 </script>
 
 <!-- Render the Product card -->
@@ -16,10 +18,24 @@
   class="flex flex-col space-y-2 md:w-72 transition-opacity duration-500 rounded-lg group"
 >
   <div class="flex flex-col items-center justify-center">
-    <img
+    <!-- <img
       class="aspect-square rounded-lg opacity-90 group-hover:opacity-100 object-cover"
       src={imageSrc}
       alt={imageAltText}
+    /> -->
+    <ResponsiveImage
+      class="aspect-square rounded-lg opacity-90 group-hover:opacity-100 object-cover"
+      srcSet={{
+        w360: image.srcSet.w360,
+        w720: image.srcSet.w720,
+        w1400: image.srcSet.w1400,
+        w2000: image.srcSet.w2000,
+        wMax: image.srcSet.wMax,
+        fallbackSrc: image.srcSet.fallbackSrc
+      }}
+      alt={image.alt}
+      height={image.height}
+      width={image.width}
     />
   </div>
   <div class="flex flex-col items-start justify-center">

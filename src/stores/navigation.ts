@@ -17,6 +17,7 @@ interface INavigationCategory {
 
 interface INavigationStore {
   main?: INavigationCategory;
+  collections?: INavigationCategory;
   legal?: INavigationCategory;
   social?: INavigationCategory;
   about?: INavigationCategory;
@@ -38,11 +39,6 @@ export const initNavigation = async () => {
         };
       });
 
-      tabs.push({
-        title: 'Blog',
-        url: '/blog'
-      });
-
       return tabs;
     }
 
@@ -59,6 +55,16 @@ export const initNavigation = async () => {
     navigation.update((currentState) => ({
       main: {
         title: 'Shop',
+        items: [
+          ...collections,
+          {
+            title: 'Blog',
+            url: '/blog'
+          }
+        ]
+      },
+      collections: {
+        title: 'Collections',
         items: collections
       },
       legal: {

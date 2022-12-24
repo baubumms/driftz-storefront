@@ -77,7 +77,12 @@ export async function getAllProducts() {
                     }
                     edges {
                         node {
-                        originalSrc
+                        w360: transformedSrc(preferredContentType: WEBP, maxWidth: 360)
+                        w720: transformedSrc(preferredContentType: WEBP, maxWidth: 720)
+                        w1400: transformedSrc(preferredContentType: WEBP, maxWidth: 1400)
+                        w2000: transformedSrc(preferredContentType: WEBP, maxWidth: 2000)
+                        wMax: transformedSrc(preferredContentType: WEBP)
+                        fallbackSrc: transformedSrc(preferredContentType: JPG, maxWidth: 2000)
                         altText
                         width
                         height
@@ -176,7 +181,12 @@ export async function getAllCollectionsWithContent() {
                                     }
                                     edges {
                                         node {
-                                            originalSrc
+                                            w360: transformedSrc(preferredContentType: WEBP, maxWidth: 360)
+                                            w720: transformedSrc(preferredContentType: WEBP, maxWidth: 720)
+                                            w1400: transformedSrc(preferredContentType: WEBP, maxWidth: 1400)
+                                            w2000: transformedSrc(preferredContentType: WEBP, maxWidth: 2000)
+                                            wMax: transformedSrc(preferredContentType: WEBP)
+                                            fallbackSrc: transformedSrc(preferredContentType: JPG, maxWidth: 2000)
                                             altText
                                             width
                                             height
@@ -230,7 +240,12 @@ export async function loadCart(cartId) {
                               images(first: 1) {
                                   edges {
                                     node {
-                                      originalSrc
+                                      w360: transformedSrc(preferredContentType: WEBP, maxWidth: 360)
+                                      w720: transformedSrc(preferredContentType: WEBP, maxWidth: 720)
+                                      w1400: transformedSrc(preferredContentType: WEBP, maxWidth: 1400)
+                                      w2000: transformedSrc(preferredContentType: WEBP, maxWidth: 2000)
+                                      wMax: transformedSrc(preferredContentType: WEBP)
+                                      fallbackSrc: transformedSrc(preferredContentType: JPG, maxWidth: 2000)
                                       altText
                                       width
                                       height
@@ -311,7 +326,12 @@ export async function getProduct(handle) {
                 }
                 edges {
                     node {
-                    originalSrc
+                    w360: transformedSrc(preferredContentType: WEBP, maxWidth: 360)
+                    w720: transformedSrc(preferredContentType: WEBP, maxWidth: 720)
+                    w1400: transformedSrc(preferredContentType: WEBP, maxWidth: 1400)
+                    w2000: transformedSrc(preferredContentType: WEBP, maxWidth: 2000)
+                    wMax: transformedSrc(preferredContentType: WEBP)
+                    fallbackSrc: transformedSrc(preferredContentType: JPG, maxWidth: 2000)
                     altText
                     width
                     height
@@ -338,40 +358,46 @@ export async function getProduct(handle) {
 
 export async function getAllArticles() {
   return fetchStorefront({
-    query: `{
-              articles(first: 50) {
-                nodes {
-                  id
-                  title
-                  handle
-                  contentHtml
-                  content
-                  image {
-                    id
-                    width
-                    height
-                    url
-                  }
-                  seo {
-                    title
-                    description
-                  }
-                  tags
-                  authorName: metafield(namespace: "custom", key: "authorName") {
-                    type
-                    value
-                  }
-                  authorPicture: metafield(namespace: "custom", key: "authorPicture") {
-                    type
-                    value
-                  }
-                  authorBio: metafield(namespace: "custom", key: "authorBio") {
-                    type
-                    value
-                  }
-                }
-              }
-            }`
+    query: `
+    {
+      articles(first: 50) {
+        nodes {
+          id
+          title
+          handle
+          contentHtml
+          content
+          image {
+            id
+            width
+            height
+            w360: transformedSrc(preferredContentType: WEBP, maxWidth: 360)
+            w720: transformedSrc(preferredContentType: WEBP, maxWidth: 720)
+            w1400: transformedSrc(preferredContentType: WEBP, maxWidth: 1400)
+            w2000: transformedSrc(preferredContentType: WEBP, maxWidth: 2000)
+            wMax: transformedSrc(preferredContentType: WEBP)
+            fallbackSrc: transformedSrc(preferredContentType: JPG, maxWidth: 2000)
+          }
+          seo {
+            title
+            description
+          }
+          tags
+          authorName: metafield(namespace: "custom", key: "authorName") {
+            type
+            value
+          }
+          authorPicture: metafield(namespace: "custom", key: "authorPicture") {
+            type
+            value
+          }
+          authorBio: metafield(namespace: "custom", key: "authorBio") {
+            type
+            value
+          }
+        }
+      }
+    }`
   });
 }
 

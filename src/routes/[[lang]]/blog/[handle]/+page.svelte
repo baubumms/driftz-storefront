@@ -2,6 +2,9 @@
   /** @type {import('./$types').PageData} */
   export let data;
 
+  import ResponsiveImage from '$components/ResponsiveImage.svelte';
+  import { toResponsiveImage } from '$lib/image';
+
   let article = data.body.article;
 </script>
 
@@ -10,19 +13,16 @@
   <meta name="description" content={article.content} />
 </svelte:head>
 
-<div>
-  <div class="flex flex-col space-y-3">
+<div class="flex flex-col space-y-3">
+  <div class="md:container">
     {#if article.image}
-      <img src={article.image.url} alt={article.image.altText} />
+      <ResponsiveImage {...toResponsiveImage(article.image)} class="rounded-lg" />
     {/if}
-    <div class="container">
-      <h1 class="text-2xl font-medium">{article.title}</h1>
-      <div>
-        {@html article.contentHtml}
-      </div>
+  </div>
+  <div class="container">
+    <h1 class="text-2xl font-medium">{article.title}</h1>
+    <div class="shopify-editor">
+      {@html article.contentHtml}
     </div>
   </div>
 </div>
-
-<style>
-</style>

@@ -113,7 +113,7 @@
   {/if}
   <div class="min-h-screen flex flex-col">
     <Header on:openCart={openCart} />
-    <div class="flex-grow flex-shrink-0">
+    <div class="flex-grow flex-shrink-0 mt-7">
       <slot />
     </div>
     <Footer />

@@ -1,26 +1,38 @@
 <!-- This file is the landing page for the shops blog section. All Blogs are listed here. -->
 <script>
-  import { getAllArticles } from '$lib/shopifyStorefront';
   import Link from '$components/Link.svelte';
+  import ResponsiveImage from '$components/ResponsiveImage.svelte';
+  import { toResponsiveImage } from '$lib/image';
+  import { Icon } from '@steeze-ui/svelte-icon';
+  import { ArrowRight } from '@steeze-ui/heroicons';
 
-  let articles = [];
+  /** @type {import('./$types').PageData} */
+  export let data;
 
-  getAllArticles().then((resp) => {
-    articles = resp.body.data.articles.nodes;
-    console.log(articles);
-  });
-  console.log(articles);
+  const { articles } = data.body;
 </script>
 
 <!-- render the individual articles -->
-<div class="flex flex-col space-y-10 container">
+<div class="flex flex-col space-y-10 container md:grid grid-cols-3 group">
   {#each articles as article}
     <Link href="/blog/{article.handle}" class="block">
       {#if article.image}
-        <img src={article.image.url} alt={article.image.altText} />
+        <ResponsiveImage
+          {...toResponsiveImage(article.image)}
+          class="rounded-lg aspect-video object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+        />
       {/if}
-      <h2 class="text-xl font-medium">{article.title}</h2>
-      <p>{article.content.split(' ').slice(0, 30).join(' ')}...</p>
+      <h1 class="text-2xl font-medium mt-3">
+        <span>
+          {article.title}
+        </span>
+        <Icon
+          src={ArrowRight}
+          theme="solid"
+          class="inline w-6 transition-transform group-hover:translate-x-2"
+        />
+      </h1>
+      <p class="mt-1 font-thin">{article.content.split(' ').slice(0, 30).join(' ')}...</p>
     </Link>
   {/each}
 </div>

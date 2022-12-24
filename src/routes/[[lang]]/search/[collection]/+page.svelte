@@ -1,6 +1,7 @@
 <script>
   import { page } from '$app/stores';
   import ProductCard from '$components/ProductCard.svelte';
+  import { toResponsiveImage } from '$lib/image';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -26,8 +27,8 @@
             title={product.node.shortTitle ?? product.node.title}
             price={product.node.priceRange.maxVariantPrice.amount}
             currencyCode={product.node.priceRange.maxVariantPrice.currencyCode}
-            imageSrc={product.node.images?.edges[0]?.node.originalSrc}
             handle={product.node.handle}
+            image={toResponsiveImage(product.node.images.edges[0].node)}
           />
         </li>
       {/each}

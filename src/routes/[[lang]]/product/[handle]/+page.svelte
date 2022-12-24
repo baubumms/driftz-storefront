@@ -1,13 +1,13 @@
 <script>
   import ProductImage from '$components/ProductImage.svelte';
-  import DescriptionToggle from '$components/DescriptionToggle.svelte';
-  import Icons from '$components/Icons.svelte';
   import { getCartItems } from '$stores/cart';
   import cn from 'classnames';
   import { Icon } from '@steeze-ui/svelte-icon';
   import { Check, ChevronRight, ChevronLeft } from '@steeze-ui/heroicons';
   import { _ } from 'svelte-i18n';
   import { DEFAULT_VARIANT_TITLE } from '$lib/product';
+  import ResponsiveImage from '$components/ResponsiveImage.svelte';
+  import { toResponsiveImage } from '$lib/image';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -20,7 +20,7 @@
     (option) => option?.values[0] !== DEFAULT_VARIANT_TITLE
   );
 
-  $: highlightedImageSrc = data?.body?.product?.images?.edges[currentImageIndex]?.node?.originalSrc;
+  $: highlightedImage = data?.body?.product?.images?.edges[currentImageIndex]?.node;
 
   data?.body?.product?.options.forEach((option) => {
     selectedOptions = { ...selectedOptions, [option.name]: option.values[0] };
@@ -81,7 +81,10 @@
       <div class="w-full">
         {#key highlightedImageSrc}
           <div class="relative rounded-lg">
-            <ProductImage imageSrc={highlightedImageSrc} imageAlt={data.body.product.title} />
+            <ResponsiveImage
+              {...toResponsiveImage(highlightedImage)}
+              class="rounded-lg aspect-4/3 object-contain bg-white"
+            />
             {#if data.body.product?.images?.edges.length > 1}
               <div
                 class="absolute flex items-center justify-between right-0 top-0 w-full h-full z-10 px-1 text-black"
@@ -118,7 +121,10 @@
               }}
               class="h-full aspect-4/3 overflow-hidden bg-white flex-shrink-0 rounded-lg"
             >
-              <ProductImage imageSrc={variant.node.originalSrc} imageAlt={variant.node.title} />
+              <ResponsiveImage
+                {...toResponsiveImage(variant.node)}
+                class="rounded-lg aspect-4/3 object-contain bg-white"
+              />
             </button>
           {/each}
         </div>
