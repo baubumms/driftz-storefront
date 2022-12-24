@@ -11,6 +11,7 @@ export async function load({ params }) {
 
   if (defaultLocaleActive()) {
     const policies = await getShopPolicies();
+    console.log(policies.body.data.shop.shopPolicies.map((p) => p.type).join(', '));
     const policy = policies?.body?.data?.shop?.shopPolicies.find((p) => p.type === type);
 
     if (policy) {
