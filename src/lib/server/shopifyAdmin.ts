@@ -19,6 +19,7 @@ const adminFetch = async ({ query, variables }: IAdminFetchProps) => {
 
 export const getShopPolicies = async () => {
   const result = await adminFetch(shopPoliciesQuery);
+  console.log('status', result.status);
   return result;
 };
 
