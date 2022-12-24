@@ -12,6 +12,10 @@
   const { articles } = data.body;
 </script>
 
+<svelte:head>
+  <title>what's new - driftz.eu</title>
+</svelte:head>
+
 <!-- render the individual articles -->
 <div class="flex flex-col space-y-10 container md:grid grid-cols-3 group">
   {#each articles as article}

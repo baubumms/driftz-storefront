@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-  <title>{article.title}</title>
+  <title>{article?.title?.toLowerCase()} - driftz.eu</title>
   <meta name="description" content={article.content} />
 </svelte:head>
 

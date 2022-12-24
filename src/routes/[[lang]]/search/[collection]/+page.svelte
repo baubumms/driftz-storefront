@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { page } from '$app/stores';
   import ProductCard from '$components/ProductCard.svelte';
   import { toResponsiveImage } from '$lib/image';
@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-  <title>{collection?.handle} collection</title>
+  <title>{collection?.title?.toLowerCase()} - driftz.eu</title>
 </svelte:head>
 
 <div class="w-full">
@@ -26,7 +26,6 @@
           <ProductCard
             title={product.node.shortTitle ?? product.node.title}
             price={product.node.priceRange.maxVariantPrice.amount}
-            currencyCode={product.node.priceRange.maxVariantPrice.currencyCode}
             handle={product.node.handle}
             image={toResponsiveImage(product.node.images.edges[0].node)}
           />

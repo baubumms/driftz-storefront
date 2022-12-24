@@ -3,7 +3,7 @@
 
   export let title;
   export let price;
-  export let compareAtPrice;
+  export let compareAtPrice = null;
   export let image: IResponsiveImage;
   export let handle;
 
