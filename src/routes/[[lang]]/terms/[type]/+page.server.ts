@@ -11,7 +11,6 @@ export async function load({ params }) {
 
   if (defaultLocaleActive()) {
     const policies = await getShopPolicies();
-    console.log('page.server', policies);
     const policy = policies?.body?.data?.shop?.shopPolicies.find((p) => p.type === type);
 
     if (policy) {
