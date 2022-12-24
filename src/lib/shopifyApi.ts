@@ -6,7 +6,7 @@ export async function shopifyFetch(
   tokens: { admin?: string; storefront?: string },
   params: { query: string; variables: Record<string, any> }
 ) {
-  console.log(endpoint, tokens, params);
+  console.log(endpoint, tokens);
 
   if ((!tokens.storefront && !tokens.admin) || (tokens.admin && tokens.storefront)) {
     throw new Error('Missing one valid token for shopifyFetch or both are set');
