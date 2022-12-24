@@ -35,7 +35,6 @@ export const initNavigation = async () => {
   });
 
   _.subscribe((t) => {
-    console.log(t('navigation.legal_title'));
     if (langInit) {
       return;
     }
