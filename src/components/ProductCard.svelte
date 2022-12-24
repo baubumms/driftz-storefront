@@ -12,17 +12,11 @@
   import ResponsiveImage from '$components/ResponsiveImage.svelte';
 </script>
 
-<!-- Render the Product card -->
 <Link
   href="/product/{handle}"
-  class="flex flex-col space-y-2 md:w-72 transition-opacity duration-500 rounded-lg group"
+  class="flex flex-col space-y-2 transition-opacity duration-500 rounded-lg group md:w-60 lg:w-64"
 >
-  <div class="flex flex-col items-center justify-center">
-    <!-- <img
-      class="aspect-square rounded-lg opacity-90 group-hover:opacity-100 object-cover"
-      src={imageSrc}
-      alt={imageAltText}
-    /> -->
+  <div class="flex flex-col items-center justify-center w-full">
     <ResponsiveImage
       class="aspect-square rounded-lg opacity-90 group-hover:opacity-100 object-cover"
       srcSet={{

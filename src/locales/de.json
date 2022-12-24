@@ -4,7 +4,8 @@
     "hero_title": "Wenn es Rollen soll"
   },
   "search": {
-    "search_prompt": "Suche nach Produkten..."
+    "search_prompt": "Suche nach Produkten...",
+    "no_results": "Oof.. hab nichts gefunden :/"
   },
   "navigation": {
     "contact": "Kontakt",

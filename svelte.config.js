@@ -10,6 +10,7 @@ const config = {
       $locales: 'src/locales',      
       $lib: 'src/lib',
       $stores: 'src/stores',
+      $types: 'src/types',
       $: 'src',
     }
   },

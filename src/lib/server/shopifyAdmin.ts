@@ -30,7 +30,7 @@ export const getShopPoliciesTransalted = async () => {
 
 const shopPoliciesQuery = {
   query: `{
-    shop ($locale: String!){
+    shop{
       shopPolicies{
         type
         body

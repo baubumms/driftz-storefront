@@ -4,7 +4,8 @@
     "hero_title": "If it's supposed to roll"
   },
   "search": {
-    "search_prompt": "Search for Products..."
+    "search_prompt": "Search for Products...",
+    "no_results": "Looks like I can't help you with that :/"
   },
   "navigation": {
     "contact": "Contact",

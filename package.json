@@ -9,8 +9,7 @@
     "check": "svelte-check --tsconfig ./jsconfig.json",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --watch",
     "lint": "prettier --check .",
-    "format": "prettier --write .",
-    "postbuild": "npx svelte-sitemap --domain https://driftz.eu"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@shopify/shopify-api": "5.2.0",

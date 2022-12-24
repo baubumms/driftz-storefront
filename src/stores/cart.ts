@@ -18,6 +18,6 @@ export const getCartItems = async () => {
     cartQuantity.set(sum);
     return shopifyResponse;
   } catch (error) {
-    console.log(error);
+    console.warn(error);
   }
 };

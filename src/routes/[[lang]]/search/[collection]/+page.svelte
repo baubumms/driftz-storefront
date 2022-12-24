@@ -18,11 +18,11 @@
   <title>{collection?.handle} collection</title>
 </svelte:head>
 
-<div>
+<div class="w-full">
   {#if collection}
-    <ul class="grid grid-flow-row gap-4 sm:grid-cols-2 md:grid-cols-3">
+    <ul class="grid gap-4 grid-cols-2 md:flex flex-wrap w-full">
       {#each collection.products.edges as product, i (i)}
-        <li>
+        <li class="flex-shrink-0">
           <ProductCard
             title={product.node.shortTitle ?? product.node.title}
             price={product.node.priceRange.maxVariantPrice.amount}

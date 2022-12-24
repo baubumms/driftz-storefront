@@ -1,6 +1,4 @@
 <script>
-  console.log('svelte');
-
   import '$/app.css';
   import Header from '$components/Header.svelte';
   import Footer from '$components/Footer.svelte';
@@ -113,7 +111,7 @@
   {/if}
   <div class="min-h-screen flex flex-col">
     <Header on:openCart={openCart} />
-    <div class="flex-grow flex-shrink-0 mt-7">
+    <div class="flex-grow flex-shrink-0 md:mt-7">
       <slot />
     </div>
     <Footer />

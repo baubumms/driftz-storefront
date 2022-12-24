@@ -1,7 +1,8 @@
 <script>
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
-  import Icons from './Icons.svelte';
+  import { Icon } from '@steeze-ui/svelte-icon';
+  import { MagnifyingGlass } from '@steeze-ui/heroicons';
   import { _ } from 'svelte-i18n';
 
   let value = $page.url.searchParams.get('q');
@@ -15,18 +16,21 @@
   }
 </script>
 
-<form on:submit|preventDefault={submit} class="relative flex w-full items-center">
-  <div class="absolute top-0 right-0 mr-2">
-    <Icons strokeColor="#fff" type="search" />
+<form on:submit|preventDefault={submit}>
+  <label for="default-search" class="mb-2 text-sm font-medium sr-only text-white">Search</label>
+  <div class="relative">
+    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+      <Icon src={MagnifyingGlass} class="w-5 h-5 text-gray-500 dark:text-gray-400" />
+    </div>
+    <input
+      bind:value
+      type="search"
+      id="default-search"
+      class="block w-full px-4 py-3 pl-10 text-sm  border border-gray-300 rounded-lg bg-transparent focus:ring-blue-500 focus:border-blue-500"
+      placeholder={$_('search.search_prompt')}
+      required
+    />
   </div>
-  <input
-    id="searchInput"
-    type="text"
-    bind:value
-    placeholder={$_('search.search_prompt')}
-    autocomplete="off"
-    class="w-full border border-white/30 bg-transparent p-2 rounded-lg"
-  />
 </form>
 
 <style>

@@ -4,7 +4,7 @@
 </script>
 
 <div class="flex">
-  <nav class="col-span-2 hidden w-1/6 flex-none py-8 pl-6 md:block">
+  <!-- <nav class="col-span-2 hidden w-1/6 flex-none py-8 pl-6 lg:block">
     <h1 class="text-lg font-semibold">Categories</h1>
     <ul>
       {#each $navigation.collections.items as item}
@@ -13,8 +13,8 @@
         </li>
       {/each}
     </ul>
-  </nav>
-  <div class="min-h-screen mt-3">
+  </nav> -->
+  <div class="container">
     <slot />
   </div>
 </div>

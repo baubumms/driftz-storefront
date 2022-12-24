@@ -3,31 +3,20 @@ import { waitLocale, _, isLoading } from 'svelte-i18n';
 import { get } from 'svelte/store';
 import { getAllCollections } from '$lib/shopifyStorefront';
 import { indexedObjToArray } from '$lib/object';
-
-interface INavigationItem {
-  title: string;
-  url: string;
-  newTab?: boolean;
-}
-
-interface INavigationCategory {
-  title: string;
-  items: INavigationItem[];
-}
-
-interface INavigationStore {
-  main?: INavigationCategory;
-  collections?: INavigationCategory;
-  legal?: INavigationCategory;
-  social?: INavigationCategory;
-  about?: INavigationCategory;
-}
+import type { INavigationItem, INavigationStore } from '$/types/Navigation';
+import { getLocale } from '$lib/i18n';
 
 export const navigation = writable<INavigationStore>({});
-
 let initialized = false;
+let langInit = false;
 
 export const initNavigation = async () => {
+  if (initialized) {
+    return;
+  }
+
+  initialized = true;
+
   const collections = await getAllCollections().then((resp) => {
     if (resp.status == 200) {
       const collections = indexedObjToArray(resp.body.data.collections.edges);
@@ -45,13 +34,14 @@ export const initNavigation = async () => {
     throw new Error("Couldn't fetch collections");
   });
 
-  if (initialized) {
-    return;
-  }
-
-  initialized = true;
-
   _.subscribe((t) => {
+    console.log(t('navigation.legal_title'));
+    if (langInit) {
+      return;
+    }
+
+    langInit = true;
+
     navigation.update((currentState) => ({
       main: {
         title: 'Shop',

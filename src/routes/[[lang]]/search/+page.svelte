@@ -2,6 +2,7 @@
   import { page } from '$app/stores';
   import ProductCard from '$components/ProductCard.svelte';
   import { toResponsiveImage } from '$lib/image';
+  import { _ } from 'svelte-i18n';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -15,7 +16,7 @@
 </script>
 
 <div class="container">
-  <ul class="grid grid-flow-row gap-4 grid-cols-2 md:grid-cols-4">
+  <ul class="grid grid-flow-row gap-4 grid-cols-2 md:flex md:flex-wrap md:w-full">
     {#each displayedProducts as product, i (product.node.id)}
       <li>
         <ProductCard
@@ -27,7 +28,7 @@
         />
       </li>
     {:else}
-      <p>No products :(</p>
+      <p class="w-full text-center mt-4">{$_('search.no_results')}</p>
     {/each}
   </ul>
 </div>
