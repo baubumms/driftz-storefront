@@ -6,10 +6,10 @@ import { i18nInit } from '$lib/i18n';
 import { initNavigation, navigation } from '$stores/navigation';
 
 export const load = async ({ params }) => {
-  const lang = getLocaleFromParms(params);
-  await i18nInit(lang);
+  const urlLang = getLocaleFromParms(params);
+  await i18nInit(urlLang);
+  locale.set(urlLang);
 
-  locale.set(lang);
   await waitLocale();
   await initNavigation();
 };

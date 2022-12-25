@@ -6,14 +6,14 @@ import { get } from 'svelte/store';
 export const defaultLocale = 'en';
 export const additionalLocales = ['de'];
 
-export const i18nInit = (initialLocale: string) => {
+export const i18nInit = async (initialLocale: string) => {
   register('en', () => import('$locales/en.json'));
 
   additionalLocales.forEach((locale) => {
     register(locale, () => import(`$locales/${locale}.json`));
   });
 
-  return init({
+  return await init({
     fallbackLocale: defaultLocale,
     initialLocale
   });

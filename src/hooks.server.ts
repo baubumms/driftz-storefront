@@ -8,8 +8,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   const urlLang = getLocaleFromParms(event.params as { lang: string });
 
   if (urlLang == 'en' || urlLang == 'de') {
-    i18nInit(urlLang);
-
+    await i18nInit(urlLang);
     locale.set(urlLang);
   }
 
