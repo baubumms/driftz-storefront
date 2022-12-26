@@ -1,10 +1,7 @@
 import { validateEnv } from '$lib/env';
 import { shopifyFetch } from '$lib/shopifyApi';
-
-const SHOPIFY_STORE_NAME = import.meta.env.VITE_SHOPIFY_STORE_NAME;
-validateEnv(SHOPIFY_STORE_NAME, 'VITE_SHOPIFY_STORE_NAME');
-const ADMIN_API_TOKEN = import.meta.env.VITE_SHOPIFY_ADMIN_API_TOKEN;
-validateEnv(ADMIN_API_TOKEN, 'VITE_SHOPIFY_ADMIN_API_TOKEN');
+import { ADMIN_API_TOKEN } from '$lib/server/constants';
+import { SHOPIFY_STORE_NAME } from '$lib/constants';
 
 const endpointUrl = `https://${SHOPIFY_STORE_NAME}.myshopify.com/admin/api/2022-10/graphql.json`;
 

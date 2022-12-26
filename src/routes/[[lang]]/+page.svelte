@@ -1,6 +1,7 @@
 <script>
   import { indexedObjToArray } from '$lib/object';
-  import { _ } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
+  import { STOREFRON_URL } from '$lib/constants';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -12,6 +13,13 @@
 
 <svelte:head>
   <title>{$_('home.page_title')}</title>
+
+  {#if $locale === 'en'}
+    <link rel="alternate" href={`${STOREFRON_URL}/de`} hreflang="de" />
+  {:else if $locale === 'de'}
+    <link rel="alternate" href={`${STOREFRON_URL}`} hreflang="en" />
+    <link rel="alternate" href={`${STOREFRON_URL}`} hreflang="x-default" />
+  {/if}
 </svelte:head>
 
 <main class="flex flex-col space-y-10">

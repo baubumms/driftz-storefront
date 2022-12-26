@@ -1,10 +1,8 @@
 import { writable } from 'svelte/store';
-import { waitLocale, _, isLoading } from 'svelte-i18n';
-import { get } from 'svelte/store';
 import { getAllCollections } from '$lib/shopifyStorefront';
 import { indexedObjToArray } from '$lib/object';
 import type { INavigationItem, INavigationStore } from '$/types/Navigation';
-import { getLocale } from '$lib/i18n';
+import { _ } from 'svelte-i18n';
 
 export const navigation = writable<INavigationStore>({});
 let initialized = false;

@@ -1,8 +1,7 @@
 // hooks.server.ts
 import type { Handle } from '@sveltejs/kit';
 import { locale } from 'svelte-i18n';
-import { i18nInit } from '$lib/i18n';
-import { getLocaleFromParms } from '$lib/i18n';
+import { i18nInit, getLocaleFromParms } from '$lib/i18n';
 
 export const handle: Handle = async ({ event, resolve }) => {
   const urlLang = getLocaleFromParms(event.params as { lang: string });

@@ -6,6 +6,10 @@ import { get } from 'svelte/store';
 export const defaultLocale = 'en';
 export const additionalLocales = ['de'];
 
+// They have to follow the order [defaultLocale, additionalLocales[0], additionalLocales[1], ...]
+export const locales = [defaultLocale, ...additionalLocales];
+export const localeUrlHandles = ['', ...additionalLocales.map((key) => `/${key}`)];
+
 export const i18nInit = async (initialLocale: string) => {
   register('en', () => import('$locales/en.json'));
 
@@ -15,7 +19,7 @@ export const i18nInit = async (initialLocale: string) => {
 
   return await init({
     fallbackLocale: defaultLocale,
-    initialLocale
+    initialLocale: getLocaleFromPathname(/^\/(.*?)\//)
   });
 };
 
