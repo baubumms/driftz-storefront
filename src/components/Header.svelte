@@ -8,6 +8,8 @@
   import Link from '$components/Link.svelte';
   import { i18nUrl } from '$lib/i18n';
   import type { INavigationStore } from '$types/Navigation';
+  import cn from 'classnames';
+  import { construct_svelte_component } from 'svelte/internal';
 
   export let navigation: INavigationStore;
 
@@ -95,16 +97,19 @@
           <div class="mt-10 flex w-full flex-col space-y-5 flex-grow">
             {#each tabs as tab}
               <div
-                class:active={currentRoute === i18nUrl(tab.url)}
                 on:click={() => {
                   showMenu = false;
                 }}
               >
                 <Link
                   href={tab.url}
-                  class={`px-2 py-3 text-white font-bold text-2xl ${
-                    currentRoute === tab.url ? 'opacity-100' : 'opacity-75'
-                  }`}>{tab.title}</Link
+                  class={cn(
+                    'px-2 py-3 text-white font-bold text-2xl active:opacity-100 opacity-75',
+                    {
+                      'opacity-100': currentRoute.includes(i18nUrl(tab.url)),
+                      'opacity-75': !currentRoute.includes(i18nUrl(tab.url))
+                    }
+                  )}>{tab.title}</Link
                 >
               </div>
             {/each}

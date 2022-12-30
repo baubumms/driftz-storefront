@@ -12,8 +12,12 @@ export class Logger {
     return `[${date.toISOString()}]`;
   };
 
-  private print(printMethod: (...args: any[]) => void, ...args: any[]): void {
-    if (this.isProduction()) {
+  private print(
+    printMethod: (...args: any[]) => void,
+    args: any[],
+    onlyPrintInDev?: boolean
+  ): void {
+    if (onlyPrintInDev && this.isProduction()) {
       return;
     }
 
@@ -21,18 +25,18 @@ export class Logger {
   }
 
   public log(...args: any[]): void {
-    this.print(console.log, ...args);
+    this.print(console.log, args, true);
   }
 
   public warn(...args: any[]): void {
-    this.print(console.warn, ...args);
+    this.print(console.warn, args);
   }
 
   public error(...args: any[]): void {
-    this.print(console.error, ...args);
+    this.print(console.error, args);
   }
 
   public info(...args: any[]): void {
-    this.print(console.info, ...args);
+    this.print(console.info, args, true);
   }
 }

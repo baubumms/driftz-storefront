@@ -1,5 +1,7 @@
 import { writable } from 'svelte/store';
 import { loadCart } from '$lib/shopifyStorefront';
+import { Logger } from '$lib/logger';
+const logger = new Logger('cart.ts');
 
 export const cartQuantity = writable(0);
 export const cart = writable([]);
@@ -18,6 +20,6 @@ export const getCartItems = async () => {
     cartQuantity.set(sum);
     return shopifyResponse;
   } catch (error) {
-    console.warn(error);
+    logger.error(error);
   }
 };

@@ -6,6 +6,7 @@
   import { Icon } from '@steeze-ui/svelte-icon';
   import { Minus, Plus, ShoppingBag } from '@steeze-ui/heroicons';
   import { DEFAULT_VARIANT_TITLE } from '$lib/product';
+  import ResponsiveImage from './ResponsiveImage.svelte';
 
   const dispatch = createEventDispatcher();
   export let loading = false;
@@ -60,12 +61,19 @@
       <div class="overflow-y-auto flex-grow">
         {#each items as item, i (i)}
           <div class="mb-2 flex w-full">
-            <img
-              alt={item.node.merchandise.product.title}
-              decoding="async"
-              loading="lazy"
+            <ResponsiveImage
               class="w-20 flex-none bg-white rounded-md"
-              src={item.node.merchandise.product.images.edges[0].node.originalSrc}
+              alt={item.node.merchandise.product.title}
+              height={item.node.merchandise.product.images.edges[0].node.height}
+              width={item.node.merchandise.product.images.edges[0].node.width}
+              srcSet={{
+                w360: item.node.merchandise.product.images.edges[0].node.w360,
+                w720: item.node.merchandise.product.images.edges[0].node.w720,
+                w1400: item.node.merchandise.product.images.edges[0].node.w1400,
+                w2000: item.node.merchandise.product.images.edges[0].node.w2000,
+                wMax: item.node.merchandise.product.images.edges[0].node.wMax,
+                fallbackSrc: item.node.merchandise.product.images.edges[0].node.fallbackSrc
+              }}
             />
             <div class="ml-4 flex w-full flex-col justify-between">
               <div class="flex w-full justify-between text-left">
@@ -89,14 +97,14 @@
                 <Icon src={Minus} theme="solid" class="h-full" />
               </button>
               <input
-                class="bg-transparent w-min text-center pt-1"
+                class="bg-transparent w-10 text-center pt-1"
                 disabled
                 value={item.node.quantity}
+                maxlength="3"
                 on:change={(e) => {
                   // addItem(item, e.target.value.parseInt());
                 }}
               />
-              size="3" />
               <button
                 on:click={() => {
                   addOneItem(item, i);

@@ -47,7 +47,7 @@ export async function shopifyFetch(
       body: await result.json()
     };
   } catch (error) {
-    console.error('Error:', error);
+    logger.error('Error:', error);
     return {
       status: 500,
       error: 'Error receiving data'
