@@ -54,7 +54,7 @@
                   image={{
                     width: product.node.images?.edges[0]?.node.width,
                     height: product.node.images?.edges[0]?.node.height,
-                    alt: product.node.images?.edges[0]?.node.altText,
+                    alt: `${product.node.title} ${$_('general.picture')}`,
                     srcSet: {
                       w360: product.node.images?.edges[0]?.node.w360,
                       w720: product.node.images?.edges[0]?.node.w720,

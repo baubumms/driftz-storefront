@@ -63,7 +63,7 @@
           <div class="mb-2 flex w-full">
             <ResponsiveImage
               class="w-20 flex-none bg-white rounded-md"
-              alt={item.node.merchandise.product.title}
+              alt={item.node.merchandise.product.title + ' ' + $_('general.picture')}
               height={item.node.merchandise.product.images.edges[0].node.height}
               width={item.node.merchandise.product.images.edges[0].node.width}
               srcSet={{

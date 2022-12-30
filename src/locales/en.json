@@ -1,4 +1,7 @@
 {
+  "general": {
+    "picture": "Picture"
+  },
   "home": {
     "page_title": "dritz.eu - if it's supposed to roll",
     "hero_title": "If it's supposed to roll"
