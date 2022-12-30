@@ -37,7 +37,7 @@ export const getLocaleFromParms = (params: { lang }) => {
 };
 
 export const correctLocale: (langCode: string) => LangCode = (langCode) => {
-  if (additionalLocales.includes(langCode.toLowerCase())) {
+  if (additionalLocales.includes(langCode?.toLowerCase())) {
     return langCode as LangCode;
   } else {
     return defaultLocale;

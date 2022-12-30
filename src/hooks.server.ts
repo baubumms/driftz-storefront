@@ -21,9 +21,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   const response = await resolve(event);
 
-  if (!cookieLang && langCode !== defaultLocale) {
-    response.headers.set('Set-Cookie', `locale=${langCode}`);
-  }
+  // if (!cookieLang && langCode !== defaultLocale) {
+  //   response.headers.set('Set-Cookie', `locale=${langCode}`);
+  // }
 
   return response;
 };
