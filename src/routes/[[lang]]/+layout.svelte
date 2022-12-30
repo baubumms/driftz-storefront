@@ -6,11 +6,17 @@
   import { getCartItems } from '$stores/cart';
   import { onMount } from 'svelte';
   import { createCart } from '$lib/shopifyStorefront';
+  import { Logger } from '$lib/logger';
+
+  const logger = new Logger('layout');
 
   let cartId;
   let checkoutUrl;
   let cartCreatedAt;
   let cartItems = [];
+
+  export let data;
+  const { navigation } = data;
 
   onMount(async () => {
     if (typeof window !== 'undefined') {
@@ -110,10 +116,10 @@
     />
   {/if}
   <div class="min-h-screen flex flex-col">
-    <Header on:openCart={openCart} />
+    <Header on:openCart={openCart} {navigation} />
     <div class="flex-grow flex-shrink-0 md:mt-7">
       <slot />
     </div>
-    <Footer />
+    <Footer {navigation} />
   </div>
 </main>

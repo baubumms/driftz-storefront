@@ -6,9 +6,10 @@
   import SearchBar from '$components/SearchBar.svelte';
   import { createEventDispatcher } from 'svelte';
   import Link from '$components/Link.svelte';
-  import { navigation } from '$stores/navigation';
   import { i18nUrl } from '$lib/i18n';
-  import ShoppingCart from './ShoppingCart.svelte';
+  import type { INavigationStore } from '$types/Navigation';
+
+  export let navigation: INavigationStore;
 
   const dispatch = createEventDispatcher();
 
@@ -16,7 +17,7 @@
 
   let showMenu = false;
 
-  $: tabs = $navigation.main?.items;
+  const tabs = navigation.main?.items;
 
   function openCart() {
     showMenu = false;

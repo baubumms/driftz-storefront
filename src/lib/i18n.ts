@@ -1,5 +1,6 @@
 // src/lib/i18n/index.ts
 import { browser } from '$app/environment';
+import type { LangCode } from '$types/I18n';
 import { init, register, getLocaleFromPathname, locale } from 'svelte-i18n';
 import { get } from 'svelte/store';
 
@@ -17,9 +18,11 @@ export const i18nInit = async (initialLocale: string) => {
     register(locale, () => import(`$locales/${locale}.json`));
   });
 
+  locale.set(initialLocale);
+
   return await init({
     fallbackLocale: defaultLocale,
-    initialLocale: getLocaleFromPathname(/^\/(.*?)\//)
+    initialLocale: initialLocale
   });
 };
 
@@ -30,8 +33,12 @@ export const defaultLocaleActive = () => getLocale() === defaultLocale;
 export const getLocaleFromParms = (params: { lang }) => {
   const langCode = params.lang;
 
-  if (additionalLocales.includes(langCode)) {
-    return langCode;
+  return correctLocale(langCode);
+};
+
+export const correctLocale: (langCode: string) => LangCode = (langCode) => {
+  if (additionalLocales.includes(langCode.toLowerCase())) {
+    return langCode as LangCode;
   } else {
     return defaultLocale;
   }

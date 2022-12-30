@@ -1,4 +1,4 @@
-import type { LangCode } from '$types/I18N';
+import type { LangCode } from '$types/I18n';
 import { validateEnv } from '$lib/env';
 import { getAllArticles, getAllCollections, getAllProducts } from '$lib/shopifyStorefront';
 import { STOREFRONT_URL } from '$lib/constants';

@@ -1,5 +1,13 @@
-import { locale } from 'svelte-i18n';
-import { get } from 'svelte/store';
+import type { LangCode } from '$types/I18n';
+import { Logger } from '$lib/logger';
+
+const logger = new Logger('shopifyApi');
+
+let langCode: LangCode | undefined;
+
+export const initShopifyApi = (code: LangCode) => {
+  langCode = code;
+};
 
 export async function shopifyFetch(
   endpoint: string,
@@ -10,8 +18,11 @@ export async function shopifyFetch(
     throw new Error('Missing one valid token for shopifyFetch or both are set');
   }
 
+  if (!langCode) {
+    throw new Error("langCode is not set -> shopifyFetch hasn't been initialized");
+  }
+
   try {
-    const langCode = get(locale);
     const payload = {
       query: params.query,
       variables: { ...params.variables, locale: langCode?.toUpperCase() }

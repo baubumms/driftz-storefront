@@ -3,13 +3,18 @@ import '$lib/i18n'; // Import to initialize. Important :)
 import { locale, waitLocale } from 'svelte-i18n';
 import { getLocaleFromParms } from '$lib/i18n';
 import { i18nInit } from '$lib/i18n';
-import { initNavigation, navigation } from '$stores/navigation';
+import { initShopifyApi } from '$lib/shopifyApi';
+import { Logger } from '$lib/logger';
 
-export const load = async ({ params }) => {
-  const urlLang = getLocaleFromParms(params);
-  await i18nInit(urlLang);
-  locale.set(urlLang);
+const logger = new Logger('hooks');
 
-  await waitLocale();
-  await initNavigation();
+export const load = async ({ params, cookies, data }) => {
+  const urlLang = getLocaleFromParms(params as { lang: string });
+
+  if (browser) {
+    await i18nInit(urlLang);
+    initShopifyApi(urlLang);
+  }
+
+  return data;
 };

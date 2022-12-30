@@ -10,6 +10,7 @@
   const dispatch = createEventDispatcher();
   export let loading = false;
   export let items = [];
+
   function addOneItem(item, i) {
     loading = true;
     dispatch('addProduct', {
@@ -92,10 +93,10 @@
                 disabled
                 value={item.node.quantity}
                 on:change={(e) => {
-                  addItem(item, e.target.value.parseInt());
+                  // addItem(item, e.target.value.parseInt());
                 }}
-                size="3"
               />
+              size="3" />
               <button
                 on:click={() => {
                   addOneItem(item, i);

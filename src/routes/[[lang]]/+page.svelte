@@ -8,7 +8,7 @@
 
   import ProductCard from '$components/ProductCard.svelte';
 
-  let collections = indexedObjToArray(data);
+  let collections = indexedObjToArray(data.collections);
 </script>
 
 <svelte:head>
@@ -42,7 +42,7 @@
     <div class="container flex flex-col space-y-10">
       {#each collections as collection}
         <div>
-          <h1 class="font-medium text-3xl mb-2">{collection.node.title}</h1>
+          <h1 class="font-medium text-3xl mb-2">{collection?.node?.title}</h1>
 
           <div class="w-full overflow-x-auto">
             <div class="grid grid-cols-2 md:flex md:gap-0 overflow-x-auto gap-2 md:space-x-5 w-fit">

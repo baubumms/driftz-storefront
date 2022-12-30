@@ -2,6 +2,7 @@ import { validateEnv } from '$lib/env';
 import { shopifyFetch } from '$lib/shopifyApi';
 import { ADMIN_API_TOKEN } from '$lib/server/constants';
 import { SHOPIFY_STORE_NAME } from '$lib/constants';
+import { defaultLocale } from '$lib/i18n';
 
 const endpointUrl = `https://${SHOPIFY_STORE_NAME}.myshopify.com/admin/api/2022-10/graphql.json`;
 

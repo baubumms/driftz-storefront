@@ -1,20 +1,13 @@
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 import { getAllCollections } from '$lib/shopifyStorefront';
 import { indexedObjToArray } from '$lib/object';
 import type { INavigationItem, INavigationStore } from '$/types/Navigation';
 import { _ } from 'svelte-i18n';
+import { Logger } from '$lib/logger';
 
-export const navigation = writable<INavigationStore>({});
-let initialized = false;
-let langInit = false;
+const logger = new Logger('navigation');
 
-export const initNavigation = async () => {
-  if (initialized) {
-    return;
-  }
-
-  initialized = true;
-
+export const generateNavigation = async () => {
   const collections = await getAllCollections().then((resp) => {
     if (resp.status == 200) {
       const collections = indexedObjToArray(resp.body.data.collections.edges);
@@ -32,86 +25,84 @@ export const initNavigation = async () => {
     throw new Error("Couldn't fetch collections");
   });
 
-  _.subscribe((t) => {
-    if (langInit) {
-      return;
+  const t: (key: string) => string = get(_);
+
+  const navigation = {
+    initialized: true,
+
+    main: {
+      title: 'Shop',
+      items: [
+        ...collections,
+        {
+          title: 'Blog',
+          url: '/blog'
+        }
+      ]
+    },
+    collections: {
+      title: 'Collections',
+      items: collections
+    },
+    legal: {
+      title: t('navigation.legal_title'),
+      items: [
+        {
+          title: t('navigation.legal_notice'),
+          url: '/terms/legal-notice'
+        },
+        {
+          title: t('navigation.privacy_policy'),
+          url: '/terms/privacy-policy'
+        },
+        {
+          title: t('navigation.terms_of_service'),
+          url: '/terms/terms-of-service'
+        },
+        {
+          title: t('navigation.shipping_policy'),
+          url: '/terms/shipping-policy'
+        },
+        {
+          title: t('navigation.refund_policy'),
+          url: '/terms/refund-policy'
+        }
+      ]
+    },
+    about: {
+      title: 'About Us',
+      items: [
+        {
+          title: 'FAQ',
+          url: '/terms/legal-notice'
+        },
+        {
+          title: 'Contact Us',
+          url: '/terms/privacy-policy'
+        }
+      ]
+    },
+    social: {
+      title: 'Social',
+      items: [
+        {
+          title: 'Instagram',
+          url: 'https://www.instagram.com/driftz.eu',
+          newtab: true
+        },
+        {
+          title: 'Discord',
+          url: '#',
+          newtab: true
+        },
+        {
+          title: 'YouTube',
+          url: 'https://www.youtube.com/@driftz.',
+          newtab: true
+        }
+      ]
     }
+  };
 
-    langInit = true;
-
-    navigation.update((currentState) => ({
-      main: {
-        title: 'Shop',
-        items: [
-          ...collections,
-          {
-            title: 'Blog',
-            url: '/blog'
-          }
-        ]
-      },
-      collections: {
-        title: 'Collections',
-        items: collections
-      },
-      legal: {
-        title: t('navigation.legal_title'),
-        items: [
-          {
-            title: t('navigation.legal_notice'),
-            url: '/terms/legal-notice'
-          },
-          {
-            title: t('navigation.privacy_policy'),
-            url: '/terms/privacy-policy'
-          },
-          {
-            title: t('navigation.terms_of_service'),
-            url: '/terms/terms-of-service'
-          },
-          {
-            title: t('navigation.shipping_policy'),
-            url: '/terms/shipping-policy'
-          },
-          {
-            title: t('navigation.return_policy'),
-            url: '/terms/return-policy'
-          }
-        ]
-      },
-      about: {
-        title: 'About Us',
-        items: [
-          {
-            title: 'FAQ',
-            url: '/terms/legal-notice'
-          },
-          {
-            title: 'Contact Us',
-            url: '/terms/privacy-policy'
-          }
-        ]
-      },
-      social: {
-        title: 'Social',
-        items: [
-          {
-            title: 'Instagram',
-            url: 'https://www.instagram.com/driftz.eu',
-            newtab: true
-          },
-          {
-            title: 'Discord',
-            url: '#',
-            newtab: true
-          },
-          {
-            title: 'YouTube',
-            url: 'https://www.youtube.com/@driftz.',
-            newtab: true
-          }
-        ]
-      }
-    }));
-  });
+  return navigation;
 };
