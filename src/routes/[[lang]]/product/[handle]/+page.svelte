@@ -22,6 +22,8 @@
 
   $: highlightedImage = data?.body?.product?.images?.edges[currentImageIndex]?.node;
 
+  console.log(data.body.product);
+
   data?.body?.product?.options.forEach((option) => {
     selectedOptions = { ...selectedOptions, [option.name]: option.values[0] };
   });
@@ -136,7 +138,9 @@
           <div class="flex flex-col font-light">
             <table class="border-separate border-spacing-y-1">
               <tbody>
-                {#each JSON.parse(product.highlights.value ?? '[]') as highlight}
+                {#each product.highlightsMultiline.value
+                  .split('\n')
+                  .map((v) => v.trim()) as highlight}
                   <tr class="pb-5">
                     <td class="flex h-full"><Icon src={Check} theme="mini" class="w-6" /></td>
                     <td class="text-md w-full">{highlight}</td>

@@ -1,10 +1,13 @@
 {
   "general": {
-    "picture": "Picture"
+    "picture": "Picture",
+    "page_description": "High quality parts and calculators for your nex go-kart, trike or whatever you want to roll on.",
+    "posted_on": "Posted on"
   },
   "home": {
     "page_title": "dritz.eu - if it's supposed to roll",
-    "hero_title": "If it's supposed to roll"
+    "hero_title": "If it's supposed to roll",
+    "blog_section_title": "Inspiration"
   },
   "search": {
     "search_prompt": "Search for Products...",
@@ -29,5 +32,8 @@
     "total": "Total",
     "checkout": "Proceed to Checkout",
     "add_to_cart": "Add to Cart"
+  },
+  "blog": {
+    "read_more": "Show them all"
   }
 }

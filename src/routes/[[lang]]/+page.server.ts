@@ -1,20 +1,27 @@
-import { getAllCollectionsWithContent } from '$lib/shopifyStorefront';
+import { getAllArticles, getAllCollectionsWithContent } from '$lib/shopifyStorefront';
 import { error } from '@sveltejs/kit';
 
 /** @type {import('./$types').RequestHandler} */
 export async function load({ params, data }) {
-  const res = await getAllCollectionsWithContent();
-  if (res.status === 200) {
-    const collections = res.body?.data?.collections?.edges;
+  const [collectionsResponse, articlesResponse] = await Promise.all([
+    getAllCollectionsWithContent(),
+    getAllArticles()
+  ]);
+
+  if (collectionsResponse.status === 200 && articlesResponse.status === 200) {
+    const collections = collectionsResponse.body?.data?.collections?.edges;
+    const blogArticles = articlesResponse.body.data.articles.nodes;
 
     if (collections) {
       return {
         ...data,
-        collections: collections
+        collections,
+        blogArticles
       };
     }
+
     throw error(404);
   } else {
-    throw error(res.status);
+    throw error(500);
   }
 }

@@ -7,6 +7,7 @@
   import { onMount } from 'svelte';
   import { createCart } from '$lib/shopifyStorefront';
   import { Logger } from '$lib/logger';
+  import { _ } from 'svelte-i18n';
 
   const logger = new Logger('layout');
 
@@ -102,6 +103,7 @@
 
 <svelte:head>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="description" content={$_('general.page_description')} />
 </svelte:head>
 
 <main class={`${showCart ? 'h-screen' : 'min-h-screen'} text-white font-overpass`}>

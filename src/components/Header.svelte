@@ -9,7 +9,6 @@
   import { i18nUrl } from '$lib/i18n';
   import type { INavigationStore } from '$types/Navigation';
   import cn from 'classnames';
-  import { construct_svelte_component } from 'svelte/internal';
 
   export let navigation: INavigationStore;
 

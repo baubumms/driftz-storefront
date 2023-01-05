@@ -335,7 +335,7 @@ export async function getProduct(handle) {
                     }
                 }
                 }
-                highlights: metafield(namespace:"custom", key:"highlights"){
+                highlightsMultiline: metafield(namespace:"custom", key:"highlights_multiline"){
                   value
                 }
                 quantityUnitSingle: metafield(namespace:"custom", key:"quantity_unit_single"){
@@ -364,6 +364,7 @@ export async function getAllArticles() {
           handle
           contentHtml
           content
+          excerpt
           publishedAt
           image {
             id
