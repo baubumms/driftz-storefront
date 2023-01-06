@@ -32,11 +32,11 @@
       <Link href="/" class="text-2xl pt-2 md:pt-0 md:pb-1 font-bold font-aleo">driftz.</Link>
       <div class="hidden md:flex md:pl-2 text-lg">
         {#each tabs as tab}
-          <div class:active={currentRoute === i18nUrl(tab.url)}>
+          <div class:active={currentRoute.startsWith(i18nUrl(tab.url))}>
             <Link
               href={tab.url}
               class={`hover:opacity-100 px-2 py-1 text-fg-primary rounded-lg ${
-                currentRoute === tab.url ? 'opacity-100' : 'opacity-75'
+                currentRoute.startsWith(i18nUrl(tab.url)) ? 'opacity-100' : 'opacity-75'
               }`}>{tab.title}</Link
             >
           </div>

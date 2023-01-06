@@ -15,7 +15,6 @@
   const { fields } = Calculator;
   const values = Calculator.fields.reduce((acc, field) => {
     acc[field.id] = field.default;
-    console.log(field.id, field.default);
     return acc;
   }, {});
 
@@ -27,7 +26,6 @@
 
   const evaluate = () => {
     const variables = { ...values };
-    console.log('eval', selected);
 
     Object.entries(variables).forEach(([key]) => {
       if (key === selected) {
@@ -62,8 +60,6 @@
         filledEquation[i] = filledEquation[i].replaceAll(field.id, values[field.id]);
       });
     }
-
-    console.log(filledEquation, values);
 
     const decimals = selectedField.decimalPlaces ?? 2;
     const evaluation = calculateStringEquation(filledEquation);

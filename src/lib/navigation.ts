@@ -29,7 +29,6 @@ export const generateNavigation = async () => {
 
   const navigation = {
     initialized: true,
-
     main: {
       title: 'Shop',
       items: [
@@ -39,7 +38,7 @@ export const generateNavigation = async () => {
           url: '/blog'
         },
         {
-          title: 'Calculators',
+          title: t('navigation.calculators'),
           url: '/tool/calculator'
         }
       ]
