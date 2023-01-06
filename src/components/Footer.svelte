@@ -13,7 +13,7 @@
   ];
 </script>
 
-<div class="py-10 mt-20 bg-dark-blue">
+<div class="py-10 mt-20 bg-bg-accent">
   <div class="grid grid-cols-2 md:grid-cols-4 container text-center md:text-left gap-x-2 gap-y-7">
     {#each categories as category}
       <div>

@@ -5,4 +5,4 @@
   export { className as class };
 </script>
 
-<h2 class={cn('font-medium text-2xl mb-1 md:mb-2', className)}><slot /></h2>
+<h2 class={cn('font-medium text-2xl mb-2 md:mb-2', className)}><slot /></h2>

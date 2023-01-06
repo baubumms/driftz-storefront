@@ -1,7 +1,7 @@
 import { writable, get } from 'svelte/store';
 import { getAllCollections } from '$lib/shopifyStorefront';
 import { indexedObjToArray } from '$lib/object';
-import type { INavigationItem, INavigationStore } from '$/types/Navigation';
+import type { INavigationItem } from '$/types/Navigation';
 import { _ } from 'svelte-i18n';
 import { Logger } from '$lib/logger';
 
@@ -37,6 +37,10 @@ export const generateNavigation = async () => {
         {
           title: 'Blog',
           url: '/blog'
+        },
+        {
+          title: 'Calculators',
+          url: '/tool/calculator'
         }
       ]
     },

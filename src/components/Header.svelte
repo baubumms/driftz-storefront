@@ -26,7 +26,7 @@
   }
 </script>
 
-<nav class="p-4 sticky top-0 z-20 bg-dark-blue">
+<nav class="p-4 sticky top-0 z-20 bg-bg-accent">
   <div class="flex items-center container">
     <div class="flex items-center ">
       <Link href="/" class="text-2xl pt-2 md:pt-0 md:pb-1 font-bold font-aleo">driftz.</Link>
@@ -35,7 +35,7 @@
           <div class:active={currentRoute === i18nUrl(tab.url)}>
             <Link
               href={tab.url}
-              class={`hover:opacity-100 px-2 py-1 text-white rounded-lg ${
+              class={`hover:opacity-100 px-2 py-1 text-fg-primary rounded-lg ${
                 currentRoute === tab.url ? 'opacity-100' : 'opacity-75'
               }`}>{tab.title}</Link
             >
@@ -47,7 +47,7 @@
     <div class="hidden w-1/3 md:block md:mr-3">
       <SearchBar />
     </div>
-    <div class="ml-auto flex items-center text-white">
+    <div class="ml-auto flex items-center text-fg-primary">
       <button on:click={openCart} class="relative my-2 mx-4">
         <Icon src={ShoppingBag} theme="solid" class="w-6" />
         <div
@@ -72,7 +72,7 @@
         on:click|self={() => {
           showMenu = false;
         }}
-        class="fixed top-0 left-0 z-50 flex h-screen w-screen justify-end overflow-y-auto bg-dark-blue md:hidden"
+        class="fixed top-0 left-0 z-50 flex h-screen w-screen justify-end overflow-y-auto bg-bg-accent md:hidden"
       >
         <div class="z-30 w-full p-6">
           <div class="flex w-full items-center justify-between">
@@ -103,7 +103,7 @@
                 <Link
                   href={tab.url}
                   class={cn(
-                    'px-2 py-3 text-white font-bold text-2xl active:opacity-100 opacity-75',
+                    'px-2 py-3 text-fg-primary font-bold text-2xl active:opacity-100 opacity-75',
                     {
                       'opacity-100': currentRoute.includes(i18nUrl(tab.url)),
                       'opacity-75': !currentRoute.includes(i18nUrl(tab.url))

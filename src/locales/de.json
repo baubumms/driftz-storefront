@@ -2,12 +2,23 @@
   "general": {
     "picture": "Bild",
     "page_description": "Qualitative Teile und Rechner für dein nächstes Go-Kart, Drift Trike oder anderes Fahrzeug.",
-    "posted_on": "Veröffentlicht am"
+    "posted_on": "Veröffentlicht am",
+    "step": "Schritt"
   },
   "home": {
     "page_title": "dritz.eu - wenn es rollen soll",
     "hero_title": "Wenn es Rollen soll",
     "blog_section_title": "Inspiration"
+  },
+  "tool": {
+    "calculator": {
+      "title": "Wir übernehmen die Denkarbeit",
+      "description": "Für deine Rollenden Projekte findest du hier genau die richtigen Rechner. Ob Ritzelgröße, Maximalgeschwindigkeit oder Drehmoment deines Motors. Ich glaube du wirst hier fündig.",
+      "calculate_now": "Jetzt berechnen",
+      "select_field_to_solve": "Wähle aus, was du berechnen möchtest",
+      "enter_values": "Gib die Werte ein",
+      "solving_for": "Ergebnis"
+    }
   },
   "search": {
     "search_prompt": "Suche nach Produkten...",

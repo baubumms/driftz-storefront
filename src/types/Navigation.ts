@@ -15,6 +15,7 @@ export interface INavigationStore {
   legal?: INavigationCategory;
   social?: INavigationCategory;
   about?: INavigationCategory;
+  tools?: INavigationCategory;
 
   initialized: boolean;
 }

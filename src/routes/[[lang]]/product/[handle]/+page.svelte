@@ -22,8 +22,6 @@
 
   $: highlightedImage = data?.body?.product?.images?.edges[currentImageIndex]?.node;
 
-  console.log(data.body.product);
-
   data?.body?.product?.options.forEach((option) => {
     selectedOptions = { ...selectedOptions, [option.name]: option.values[0] };
   });
@@ -162,7 +160,7 @@
                   class={cn(
                     'px-3 py-1 transition duration-300 ease-in-out hover:bg-opacity-100 rounded-lg border-white border flex-shrink-0',
                     {
-                      'bg-dark-blue text-white': selectedOptions[option.name] !== value,
+                      'bg-bg-accent text-fg-primary': selectedOptions[option.name] !== value,
                       'bg-light text-black': selectedOptions[option.name] === value
                     }
                   )}

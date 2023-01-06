@@ -23,10 +23,10 @@ module.exports = {
         dark: '#111111',
         light: '#FAFAFA',
 
-
-        "light-gray": "#C7C7C7",
-        "dark-blue": "#07212C",
-        "dark-gray": "#181818",
+        "fg-primary":  "#fff",
+        "fg-secondary": "#181818",
+        "bg-primary": "#181818",
+        "bg-accent": "#07212C",
       }
     }
   },

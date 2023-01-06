@@ -17,7 +17,8 @@
 </script>
 
 <form on:submit|preventDefault={submit}>
-  <label for="default-search" class="mb-2 text-sm font-medium sr-only text-white">Search</label>
+  <label for="default-search" class="mb-2 text-sm font-medium sr-only text-fg-primary">Search</label
+  >
   <div class="relative">
     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
       <Icon src={MagnifyingGlass} class="w-5 h-5 text-gray-500 dark:text-gray-400" />

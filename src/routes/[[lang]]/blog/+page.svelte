@@ -1,10 +1,5 @@
 <!-- This file is the landing page for the shops blog section. All Blogs are listed here. -->
 <script>
-  import Link from '$components/Link.svelte';
-  import ResponsiveImage from '$components/ResponsiveImage.svelte';
-  import { toResponsiveImage } from '$lib/image';
-  import { Icon } from '@steeze-ui/svelte-icon';
-  import { ArrowRight } from '@steeze-ui/heroicons';
   import BlogArticles from '$components/BlogArticles.svelte';
 
   /** @type {import('./$types').PageData} */

@@ -106,7 +106,7 @@
   <meta name="description" content={$_('general.page_description')} />
 </svelte:head>
 
-<main class={`${showCart ? 'h-screen' : 'min-h-screen'} text-white font-overpass`}>
+<main class={`${showCart ? 'h-screen' : 'min-h-screen'} text-fg-primary font-overpass`}>
   {#if showCart}
     <ShoppingCart
       items={cartItems}

@@ -2,12 +2,23 @@
   "general": {
     "picture": "Picture",
     "page_description": "High quality parts and calculators for your nex go-kart, trike or whatever you want to roll on.",
-    "posted_on": "Posted on"
+    "posted_on": "Posted on",
+    "step": "Schritt"
   },
   "home": {
     "page_title": "dritz.eu - if it's supposed to roll",
     "hero_title": "If it's supposed to roll",
     "blog_section_title": "Inspiration"
+  },
+  "tool": {
+    "calculator": {
+      "title": "Let us do the thinking work for you",
+      "description": "We have a few calculators designed to help you with your rolling project. Just enter the values and let the magic happen.",
+      "calculate_now": "Calculate now",
+      "select_field_to_solve": "Select what to solve for",
+      "enter_values": "Enter the values",
+      "solving_for": "Result"
+    }
   },
   "search": {
     "search_prompt": "Search for Products...",

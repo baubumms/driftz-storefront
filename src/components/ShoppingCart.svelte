@@ -41,7 +41,7 @@
   }
 </script>
 
-<div class="fixed right-0 top-0 z-50 w-full h-full bg-dark-blue md:w-[430px] flex flex-col">
+<div class="fixed right-0 top-0 z-50 w-full h-full bg-bg-accent md:w-[430px] flex flex-col">
   {#if loading}
     <div class="absolute inset-0  z-50" />
   {/if}
@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="my-4 flex w-full justify-between items-center">
-            <label class="flex h-8 border border-gray-400 text-white">
+            <label class="flex h-8 border border-gray-400 text-fg-primary">
               <button
                 on:click={() => {
                   removeOneItem(item, i);
@@ -111,7 +111,7 @@
                 }}
                 class="p-2"
               >
-                <Icon src={Plus} theme="solid" class="h-full text-white" />
+                <Icon src={Plus} theme="solid" class="h-full text-fg-primary" />
               </button>
             </label>
             <p class="">{formatPrice(item.node.estimatedCost.totalAmount.amount)}</p>
