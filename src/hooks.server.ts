@@ -19,7 +19,9 @@ export const handle: Handle = async ({ event, resolve }) => {
   await i18nInit(langCode);
   initShopifyApi(langCode);
 
-  const response = await resolve(event);
+  const response = await resolve(event, {
+    transformPageChunk: ({ html }) => html.replaceAll('%lang%', urlLang)
+  });
 
   if (!cookieLang && langCode !== defaultLocale) {
     response.headers.set('Set-Cookie', `locale=${langCode}`);
