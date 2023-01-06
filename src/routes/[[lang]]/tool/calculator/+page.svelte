@@ -8,6 +8,10 @@
   import { ArrowRight } from '@steeze-ui/heroicons';
 </script>
 
+<svelte:head>
+  <title>{$_('tool.calculator.title').toLocaleLowerCase()} - driftz.eu</title>
+</svelte:head>
+
 <div class="flex flex-col container mt-2">
   <div class="flex flex-col">
     <H1>{$_('tool.calculator.title')}</H1>

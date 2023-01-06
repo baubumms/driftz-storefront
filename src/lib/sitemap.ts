@@ -4,6 +4,9 @@ import { getAllArticles, getAllCollections, getAllProducts } from '$lib/shopifyS
 import { STOREFRONT_URL } from '$lib/constants';
 import { getShopPolicies } from './server/shopifyAdmin';
 import { defaultLocale, localeUrlHandles } from '$lib/i18n';
+import { Calculators } from '$lib/calculator';
+
+const STATIC_ROUTES = ['', 'blog', 'tool/calculator'];
 
 export const generateSiteMap = async (locale: LangCode) => {
   const linkXml = await Promise.all([
@@ -11,7 +14,8 @@ export const generateSiteMap = async (locale: LangCode) => {
     formatedProducts(),
     formatedTerms(),
     formatedStaticPages(),
-    formatedCollections()
+    formatedCollections(),
+    formatedCalculators()
   ]).then((blocks) => blocks.join(''));
 
   const body = `<?xml version="1.0" encoding="UTF-8" ?>
@@ -96,9 +100,15 @@ const formatedTerms = async () => {
 };
 
 const formatedStaticPages = async () => {
-  const urls: string[] = ['', 'blog'];
+  const xml = STATIC_ROUTES.map((url) => formatedTag(url));
 
-  const xml = urls.map((url) => formatedTag(url));
+  return xml.join('');
+};
+
+const formatedCalculators = async () => {
+  const xml = Object.entries(Calculators).map(([handle]) =>
+    formatedTag(`tool/calculator/${handle}`, undefined)
+  );
 
   return xml.join('');
 };

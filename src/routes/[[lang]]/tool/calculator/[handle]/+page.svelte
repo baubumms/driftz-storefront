@@ -75,6 +75,10 @@
   $: evaluate();
 </script>
 
+<svelte:head>
+  <title>{Calculator.title[$locale].toLowerCase()} - driftz.eu</title>
+</svelte:head>
+
 <div class="container mt-2 grid grid-cols-1 md:grid-cols-2 gap-6">
   <div>
     <H1>{Calculator.title[$locale]}</H1>
