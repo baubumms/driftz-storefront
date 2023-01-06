@@ -22,7 +22,7 @@
     {#each Object.entries(Calculators) as [handle, calculator]}
       <Link
         href={'calculator/' + handle}
-        class="shadow-lg bg-bg-accent rounded-lg p-3 group h-full flex flex-col hover:bg-opacity-100 bg-opacity-70 transition-opacity"
+        class="shadow-lg bg-bg-accent rounded-lg p-3 group flex flex-col hover:bg-opacity-100 bg-opacity-70 transition-opacity"
       >
         <H2>{calculator.title[$locale]}</H2>
         <p class="flex-grow">{calculator.description[$locale]}</p>
