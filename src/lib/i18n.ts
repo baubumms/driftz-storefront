@@ -67,3 +67,30 @@ export const i18nUrl = (url: string) => {
     return `/${locale}${url}`;
   }
 };
+
+export const transformRelativeI18nUrl = (
+  relativeUrl: string,
+  currentLocale: string,
+  targetLocale: LangCode
+) => {
+  if (relativeUrl.startsWith('http')) {
+    throw new Error('transformRelativeI18nUrl() should not be used for external URLs.');
+  }
+
+  console.log(relativeUrl, currentLocale, targetLocale);
+
+  if (targetLocale == currentLocale) {
+    return relativeUrl;
+  }
+
+  let newUrl = '';
+  if (defaultLocale == currentLocale) {
+    newUrl += '/' + targetLocale + relativeUrl;
+  } else if (targetLocale == defaultLocale) {
+    newUrl += relativeUrl.replace('/' + currentLocale, '');
+  } else {
+    newUrl += relativeUrl.replace('/' + currentLocale, '/' + targetLocale);
+  }
+
+  return newUrl;
+};

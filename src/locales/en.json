@@ -47,5 +47,12 @@
   },
   "blog": {
     "read_more": "Show them all"
+  },
+  "i18n": {
+    "languages": {
+      "de": "German",
+      "en": "English"
+    },
+    "flag_of": "Flag for the language"
   }
 }

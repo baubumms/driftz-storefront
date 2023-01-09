@@ -4,17 +4,22 @@ import { i18nInit, getLocaleFromParms, correctLocale, defaultLocale } from '$lib
 import { initShopifyApi } from '$lib/shopifyApi';
 
 export const handle: Handle = async ({ event, resolve }) => {
-  const urlLang = getLocaleFromParms(event.params as { lang: string });
+  const urlLang = correctLocale(getLocaleFromParms(event.params as { lang: string }));
+  const browserLang =
+    event.request.headers.get('Accept-Language')?.split(',')[0]?.split('-')[0] ?? defaultLocale;
   const cookieLang = event.cookies.get('locale');
-  let langCode;
 
-  if (cookieLang) {
-    langCode = correctLocale(cookieLang);
-  } else {
-    langCode = correctLocale(urlLang);
+  if (!cookieLang && urlLang !== browserLang) {
+    return new Response(null, {
+      status: 302,
+      headers: {
+        location: `/${browserLang}${event.url}`,
+        'Set-Cookie': `locale=${browserLang}`
+      }
+    });
   }
 
-  // const langCode = correctLocale(urlLang);
+  const langCode = correctLocale(cookieLang);
 
   await i18nInit(langCode);
   initShopifyApi(langCode);
@@ -23,7 +28,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     transformPageChunk: ({ html }) => html.replaceAll('%lang%', urlLang)
   });
 
-  if (!cookieLang && langCode !== defaultLocale) {
+  if (!cookieLang) {
     response.headers.set('Set-Cookie', `locale=${langCode}`);
   }
 

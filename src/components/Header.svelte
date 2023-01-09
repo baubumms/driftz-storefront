@@ -9,6 +9,7 @@
   import { i18nUrl } from '$lib/i18n';
   import type { INavigationStore } from '$types/Navigation';
   import cn from 'classnames';
+  import LanguageSwitcher from './LanguageSwitcher.svelte';
 
   export let navigation: INavigationStore;
 
@@ -44,6 +45,7 @@
       </div>
     </div>
     <div class="flex-1" />
+    <LanguageSwitcher />
     <div class="hidden w-1/3 md:block md:mr-3">
       <SearchBar />
     </div>

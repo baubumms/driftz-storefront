@@ -35,7 +35,7 @@
   <section class="relative md:container">
     <img
       loading="lazy"
-      src="/media/home-hero.jpg"
+      src="/assets/home-hero.jpg"
       alt="Header background"
       class="w-full md:rounded-lg object-cover md:h-96"
     />
