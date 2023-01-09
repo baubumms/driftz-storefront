@@ -10,7 +10,6 @@
 
   const onToggleMenu = () => {
     showMenu = !showMenu;
-    console.log('toggle menu');
   };
 
   const setLocale = (targetLocale: string) => {

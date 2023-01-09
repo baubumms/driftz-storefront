@@ -77,8 +77,6 @@ export const transformRelativeI18nUrl = (
     throw new Error('transformRelativeI18nUrl() should not be used for external URLs.');
   }
 
-  console.log(relativeUrl, currentLocale, targetLocale);
-
   if (targetLocale == currentLocale) {
     return relativeUrl;
   }

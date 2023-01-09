@@ -1,7 +1,14 @@
 // hooks.server.ts
 import type { Handle } from '@sveltejs/kit';
-import { i18nInit, getLocaleFromParms, correctLocale, defaultLocale } from '$lib/i18n';
+import {
+  i18nInit,
+  getLocaleFromParms,
+  correctLocale,
+  defaultLocale,
+  transformRelativeI18nUrl
+} from '$lib/i18n';
 import { initShopifyApi } from '$lib/shopifyApi';
+import type { LangCode } from '$types/I18n';
 
 export const handle: Handle = async ({ event, resolve }) => {
   const urlLang = correctLocale(getLocaleFromParms(event.params as { lang: string }));
@@ -13,7 +20,9 @@ export const handle: Handle = async ({ event, resolve }) => {
     return new Response(null, {
       status: 302,
       headers: {
-        location: `/${browserLang}${event.url}`,
+        location:
+          event.url.origin +
+          transformRelativeI18nUrl(event.url.pathname, urlLang, browserLang as LangCode),
         'Set-Cookie': `locale=${browserLang}`
       }
     });
