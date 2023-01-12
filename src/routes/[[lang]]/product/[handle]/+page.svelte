@@ -20,6 +20,8 @@
     (option) => option?.values[0] !== DEFAULT_VARIANT_TITLE
   );
 
+  const inStock = data?.body?.product?.variants?.edges[0]?.node?.availableForSale;
+
   $: highlightedImage = data?.body?.product?.images?.edges[currentImageIndex]?.node;
 
   data?.body?.product?.options.forEach((option) => {
@@ -173,9 +175,12 @@
         {/each}
         <button
           on:click={addToCart}
-          class="mt-6 flex w-full items-center justify-center bg-light p-4 text-sm uppercase tracking-wide text-black opacity-90 hover:opacity-100"
+          disabled={!inStock}
+          class="mt-6 flex w-full items-center justify-center bg-light p-4 text-sm uppercase tracking-wide text-black opacity-90 cursor"
+          class:hover:opacity-100={inStock}
+          class:cursor-not-allowed={!inStock}
         >
-          <span>{$_('cart.add_to_cart')}</span>
+          <span>{inStock ? $_('product.add_to_cart') : $_('product.not_in_stock')}</span>
           {#if cartLoading}
             <div class="lds-ring ml-4">
               <div />

@@ -36,14 +36,17 @@
     "refund_policy": "Refund Policy",
     "calculators": "Calculators & Tools"
   },
+  "product":{
+    "not_in_stock": "Out of Stock",
+    "add_to_cart": "Add to Cart"
+  },
   "cart": {
     "title": "My Cart",
     "empty": "Your cart is empty",
     "subtotal": "Subtotal",
     "shipping": "Shipping",
     "total": "Total",
-    "checkout": "Proceed to Checkout",
-    "add_to_cart": "Add to Cart"
+    "checkout": "Proceed to Checkout"
   },
   "blog": {
     "read_more": "Show them all"
