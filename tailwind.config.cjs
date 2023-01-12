@@ -3,18 +3,18 @@ module.exports = {
   theme: {
     fontFamily: {
       aleo: ['Aleo', 'serif'],
-      overpass: ['Overpass', 'sans-serif'],
+      overpass: ['Overpass', 'sans-serif']
     },
     container: {
       center: true,
-      padding: '0.7rem',
+      padding: '1rem'
     },
     extend: {
       height: {
-        'hr': '1px',
+        hr: '1px'
       },
       aspectRatio: {
-        '4/3': '4 / 3',
+        '4/3': '4 / 3'
       },
       colors: {
         svelteOrange: '#FF3E00',
@@ -23,10 +23,11 @@ module.exports = {
         dark: '#111111',
         light: '#FAFAFA',
 
-        "fg-primary":  "#fff",
-        "fg-secondary": "#181818",
-        "bg-primary": "#181818",
-        "bg-accent": "#07212C",
+        'fg-primary': '#fff',
+        'fg-secondary': '#181818',
+        'bg-primary': '#071113',
+        'bg-accent': '#073D4F',
+        'bg-accent-dark': '#0A2E3B'
       }
     }
   },

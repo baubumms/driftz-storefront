@@ -32,7 +32,6 @@ export const generateNavigation = async () => {
     main: {
       title: 'Shop',
       items: [
-        ...collections,
         {
           title: 'Blog',
           url: '/blog'
