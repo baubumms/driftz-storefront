@@ -9,8 +9,14 @@ import {
 } from '$lib/i18n';
 import { initShopifyApi } from '$lib/shopifyApi';
 import type { LangCode } from '$types/I18n';
+import { shortUrlResponse } from '$lib/shortUrl';
 
 export const handle: Handle = async ({ event, resolve }) => {
+  const shortRes = await shortUrlResponse(event);
+  if (shortRes != null) {
+    return shortRes;
+  }
+
   const urlLang = correctLocale(getLocaleFromParms(event.params as { lang: string }));
   const browserLang =
     event.request.headers.get('Accept-Language')?.split(',')[0]?.split('-')[0] ?? defaultLocale;
