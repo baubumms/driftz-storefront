@@ -25,16 +25,17 @@
   };
 </script>
 
-<button on:click={onToggleMenu} class="relative p-6">
-  <Icon src={Language} theme="solid" class="w-6" />
+<div class="relative">
+  <button on:click={onToggleMenu} class="relative p-6">
+    <Icon src={Language} theme="solid" class="w-6" />
 
-  <img
-    src="/assets/flags/{$locale}.svg"
-    class="w-4 h-4 absolute bottom-4 left-4"
-    loading="lazy"
-    alt={$_('i18n.flag_of') + ' ' + $_('i18n.languages.' + $locale)}
-  />
-
+    <img
+      src="/assets/flags/{$locale}.svg"
+      class="w-4 h-4 absolute bottom-4 left-4"
+      loading="lazy"
+      alt={$_('i18n.flag_of') + ' ' + $_('i18n.languages.' + $locale)}
+    />
+  </button>
   <div
     class={cn(
       'absolute -left-10 z-30 w-40 border-2 border-bg-primary bg-bg-primary flex flex-col rounded-lg',
@@ -63,4 +64,4 @@
       </button>
     {/each}
   </div>
-</button>
+</div>
