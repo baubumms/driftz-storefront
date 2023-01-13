@@ -30,7 +30,7 @@
 
 <nav class="sticky top-0 z-20 bg-bg-accent-dark md:bg-accent">
   <div class="flex flex-col">
-    <div class="flex items-center container py-3 md:py-5">
+    <div class="flex items-center container py-3 md:py-4">
       <div class="flex items-center ">
         <Link href="/" class="text-2xl pt-2 md:pt-0 md:pb-1 font-bold font-aleo">driftz.</Link>
         <div class="hidden md:flex md:pl-2 text-lg">
