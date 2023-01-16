@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import ProductImage from '$components/ProductImage.svelte';
   import { getCartItems } from '$stores/cart';
   import cn from 'classnames';
@@ -8,6 +8,8 @@
   import { DEFAULT_VARIANT_TITLE } from '$lib/product';
   import ResponsiveImage from '$components/ResponsiveImage.svelte';
   import { toResponsiveImage } from '$lib/image';
+  import { Splide, SplideSlide } from '@splidejs/svelte-splide';
+  import { afterUpdate, onMount } from 'svelte';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -71,68 +73,102 @@
 
     cartLoading = false;
   }
+
+  let highlightSplide: Splide;
+  let navSplide: Splide;
+  let maginfiedImage;
+
+  onMount(() => {
+    if (highlightSplide && navSplide) {
+      highlightSplide.sync(navSplide.splide);
+    }
+    console.log('splide', navSplide, highlightSplide);
+  });
 </script>
 
 <svelte:head>
   <title>{data.body.product.title}</title>
 </svelte:head>
 
+{#if maginfiedImage}
+  <button
+    class="fixed w-screen h-screen z-40 top-0 left-0 bg-bg-primary bg-opacity-50"
+    on:click={() => (maginfiedImage = undefined)}
+  >
+    <ResponsiveImage {...toResponsiveImage(maginfiedImage)} class="object-contain w-full h-full" />
+  </button>
+  <button
+    class="fixed bottom-0 z-50 flex justify-center py-3 w-screen"
+    on:click={() => (maginfiedImage = undefined)}
+  >
+    <span
+      class="bg-red-700 rounded-full w-10 h-10 flex justify-center items-center font-bold text-2xl"
+      >x</span
+    >
+  </button>
+{/if}
+
 <div class="mt-3 flex flex-col space-y-5">
   {#if data.body.product}
-    <div class="flex flex-col space-y-5 md:space-y-0 container md:grid md:grid-cols-2 md:gap-5">
+    <div
+      class="flex flex-col space-y-5 md:space-y-0 container md:grid md:grid-cols-2 md:gap-5 relative"
+    >
       <div class="w-full">
-        {#key highlightedImageSrc}
-          <div class="relative rounded-lg">
-            <ResponsiveImage
-              {...toResponsiveImage(highlightedImage)}
-              class="rounded-lg aspect-4/3 object-contain bg-white"
-            />
-            {#if data.body.product?.images?.edges.length > 1}
-              <div
-                class="absolute flex items-center justify-between right-0 top-0 w-full h-full z-10 px-1 text-black"
-              >
+        <div class="relative rounded-lg">
+          <Splide
+            bind:this={highlightSplide}
+            options={{
+              type: 'loop',
+              perPage: 1,
+              perMove: 1,
+              gap: '1rem',
+              pagination: false
+            }}
+          >
+            {#each data.body.product.images.edges as variant, i}
+              <SplideSlide>
                 <button
-                  on:click={() => {
-                    changeHighlightedImage('back');
-                  }}
-                  class="h-full flex items-center w-1/4"
+                  class="magnifier-thumb-wrapper"
+                  on:click={() => (maginfiedImage = variant.node)}
                 >
-                  <span class="p-1 bg-white bg-opacity-50 rounded-full shadow-xl">
-                    <Icon src={ChevronLeft} theme="solid" class="w-5" />
-                  </span>
+                  <ResponsiveImage
+                    {...toResponsiveImage(variant.node)}
+                    id="thumb"
+                    class="rounded-lg aspect-4/3 object-contain bg-white"
+                  />
                 </button>
-                <button
-                  on:click={() => {
-                    changeHighlightedImage('next');
-                  }}
-                  class="h-full flex justify-end items-center w-1/4"
-                >
-                  <span class="p-1 bg-white bg-opacity-50 rounded-full shadow-xl">
-                    <Icon src={ChevronRight} theme="solid" class="w-5" />
-                  </span>
-                </button>
-              </div>
-            {/if}
-          </div>
-        {/key}
-        <div class="flex h-20 items-center space-x-2 overflow-x-auto mt-2">
+              </SplideSlide>
+            {/each}
+          </Splide>
+        </div>
+        <Splide
+          bind:this={navSplide}
+          class="flex h-20 mt-2"
+          options={{
+            type: 'slide',
+            rewind: true,
+            gap: '0.8rem',
+            pagination: false,
+            cover: true,
+            isNavigation: true,
+            autoWidth: true,
+            arrows: false
+          }}
+        >
           {#each data.body.product.images.edges as variant, i}
-            <button
-              on:click={() => {
-                currentImageIndex = i;
-              }}
-              class="h-full aspect-4/3 overflow-hidden bg-white flex-shrink-0 rounded-lg"
+            <SplideSlide
+              class="h-full aspect-4/3 overflow-hidden bg-white flex-shrink-0 rounded-lg opacity-70 focus:opacity-100"
             >
               <ResponsiveImage
                 {...toResponsiveImage(variant.node)}
-                class="rounded-lg aspect-4/3 object-contain bg-white"
+                class="object-contain w-full h-full"
               />
-            </button>
+            </SplideSlide>
           {/each}
-        </div>
+        </Splide>
         <hr class="h-hr bg-white hidden md:block md:mt-10" />
       </div>
-      <div class="h-full md:pt-2">
+      <div class="h-full md:pt-2 magnifier-preview" id="preview">
         <div class="flex flex-col space-y-2">
           <h1 class="text-3xl font-bold">{product.title}</h1>
           <div class="flex flex-col font-light">

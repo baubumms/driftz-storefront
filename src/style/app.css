@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Aleo:wght@700&family=Overpass:ital,wght@0,300;0,500;0,700;0,900;1,300&display=swap');
+@import '@splidejs/svelte-splide/css/core';
 
 @tailwind base;
 @tailwind components;
@@ -36,4 +37,28 @@
   .shopify-editor ul {
     @apply list-disc list-inside;
   }
+}
+
+.splide__arrow {
+  @apply absolute z-10 h-full  items-center px-2 hidden md:flex;
+}
+
+.splide__arrows .splide__arrow--next {
+  @apply right-0;
+}
+
+.splide__arrow svg {
+  @apply fill-current text-white w-8 h-8 rounded-full bg-black bg-opacity-10 p-2 mx-2 transition-all hover:bg-opacity-30 hover:scale-125;
+}
+
+.splide__arrows .splide__arrow--prev svg {
+  @apply transform rotate-180;
+}
+
+.splide__arrows .splide__arrow--next svg {
+  @apply float-right;
+}
+
+.splide .is-active {
+  @apply opacity-100;
 }

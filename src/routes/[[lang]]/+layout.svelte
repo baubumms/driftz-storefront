@@ -1,5 +1,5 @@
 <script>
-  import '$/app.css';
+  import '$/style/app.css';
   import Header from '$components/Header.svelte';
   import Footer from '$components/Footer.svelte';
   import ShoppingCart from '$components/ShoppingCart.svelte';

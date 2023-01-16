@@ -14,7 +14,7 @@
 
 <Link
   href="/product/{handle}"
-  class="flex flex-col space-y-2 transition-opacity duration-500 rounded-lg group md:w-60 lg:w-64"
+  class="inline-flex flex-col space-y-2 transition-opacity duration-500 rounded-lg group md:w-60 lg:w-64"
 >
   <div class="flex flex-col items-center justify-center w-full">
     <ResponsiveImage

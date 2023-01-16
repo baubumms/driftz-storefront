@@ -7,6 +7,7 @@
   export let alt: IResponsiveImage['alt'];
   let className = '';
   export { className as class };
+  export let id: string = undefined;
 </script>
 
 <picture>
@@ -20,5 +21,5 @@
   <source media="(max-width: 1400px)" srcset={srcSet.w1400} type="image/jpeg" />
   <source media="(max-width: 2000px)" srcset={srcSet.w2000} type="image/jpeg" />
   <source srcset={srcSet.wMax} type="image/jpeg" />
-  <img src={srcSet.fallbackSrc} {alt} {width} {height} loading="lazy" class={className} />
+  <img src={srcSet.fallbackSrc} {alt} {width} {height} loading="lazy" class={className} {id} />
 </picture>
