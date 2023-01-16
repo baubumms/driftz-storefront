@@ -1,3 +1,6 @@
 {
   "extends": "./.svelte-kit/tsconfig",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true
+  }
 }
