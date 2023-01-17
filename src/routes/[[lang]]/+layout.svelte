@@ -8,6 +8,7 @@
   import { createCart } from '$lib/shopifyStorefront';
   import { Logger } from '$lib/logger';
   import { _ } from 'svelte-i18n';
+  import { browser } from '$app/environment';
 
   const logger = new Logger('layout');
 
@@ -29,7 +30,7 @@
       let difference = currentDate - cartCreatedAt;
       let totalDays = Math.ceil(difference / (1000 * 3600 * 24));
       let cartIdExpired = totalDays > 6;
-      if (cartId === 'undefined' || cartId === 'null' || cartIdExpired) {
+      if (cartId === undefined || cartId === null || cartIdExpired) {
         await callCreateCart();
       }
       await loadCart();
@@ -45,7 +46,7 @@
   async function callCreateCart() {
     const cartRes = await createCart();
 
-    if (typeof window !== 'undefined') {
+    if (browser) {
       localStorage.setItem('cartCreatedAt', Date.now());
       localStorage.setItem('cartId', JSON.stringify(cartRes.body?.data?.cartCreate?.cart?.id));
       localStorage.setItem(

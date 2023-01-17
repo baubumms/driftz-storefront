@@ -10,6 +10,7 @@
   import { toResponsiveImage } from '$lib/image';
   import { Splide, SplideSlide } from '@splidejs/svelte-splide';
   import { afterUpdate, onMount } from 'svelte';
+  import { browser } from '$app/environment';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -51,7 +52,7 @@
     let variantId;
     let cartId;
 
-    if (typeof window !== 'undefined') {
+    if (browser) {
       cartId = JSON.parse(localStorage.getItem('cartId'));
     }
 
@@ -82,7 +83,6 @@
     if (highlightSplide && navSplide) {
       highlightSplide.sync(navSplide.splide);
     }
-    console.log('splide', navSplide, highlightSplide);
   });
 </script>
 

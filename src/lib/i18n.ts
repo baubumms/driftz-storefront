@@ -102,8 +102,6 @@ const redirectToLocale = (targetLocale: LangCode) => {
 export const redirectToCookieLocale = () => {
   const cookieLocale = getClientCookieLocale();
 
-  console.log(cookieLocale, getLocale());
-
   if (cookieLocale != getLocale()) {
     redirectToLocale(cookieLocale);
   }
