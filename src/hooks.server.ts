@@ -44,7 +44,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   });
 
   if (!cookieLang) {
-    response.headers.set('Set-Cookie', `locale=${langCode}`);
+    response.headers.set('Set-Cookie', `locale=${langCode}; Path=/`);
   }
 
   return response;
