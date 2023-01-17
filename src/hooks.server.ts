@@ -29,7 +29,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         location:
           event.url.origin +
           transformRelativeI18nUrl(event.url.pathname, urlLang, browserLang as LangCode),
-        'Set-Cookie': `locale=${browserLang}`
+        'Set-Cookie': `locale=${browserLang}; Path=/`
       }
     });
   }

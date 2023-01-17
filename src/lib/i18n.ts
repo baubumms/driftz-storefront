@@ -1,7 +1,7 @@
 // src/lib/i18n/index.ts
 import { browser } from '$app/environment';
 import type { LangCode } from '$types/I18n';
-import { init, register, getLocaleFromPathname, locale } from 'svelte-i18n';
+import { init, register, locale } from 'svelte-i18n';
 import { get } from 'svelte/store';
 
 export const defaultLocale = 'en';
@@ -91,4 +91,43 @@ export const transformRelativeI18nUrl = (
   }
 
   return newUrl;
+};
+
+const redirectToLocale = (targetLocale: LangCode) => {
+  window.location.href =
+    location.origin +
+    transformRelativeI18nUrl(location.pathname, getLocale(), targetLocale as LangCode);
+};
+
+export const redirectToCookieLocale = () => {
+  const cookieLocale = getClientCookieLocale();
+
+  console.log(cookieLocale, getLocale());
+
+  if (cookieLocale != getLocale()) {
+    redirectToLocale(cookieLocale);
+  }
+};
+
+export const updateClientLocale = (targetLocale: LangCode) => {
+  if (targetLocale == getLocale()) {
+    return;
+  }
+
+  setClientLocaleCookie(targetLocale);
+
+  redirectToLocale(targetLocale);
+};
+
+const getClientCookieLocale = () => {
+  const cookie = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith('locale='))
+    .split('=')[1];
+
+  return correctLocale(cookie);
+};
+
+const setClientLocaleCookie = (targetLocale: LangCode) => {
+  document.cookie = 'locale=' + targetLocale + ';path=/;max-age=31536000';
 };

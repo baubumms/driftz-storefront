@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Icon } from '@steeze-ui/svelte-icon';
   import { Language } from '@steeze-ui/heroicons';
-  import { locales, defaultLocale, transformRelativeI18nUrl } from '$lib/i18n';
+  import { locales, defaultLocale, transformRelativeI18nUrl, updateClientLocale } from '$lib/i18n';
   import { locale, _ } from 'svelte-i18n';
   import cn from 'classnames';
   import type { LangCode } from '$types/I18n';
@@ -12,17 +12,7 @@
     showMenu = !showMenu;
   };
 
-  const setLocale = (targetLocale: string) => {
-    if (targetLocale == $locale) {
-      return;
-    }
-
-    document.cookie = 'locale=' + targetLocale + ';path=/;max-age=31536000';
-
-    window.location.href =
-      location.origin +
-      transformRelativeI18nUrl(location.pathname, $locale, targetLocale as LangCode);
-  };
+  const updateLocale = (target) => updateClientLocale(target as LangCode);
 </script>
 
 <div class="relative">
@@ -51,7 +41,7 @@
           'bg-bg-accent': $locale === l
         })}
         on:click={() => {
-          setLocale(l);
+          updateLocale(l);
         }}
       >
         <img
