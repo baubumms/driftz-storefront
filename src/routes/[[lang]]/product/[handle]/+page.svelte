@@ -18,7 +18,6 @@
   let selectedOptions = {};
   let cartLoading = false;
   let inStock;
-  let currentImageIndex = 0;
   const product = data?.body?.product;
   const options = data.body.product.options.filter(
     (option) => option?.values[0] !== DEFAULT_VARIANT_TITLE
@@ -55,8 +54,9 @@
     return ret;
   };
 
-  const updateSelectedVariant = () => {
-    selectedVariant = getVariantBySelectedOptions(selectedOptions);
+  const updateSelectedVariant = (options) => {
+    selectedOptions = options;
+    selectedVariant = getVariantBySelectedOptions(options);
   };
 
   async function addToCart() {
@@ -198,8 +198,7 @@
               {#each option.values as value}
                 <button
                   on:click={() => {
-                    selectedOptions = { ...selectedOptions, [option.name]: value };
-                    updateSelectedVariant();
+                    updateSelectedVariant({ ...selectedOptions, [option.name]: value });
                   }}
                   class={cn(
                     'px-3 py-1 transition duration-300 ease-in-out hover:bg-opacity-100 rounded-lg border-white border flex-shrink-0',
