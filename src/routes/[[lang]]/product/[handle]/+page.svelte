@@ -17,53 +17,58 @@
 
   let selectedOptions = {};
   let cartLoading = false;
+  let inStock;
   let currentImageIndex = 0;
   const product = data?.body?.product;
   const options = data.body.product.options.filter(
     (option) => option?.values[0] !== DEFAULT_VARIANT_TITLE
   );
 
-  const inStock = data?.body?.product?.variants?.edges[0]?.node?.availableForSale;
+  let selectedVariant = data.body.product.variants.edges.find(
+    (variant) => variant.node.availableForSale
+  )?.node;
 
-  $: highlightedImage = data?.body?.product?.images?.edges[currentImageIndex]?.node;
-
-  data?.body?.product?.options.forEach((option) => {
-    selectedOptions = { ...selectedOptions, [option.name]: option.values[0] };
+  selectedVariant.selectedOptions.forEach((option) => {
+    selectedOptions = { ...selectedOptions, [option.name]: option.value };
   });
 
-  function changeHighlightedImage(direction) {
-    if (direction === 'next') {
-      if (currentImageIndex + 1 < data?.body?.product?.images?.edges.length) {
-        currentImageIndex = currentImageIndex + 1;
-      } else {
-        currentImageIndex = 0;
+  console.log({ selectedVariant });
+  $: inStock = selectedVariant.availableForSale;
+
+  const getVariantBySelectedOptions = (options) => {
+    let ret = null;
+    data.body.product.variants.edges.every((variant) => {
+      let result = variant.node.selectedOptions.every((option) => {
+        return options[option.name] === option.value;
+      });
+      console.log({ result });
+      if (result) {
+        ret = variant.node;
+        return false;
       }
-    } else {
-      if (currentImageIndex === 0) {
-        currentImageIndex = data?.body?.product?.images?.edges.length - 1;
-      } else {
-        currentImageIndex = currentImageIndex - 1;
-      }
-    }
-  }
+
+      return true;
+    });
+
+    console.log({ ret });
+
+    return ret;
+  };
+
+  const updateSelectedVariant = () => {
+    selectedVariant = getVariantBySelectedOptions(selectedOptions);
+  };
 
   async function addToCart() {
     cartLoading = true;
-    let variantId;
     let cartId;
 
     if (browser) {
       cartId = JSON.parse(localStorage.getItem('cartId'));
     }
 
-    data.body.product.variants.edges.forEach((variant) => {
-      let result = variant.node.selectedOptions.every((option) => {
-        return selectedOptions[option.name] === option.value;
-      });
-      if (result) {
-        variantId = variant.node.id;
-      }
-    });
+    const variantId = selectedVariant.id;
+    if (!variantId) return;
 
     await fetch('/cart.json', {
       method: 'PATCH',
@@ -194,12 +199,17 @@
                 <button
                   on:click={() => {
                     selectedOptions = { ...selectedOptions, [option.name]: value };
+                    updateSelectedVariant();
                   }}
                   class={cn(
                     'px-3 py-1 transition duration-300 ease-in-out hover:bg-opacity-100 rounded-lg border-white border flex-shrink-0',
                     {
                       'bg-bg-accent text-fg-primary': selectedOptions[option.name] !== value,
-                      'bg-light text-black': selectedOptions[option.name] === value
+                      'bg-light text-black': selectedOptions[option.name] === value,
+                      'opacity-50': !getVariantBySelectedOptions({
+                        ...selectedOptions,
+                        [option.name]: value
+                      }).availableForSale
                     }
                   )}
                 >
