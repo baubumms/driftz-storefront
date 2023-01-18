@@ -8,7 +8,7 @@ export const defaultLocale = 'en';
 export const additionalLocales = ['de'];
 
 // They have to follow the order [defaultLocale, additionalLocales[0], additionalLocales[1], ...]
-export const locales = [defaultLocale, ...additionalLocales];
+export const allLocales = [defaultLocale, ...additionalLocales];
 export const localeUrlHandles = ['', ...additionalLocales.map((key) => `/${key}`)];
 
 export const i18nInit = async (initialLocale: string) => {

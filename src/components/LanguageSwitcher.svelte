@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Icon } from '@steeze-ui/svelte-icon';
   import { Language } from '@steeze-ui/heroicons';
-  import { locales, defaultLocale, transformRelativeI18nUrl, updateClientLocale } from '$lib/i18n';
+  import { allLocales, updateClientLocale } from '$lib/i18n';
   import { locale, _ } from 'svelte-i18n';
   import cn from 'classnames';
   import type { LangCode } from '$types/I18n';
@@ -34,7 +34,7 @@
       }
     )}
   >
-    {#each locales as l}
+    {#each allLocales as l}
       <button
         class={cn('text-fg-primary flex p-2 first:rounded-t-lg last:rounded-b-lg', {
           'bg-bg-primary': $locale !== l,

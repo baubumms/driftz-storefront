@@ -7,8 +7,10 @@
   import { onMount } from 'svelte';
   import { createCart } from '$lib/shopifyStorefront';
   import { Logger } from '$lib/logger';
-  import { _ } from 'svelte-i18n';
+  import { _, locale } from 'svelte-i18n';
+  import { allLocales, defaultLocale, transformRelativeI18nUrl } from '$lib/i18n';
   import { browser } from '$app/environment';
+  import { page } from '$app/stores';
 
   const logger = new Logger('layout');
 
@@ -105,6 +107,20 @@
 <svelte:head>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <meta name="description" content={$_('general.page_description')} />
+  {#each allLocales.filter((l) => l != $locale) as l}
+    <link
+      rel="alternate"
+      hreflang={l}
+      href={$page.url.origin + transformRelativeI18nUrl($page.url.pathname, $locale, l)}
+    />
+  {/each}
+  {#if defaultLocale != $locale}
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={$page.url.origin + transformRelativeI18nUrl($page.url.pathname, $locale, defaultLocale)}
+    />
+  {/if}
 </svelte:head>
 
 <main class={`${showCart ? 'h-screen' : 'min-h-screen'} text-fg-primary font-overpass`}>

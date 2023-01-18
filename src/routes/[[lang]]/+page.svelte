@@ -22,13 +22,6 @@
 
 <svelte:head>
   <title>{$_('home.page_title')}</title>
-
-  {#if $locale === 'en'}
-    <link rel="alternate" href={`${STOREFRONT_URL}/de`} hreflang="de" />
-  {:else if $locale === 'de'}
-    <link rel="alternate" href={`${STOREFRONT_URL}`} hreflang="en" />
-    <link rel="alternate" href={`${STOREFRONT_URL}`} hreflang="x-default" />
-  {/if}
 </svelte:head>
 
 <main class="flex flex-col space-y-10">
