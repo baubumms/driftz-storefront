@@ -31,7 +31,6 @@
     selectedOptions = { ...selectedOptions, [option.name]: option.value };
   });
 
-  console.log({ selectedVariant });
   $: inStock = selectedVariant.availableForSale;
 
   const getVariantBySelectedOptions = (options) => {
@@ -40,7 +39,6 @@
       let result = variant.node.selectedOptions.every((option) => {
         return options[option.name] === option.value;
       });
-      console.log({ result });
       if (result) {
         ret = variant.node;
         return false;
@@ -48,8 +46,6 @@
 
       return true;
     });
-
-    console.log({ ret });
 
     return ret;
   };
