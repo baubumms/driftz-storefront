@@ -22,19 +22,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     event.request.headers.get('Accept-Language')?.split(',')[0]?.split('-')[0] ?? defaultLocale;
   const cookieLang = event.cookies.get('locale');
 
-  if (!cookieLang && urlLang !== browserLang) {
-    return new Response(null, {
-      status: 302,
-      headers: {
-        location:
-          event.url.origin +
-          transformRelativeI18nUrl(event.url.pathname, urlLang, browserLang as LangCode),
-        'Set-Cookie': `locale=${browserLang}; Path=/`
-      }
-    });
-  }
-
-  const langCode = correctLocale(cookieLang);
+  const langCode = cookieLang != undefined ? correctLocale(cookieLang) : correctLocale(browserLang);
 
   await i18nInit(langCode);
   initShopifyApi(langCode);
