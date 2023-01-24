@@ -18,11 +18,11 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   const urlLang = correctLocale(getLocaleFromParms(event.params as { lang: string }));
-  const browserLang =
-    event.request.headers.get('Accept-Language')?.split(',')[0]?.split('-')[0] ?? defaultLocale;
+  // const browserLang =
+  //   event.request.headers.get('Accept-Language')?.split(',')[0]?.split('-')[0] ?? defaultLocale;
   const cookieLang = event.cookies.get('locale');
 
-  const langCode = cookieLang != undefined ? correctLocale(cookieLang) : correctLocale(browserLang);
+  const langCode = urlLang;
 
   await i18nInit(langCode);
   initShopifyApi(langCode);

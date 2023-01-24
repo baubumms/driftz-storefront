@@ -13,8 +13,6 @@ export const load = async ({ params, data, cookies }) => {
   if (browser) {
     await i18nInit(serverLocale);
     initShopifyApi(serverLocale);
-
-    redirectToCookieLocale();
   }
 
   return data;
