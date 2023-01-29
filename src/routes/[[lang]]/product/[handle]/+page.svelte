@@ -1,5 +1,4 @@
 <script lang="ts">
-  import ProductImage from '$components/ProductImage.svelte';
   import { getCartItems } from '$stores/cart';
   import cn from 'classnames';
   import { Icon } from '@steeze-ui/svelte-icon';
@@ -9,7 +8,7 @@
   import ResponsiveImage from '$components/ResponsiveImage.svelte';
   import { toResponsiveImage } from '$lib/image';
   import { Splide, SplideSlide } from '@splidejs/svelte-splide';
-  import { afterUpdate, onMount } from 'svelte';
+  import { onMount } from 'svelte';
   import { browser } from '$app/environment';
 
   /** @type {import('./$types').PageData} */
@@ -27,16 +26,16 @@
     (variant) => variant.node.availableForSale
   )?.node;
 
-  selectedVariant.selectedOptions.forEach((option) => {
-    selectedOptions = { ...selectedOptions, [option.name]: option.value };
+  selectedVariant?.selectedOptions.forEach((option) => {
+    selectedOptions[option.name] = option.value;
   });
 
-  $: inStock = selectedVariant.availableForSale;
+  $: inStock = selectedVariant?.availableForSale ?? false;
 
   const getVariantBySelectedOptions = (options) => {
     let ret = null;
     data.body.product.variants.edges.every((variant) => {
-      let result = variant.node.selectedOptions.every((option) => {
+      let result = variant.node?.selectedOptions?.every((option) => {
         return options[option.name] === option.value;
       });
       if (result) {
