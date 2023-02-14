@@ -18,7 +18,7 @@ export const generateSiteMap = async (locale: LangCode) => {
     formatedCalculators()
   ]).then((blocks) => blocks.join(''));
 
-  const body = `<?xml version="1.0" encoding="UTF-8" ?>
+  const body = `<xml version="1.0" encoding="UTF-8">
     <urlset
       xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
       xmlns:news="https://www.google.com/schemas/sitemap-news/0.9"
@@ -28,7 +28,8 @@ export const generateSiteMap = async (locale: LangCode) => {
       xmlns:video="https://www.google.com/schemas/sitemap-video/1.1"
     >
       ${linkXml}
-    </urlset>`;
+    </urlset>
+    </xml>`;
 
   return body;
 };
