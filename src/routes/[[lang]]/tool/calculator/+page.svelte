@@ -6,11 +6,19 @@
   import Link from '$components/Link.svelte';
   import { Icon } from '@steeze-ui/svelte-icon';
   import { ArrowRight } from '@steeze-ui/heroicons';
+  import MetaTags from '$components/MetaTags.svelte';
 </script>
 
-<svelte:head>
-  <title>{$_('tool.calculator.title').toLocaleLowerCase()} - driftz.eu</title>
-</svelte:head>
+<MetaTags
+  tags={{
+    description: $_('tool.calculator.description'),
+    image: {
+      alt: $_('tool.calculator.title'),
+      src: '/assets/calculator.svg'
+    },
+    title: $_('tool.calculator.title').toLocaleLowerCase() + ' - driftz.eu'
+  }}
+/>
 
 <div class="flex flex-col">
   <div class="py-7">

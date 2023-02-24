@@ -10,6 +10,8 @@
   import { Splide, SplideSlide } from '@splidejs/svelte-splide';
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
+  import MetaTags from '$components/MetaTags.svelte';
+  import { strPrice } from '$lib/price';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -86,9 +88,16 @@
   });
 </script>
 
-<svelte:head>
-  <title>{data.body.product.title}</title>
-</svelte:head>
+<MetaTags
+  tags={{
+    description: product.description,
+    image: {
+      alt: product.images.edges[0]?.node.alt,
+      src: product.images.edges[0]?.node.w720
+    },
+    title: data.body.product.title
+  }}
+/>
 
 {#if maginfiedImage}
   <button
@@ -171,6 +180,16 @@
       <div class="h-full md:pt-2 magnifier-preview" id="preview">
         <div class="flex flex-col space-y-2">
           <h1 class="text-3xl font-bold">{product.title}</h1>
+          <div>
+          <span class="text-xl">
+            {strPrice(selectedVariant.priceV2.amount)}
+          </span>
+          {#if selectedVariant.compareAtPriceV2}
+            <span class="text-sm line-through ml-2 text-fg-secondary">
+              {strPrice(selectedVariant.compareAtPriceV2.amount)}
+            </span>
+          {/if}
+        </div>
           <div class="flex flex-col font-light">
             <table class="border-separate border-spacing-y-1">
               <tbody>

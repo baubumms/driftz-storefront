@@ -7,11 +7,12 @@ const config = {
     adapter: adapter(),
     alias: {
       $components: 'src/components',
-      $locales: 'src/locales',      
+      $locales: 'src/locales',
       $lib: 'src/lib',
       $stores: 'src/stores',
       $types: 'src/types',
       $: 'src',
+      $assets: 'src/assets'
     }
   },
   preprocess: [

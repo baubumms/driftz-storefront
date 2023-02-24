@@ -7,6 +7,7 @@
   import cn from 'classnames';
   import { locale } from 'svelte-i18n';
   import type { IMathForm } from '$types/MathForm';
+  import MetaTags from '$components/MetaTags.svelte';
 
   /** @type {import('./$types').PageData} */
   export let data: { Calculator: IMathForm };
@@ -71,9 +72,16 @@
   $: evaluate();
 </script>
 
-<svelte:head>
-  <title>{Calculator.title[$locale].toLowerCase()} - driftz.eu</title>
-</svelte:head>
+<MetaTags
+  tags={{
+    description: $_('tool.calculator.description'),
+    image: {
+      alt: $_('tool.calculator.title'),
+      src: '/assets/calculator.svg'
+    },
+    title: Calculator.title[$locale].toLowerCase() + ' - driftz.eu'
+  }}
+/>
 
 <div class="container mt-2 grid grid-cols-1 md:grid-cols-2 gap-6">
   <div>

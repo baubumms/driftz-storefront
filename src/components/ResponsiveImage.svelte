@@ -11,11 +11,6 @@
 </script>
 
 <picture>
-  <source media="(max-width: 360px)" srcset={srcSet.w360} type="image/webp" />
-  <source media="(max-width: 720px)" srcset={srcSet.w720} type="image/webp" />
-  <source media="(max-width: 1400px)" srcset={srcSet.w1400} type="image/webp" />
-  <source media="(max-width: 2000px)" srcset={srcSet.w2000} type="image/webp" />
-  <source srcset={srcSet.wMax} type="image/webp" />
   <source media="(max-width: 360px)" srcset={srcSet.w360} type="image/jpeg" />
   <source media="(max-width: 720px)" srcset={srcSet.w720} type="image/jpeg" />
   <source media="(max-width: 1400px)" srcset={srcSet.w1400} type="image/jpeg" />

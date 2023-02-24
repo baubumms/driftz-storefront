@@ -36,7 +36,7 @@
     "refund_policy": "Rückgabe & Umtausch",
     "calculators": "Rechner & Tools"
   },
-  "product":{
+  "product": {
     "not_in_stock": "Nicht auf Lager",
     "add_to_cart": "In den Warenkorb"
   },
@@ -49,7 +49,8 @@
     "checkout": "Zur Kasse"
   },
   "blog": {
-    "read_more": "Zeig mir mehr"
+    "read_more": "Zeig mir mehr",
+    "page_description": "Resources and inspiration for your next project."
   },
   "i18n": {
     "languages": {
@@ -57,5 +58,8 @@
       "en": "English"
     },
     "flag_of": "Flagge für die Sprache"
+  },
+  "meta_tags": {
+    "default_image_alt": "Bild eines Go-Karts"
   }
 }

@@ -116,10 +116,13 @@ export async function getAllCollectionsWithContent() {
                 node {
                     title
                     handle
+                  	image{
+											src: transformedSrc(preferredContentType: WEBP, maxWidth: 1200, maxHeight: 630)
+                      altText
+                    }
                     products(
                         first: 100,
                         sortKey: TITLE
-
                     ) {
                         edges{
                             node {

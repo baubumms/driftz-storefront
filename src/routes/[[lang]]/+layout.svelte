@@ -105,8 +105,8 @@
 </script>
 
 <svelte:head>
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <meta name="description" content={$_('general.page_description')} />
+  <link rel="icon" href="/favicon.svg" type="/image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   {#each allLocales.filter((l) => l != $locale) as l}
     <link
       rel="alternate"
@@ -120,6 +120,9 @@
       hreflang="x-default"
       href={$page.url.origin + transformRelativeI18nUrl($page.url.pathname, $locale, defaultLocale)}
     />
+  {/if}
+  {#if $page.url.search != ''}
+    <link rel="canonical" href={$page.url.origin + $page.url.pathname} />
   {/if}
 </svelte:head>
 

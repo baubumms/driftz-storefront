@@ -1,5 +1,5 @@
 module.exports = {
-  content: ['./src/**/*.{html,js,svelte,ts}', './static/**/*.{css}'],
+  content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     fontFamily: {
       aleo: ['Aleo', 'serif'],
@@ -24,7 +24,7 @@ module.exports = {
         light: '#FAFAFA',
 
         'fg-primary': '#fff',
-        'fg-secondary': '#181818',
+        'fg-secondary': '#9e9a9a',
         'bg-primary': '#071113',
         'bg-accent': '#073D4F',
         'bg-accent-dark': '#0A2E3B'

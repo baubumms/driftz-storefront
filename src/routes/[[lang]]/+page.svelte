@@ -1,14 +1,13 @@
 <script>
   import { indexedObjToArray } from '$lib/object';
-  import { _, locale } from 'svelte-i18n';
-  import { STOREFRONT_URL } from '$lib/constants';
-  import ResponsiveImage from '$components/ResponsiveImage.svelte';
-  import { toResponsiveImage } from '$lib/image';
+  import { _ } from 'svelte-i18n';
   import { Icon } from '@steeze-ui/svelte-icon';
   import { ArrowLongRight } from '@steeze-ui/heroicons';
   import H1 from '$components/H1.svelte';
   import H2 from '$components/H2.svelte';
   import Link from '$components/Link.svelte';
+  import MetaTags from '$components/MetaTags.svelte';
+  import OGImageSrc from '$assets/home-hero.jpg?w=1200&h=630&fit=cover';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -20,20 +19,27 @@
   const { blogArticles } = data;
 </script>
 
-<svelte:head>
-  <title>{$_('home.page_title')}</title>
-</svelte:head>
+<MetaTags
+  tags={{
+    description: $_('home.page_title'),
+    image: {
+      alt: $_('tool.calculator.title'),
+      src: '/assets/calculator.svg'
+    },
+    title: $_('home.page_title').toLocaleLowerCase() + ' - driftz.eu'
+  }}
+/>
 
 <main class="flex flex-col space-y-10">
   <section class="relative md:container">
     <img
       loading="lazy"
-      src="/assets/home-hero.jpg"
+      src={OGImageSrc}
       alt="Header background"
-      class="w-full md:rounded-lg object-cover md:h-96"
+      class="w-full object-cover md:h-96 md:rounded-lg"
     />
-    <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-      <p class="text-5xl md:text-8xl stroke-black text-center drop-shadow-2xl font-black uppercase">
+    <div class="absolute top-0 left-0 flex h-full w-full items-center justify-center">
+      <p class="stroke-black text-center text-5xl font-black uppercase drop-shadow-2xl md:text-8xl">
         {$_('home.hero_title')}
       </p>
     </div>
@@ -45,7 +51,7 @@
           <H1>{collection?.node?.title}</H1>
 
           <div class="w-full overflow-x-auto">
-            <div class="grid grid-cols-2 md:flex md:gap-0 overflow-x-auto gap-2 md:space-x-5 w-fit">
+            <div class="grid w-fit grid-cols-2 gap-2 overflow-x-auto md:flex md:gap-0 md:space-x-5">
               {#each collection.node.products.edges as product}
                 <ProductCard
                   title={product.node.shortTitle ?? product.node.title}
@@ -76,11 +82,11 @@
   <section class="container flex flex-col transition-all">
     <H1>{$_('home.blog_section_title')}</H1>
     <BlogArticles articles={blogArticles} />
-    <Link href="/blog" class="text-center group mt-4"
+    <Link href="/blog" class="group mt-4 text-center"
       ><H2
         ><span>{$_('blog.read_more')}</span><Icon
           src={ArrowLongRight}
-          class="w-6 inline ml-1 transition-all transform group-hover:translate-x-2"
+          class="ml-1 inline w-6 transform transition-all group-hover:translate-x-2"
           theme="solid"
         /></H2
       ></Link

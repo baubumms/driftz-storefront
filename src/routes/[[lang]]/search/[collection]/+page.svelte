@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import MetaTags from '$components/MetaTags.svelte';
   import ProductCard from '$components/ProductCard.svelte';
   import { toResponsiveImage } from '$lib/image';
 
@@ -17,6 +18,17 @@
 <svelte:head>
   <title>{collection?.title?.toLowerCase()} - driftz.eu</title>
 </svelte:head>
+
+<MetaTags
+  tags={{
+    description: collection.description,
+    image: {
+      alt: collection.image?.alt,
+      src: collection.image?.src
+    },
+    title: collection.title?.toLowerCase() + ' - driftz.eu'
+  }}
+/>
 
 <div class="w-full">
   {#if collection}
