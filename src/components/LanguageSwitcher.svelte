@@ -20,7 +20,7 @@
     <Icon src={Language} theme="solid" class="w-6" />
 
     <img
-      src="/flags/{$locale}.svg"
+      src="/resources/flags/{$locale}.svg"
       class="w-4 h-4 absolute bottom-4 left-4"
       loading="lazy"
       alt={$_('i18n.flag_of') + ' ' + $_('i18n.languages.' + $locale)}
@@ -45,7 +45,7 @@
         }}
       >
         <img
-          src="/flags/{l}.svg"
+          src="/resources/flags/{l}.svg"
           class="w-6 h-6"
           loading="lazy"
           alt={$_('i18n.flag_of') + ' ' + $_('i18n.languages.' + l)}

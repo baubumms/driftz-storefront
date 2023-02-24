@@ -24,7 +24,7 @@
     description: $_('home.page_title'),
     image: {
       alt: $_('tool.calculator.title'),
-      src: '/assets/calculator.svg'
+      src: '/resources/calculator.svg'
     },
     title: $_('home.page_title').toLocaleLowerCase() + ' - driftz.eu'
   }}

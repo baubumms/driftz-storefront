@@ -14,7 +14,7 @@
     description: $_('tool.calculator.description'),
     image: {
       alt: $_('tool.calculator.title'),
-      src: '/assets/calculator.svg'
+      src: '/resources/calculator.svg'
     },
     title: $_('tool.calculator.title').toLocaleLowerCase() + ' - driftz.eu'
   }}
