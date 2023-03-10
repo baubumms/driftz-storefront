@@ -2,7 +2,7 @@
   import { getCartItems } from '$stores/cart';
   import cn from 'classnames';
   import { Icon } from '@steeze-ui/svelte-icon';
-  import { Check, ChevronRight, ChevronLeft } from '@steeze-ui/heroicons';
+  import { Check } from '@steeze-ui/heroicons';
   import { _ } from 'svelte-i18n';
   import { DEFAULT_VARIANT_TITLE } from '$lib/product';
   import ResponsiveImage from '$components/ResponsiveImage.svelte';
@@ -193,14 +193,16 @@
           <div class="flex flex-col font-light">
             <table class="border-separate border-spacing-y-1">
               <tbody>
-                {#each product.highlightsMultiline.value
-                  .split('\n')
-                  .map((v) => v.trim()) as highlight}
-                  <tr class="pb-5">
-                    <td class="flex h-full"><Icon src={Check} theme="mini" class="w-6" /></td>
-                    <td class="text-md w-full">{highlight}</td>
-                  </tr>
-                {/each}
+                {#if product.highlightsMultiline?.value !== undefined}
+                  {#each product.highlightsMultiline.value
+                    .split('\n')
+                    .map((v) => v.trim()) as highlight}
+                    <tr class="pb-5">
+                      <td class="flex h-full"><Icon src={Check} theme="mini" class="w-6" /></td>
+                      <td class="text-md w-full">{highlight}</td>
+                    </tr>
+                  {/each}
+                {/if}
               </tbody>
             </table>
           </div>
