@@ -303,6 +303,7 @@ export async function getProduct(handle) {
                     title
                     sku
                     availableForSale
+                    quantityAvailable
                     requiresShipping
                     selectedOptions {
                         name

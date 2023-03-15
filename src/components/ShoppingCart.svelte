@@ -53,7 +53,7 @@
     {#if items.length === 0}
       <div class="flex-grow flex w-full flex-col items-center justify-center overflow-hidden">
         <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white">
-          <Icon src={ShoppingBag} theme="solid" class="h-10 text-black" />
+          <Icon src={ShoppingBag} theme="solid" class="h-10 text-bg-accent" />
         </div>
         <span class="mt-6 text-center text-2xl font-bold">{$_('cart.empty')}</span>
       </div>

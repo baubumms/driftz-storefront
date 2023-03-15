@@ -32,7 +32,10 @@
     selectedOptions[option.name] = option.value;
   });
 
+  console.log({ selectedVariant });
   $: inStock = selectedVariant?.availableForSale ?? false;
+
+  console.log(product.quantityUnitSingle);
 
   const getVariantBySelectedOptions = (options) => {
     let ret = null;
@@ -62,17 +65,24 @@
 
     if (browser) {
       cartId = JSON.parse(localStorage.getItem('cartId'));
+      console.log({ cartId });
     }
 
     const variantId = selectedVariant.id;
-    if (!variantId) return;
+    console.log({ variantId });
+    if (!variantId) {
+      return;
+    }
 
-    await fetch('/cart.json', {
+    const ret = await fetch('/cart.json', {
       method: 'PATCH',
       body: JSON.stringify({ cartId: cartId, variantId: variantId })
     });
     // Wait for the API to finish before updating cart items
     await getCartItems();
+
+    const body = await ret.body.getReader().read();
+    console.log({ body });
 
     cartLoading = false;
   }
@@ -101,17 +111,17 @@
 
 {#if maginfiedImage}
   <button
-    class="fixed w-screen h-screen z-40 top-0 left-0 bg-bg-primary bg-opacity-50"
+    class="fixed top-0 left-0 z-40 h-screen w-screen bg-bg-primary bg-opacity-50"
     on:click={() => (maginfiedImage = undefined)}
   >
-    <ResponsiveImage {...toResponsiveImage(maginfiedImage)} class="object-contain w-full h-full" />
+    <ResponsiveImage {...toResponsiveImage(maginfiedImage)} class="h-full w-full object-contain" />
   </button>
   <button
-    class="fixed bottom-0 z-50 flex justify-center py-3 w-screen"
+    class="fixed bottom-0 z-50 flex w-screen justify-center py-3"
     on:click={() => (maginfiedImage = undefined)}
   >
     <span
-      class="bg-red-700 rounded-full w-10 h-10 flex justify-center items-center font-bold text-2xl"
+      class="flex h-10 w-10 items-center justify-center rounded-full bg-red-700 text-2xl font-bold"
       >x</span
     >
   </button>
@@ -120,7 +130,7 @@
 <div class="mt-3 flex flex-col space-y-5">
   {#if data.body.product}
     <div
-      class="flex flex-col space-y-5 md:space-y-0 container md:grid md:grid-cols-2 md:gap-5 relative"
+      class="container relative flex flex-col space-y-5 md:grid md:grid-cols-2 md:gap-5 md:space-y-0"
     >
       <div class="w-full">
         <div class="relative rounded-lg">
@@ -143,7 +153,7 @@
                   <ResponsiveImage
                     {...toResponsiveImage(variant.node)}
                     id="thumb"
-                    class="rounded-lg aspect-4/3 object-contain bg-white"
+                    class="aspect-4/3 rounded-lg bg-white object-contain"
                   />
                 </button>
               </SplideSlide>
@@ -152,7 +162,7 @@
         </div>
         <Splide
           bind:this={navSplide}
-          class="flex h-20 mt-2"
+          class="mt-2 flex h-20"
           options={{
             type: 'slide',
             rewind: true,
@@ -166,30 +176,36 @@
         >
           {#each data.body.product.images.edges as variant, i}
             <SplideSlide
-              class="h-full aspect-4/3 overflow-hidden bg-white flex-shrink-0 rounded-lg opacity-70 focus:opacity-100"
+              class="aspect-4/3 h-full flex-shrink-0 overflow-hidden rounded-lg bg-white opacity-70 focus:opacity-100"
             >
               <ResponsiveImage
                 {...toResponsiveImage(variant.node)}
-                class="object-contain w-full h-full"
+                class="h-full w-full object-contain"
               />
             </SplideSlide>
           {/each}
         </Splide>
-        <hr class="h-hr bg-white hidden md:block md:mt-10" />
+        <hr class="hidden h-hr bg-white md:mt-10 md:block" />
       </div>
-      <div class="h-full md:pt-2 magnifier-preview" id="preview">
+      <div class="magnifier-preview h-full md:pt-2" id="preview">
         <div class="flex flex-col space-y-2">
           <h1 class="text-3xl font-bold">{product.title}</h1>
           <div>
-          <span class="text-xl">
-            {strPrice(selectedVariant.priceV2.amount)}
-          </span>
-          {#if selectedVariant.compareAtPriceV2}
-            <span class="text-sm line-through ml-2 text-fg-secondary">
-              {strPrice(selectedVariant.compareAtPriceV2.amount)}
+            <span class="text-2xl">
+              {strPrice(selectedVariant.priceV2.amount)}
             </span>
-          {/if}
-        </div>
+            {#if selectedVariant.compareAtPriceV2}
+              <span class="ml-2 text-sm text-fg-secondary line-through">
+                {strPrice(selectedVariant.compareAtPriceV2.amount)}
+              </span>
+            {/if}
+            <p class="text-sm font-light text-fg-secondary">
+              {selectedVariant.quantityAvailable}{selectedVariant.quantityAvailable <= 1
+                ? product.quantityUnitSingle?.value
+                : product.quantityUnitMultiple?.value}
+              {$_('general.available')}
+            </p>
+          </div>
           <div class="flex flex-col font-light">
             <table class="border-separate border-spacing-y-1">
               <tbody>
@@ -217,7 +233,7 @@
                     updateSelectedVariant({ ...selectedOptions, [option.name]: value });
                   }}
                   class={cn(
-                    'px-3 py-1 transition duration-300 ease-in-out hover:bg-opacity-100 rounded-lg border-white border flex-shrink-0',
+                    'flex-shrink-0 rounded-lg border border-white px-3 py-1 transition duration-300 ease-in-out hover:bg-opacity-100',
                     {
                       'bg-bg-accent text-fg-primary': selectedOptions[option.name] !== value,
                       'bg-light text-black': selectedOptions[option.name] === value,
@@ -237,7 +253,7 @@
         <button
           on:click={addToCart}
           disabled={!inStock}
-          class="mt-6 flex w-full items-center justify-center bg-light p-4 text-sm uppercase tracking-wide text-black opacity-90 cursor"
+          class="cursor mt-6 flex w-full items-center justify-center bg-light p-4 text-sm uppercase tracking-wide text-black opacity-90"
           class:hover:opacity-100={inStock}
           class:cursor-not-allowed={!inStock}
         >
