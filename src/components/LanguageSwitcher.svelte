@@ -21,14 +21,14 @@
 
     <img
       src="/resources/flags/{$locale}.svg"
-      class="w-4 h-4 absolute bottom-4 left-4"
+      class="absolute bottom-4 left-4 h-4 w-4"
       loading="lazy"
       alt={$_('i18n.flag_of') + ' ' + $_('i18n.languages.' + $locale)}
     />
   </button>
   <div
     class={cn(
-      'absolute -left-10 z-30 w-40 border-2 border-bg-primary bg-bg-primary flex flex-col rounded-lg',
+      'absolute -left-10 z-30 flex w-40 flex-col rounded-lg border-2 border-bg-primary bg-bg-primary',
       {
         hidden: !showMenu
       }
@@ -36,7 +36,7 @@
   >
     {#each allLocales as l}
       <button
-        class={cn('text-fg-primary flex p-2 first:rounded-t-lg last:rounded-b-lg', {
+        class={cn('flex p-2 text-fg-primary first:rounded-t-lg last:rounded-b-lg', {
           'bg-bg-primary': $locale !== l,
           'bg-bg-accent': $locale === l
         })}
@@ -46,7 +46,7 @@
       >
         <img
           src="/resources/flags/{l}.svg"
-          class="w-6 h-6"
+          class="h-6 w-6"
           loading="lazy"
           alt={$_('i18n.flag_of') + ' ' + $_('i18n.languages.' + l)}
         />

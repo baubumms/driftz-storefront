@@ -17,6 +17,6 @@ export async function load({ params }) {
       };
     }
 
-    throw error(404)
+    throw error(404);
   }
 }

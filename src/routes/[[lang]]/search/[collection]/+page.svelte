@@ -32,7 +32,7 @@
 
 <div class="w-full">
   {#if collection}
-    <ul class="grid gap-4 grid-cols-2 md:flex flex-wrap w-full">
+    <ul class="grid w-full grid-cols-2 flex-wrap gap-4 md:flex">
       {#each collection.products.edges as product, i (i)}
         <li class="flex-shrink-0">
           <ProductCard

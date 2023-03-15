@@ -15,12 +15,12 @@
   on:click={() => {
     toggle = !toggle;
   }}
-  class="flex w-full border-b border-white/50 py-4 text-sm items-center"
+  class="flex w-full items-center border-b border-white/50 py-4 text-sm"
 >
   <Icon
     src={ChevronRight}
     theme="mini"
-    class={cn('w-6 h-6 transition-all', { 'rotate-90': toggle })}
+    class={cn('h-6 w-6 transition-all', { 'rotate-90': toggle })}
   />
   <div class="ml-4 text-left">
     <div class={cn({ 'mb-4': toggle })}>{title}</div>

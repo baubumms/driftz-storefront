@@ -8,10 +8,10 @@
 @layer components {
   /* general */
   .shopify-editor h1 {
-    @apply text-3xl uppercase font-black mt-4 mb-2;
+    @apply mt-4 mb-2 text-3xl font-black uppercase;
   }
   .shopify-editor h2 {
-    @apply text-2xl uppercase font-medium mt-4 mb-2;
+    @apply mt-4 mb-2 text-2xl font-medium uppercase;
   }
   .shopify-editor iframe {
     @apply max-w-full;
@@ -35,12 +35,12 @@
 
   /* list */
   .shopify-editor ul {
-    @apply list-disc list-inside;
+    @apply list-inside list-disc;
   }
 }
 
 .splide__arrow {
-  @apply absolute z-10 h-full  items-center px-2 hidden md:flex;
+  @apply absolute z-10 hidden  h-full items-center px-2 md:flex;
 }
 
 .splide__arrows .splide__arrow--next {
@@ -48,11 +48,11 @@
 }
 
 .splide__arrow svg {
-  @apply fill-current text-white w-8 h-8 rounded-full bg-black bg-opacity-10 p-2 mx-2 transition-all hover:bg-opacity-30 hover:scale-125;
+  @apply mx-2 h-8 w-8 rounded-full bg-black bg-opacity-10 fill-current p-2 text-white transition-all hover:scale-125 hover:bg-opacity-30;
 }
 
 .splide__arrows .splide__arrow--prev svg {
-  @apply transform rotate-180;
+  @apply rotate-180 transform;
 }
 
 .splide__arrows .splide__arrow--next svg {

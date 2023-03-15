@@ -1,6 +1,6 @@
 <script lang="ts">
   import DefaultImageSrc from '$assets/beer-box.jpg?w=1200&h=630&fit=cover';
-  import {_} from 'svelte-i18n';
+  import { _ } from 'svelte-i18n';
 
   interface IMetaTagsProps {
     title: string;

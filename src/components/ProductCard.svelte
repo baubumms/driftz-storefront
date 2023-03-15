@@ -14,11 +14,11 @@
 
 <Link
   href="/product/{handle}"
-  class="inline-flex flex-col space-y-2 transition-opacity duration-500 rounded-lg group md:w-60 lg:w-64"
+  class="group inline-flex flex-col space-y-2 rounded-lg transition-opacity duration-500 md:w-60 lg:w-64"
 >
-  <div class="flex flex-col items-center justify-center w-full">
+  <div class="flex w-full flex-col items-center justify-center">
     <ResponsiveImage
-      class="aspect-square rounded-lg opacity-90 group-hover:opacity-100 object-cover"
+      class="aspect-square rounded-lg object-cover opacity-90 group-hover:opacity-100"
       srcSet={{
         w360: image.srcSet.w360,
         w720: image.srcSet.w720,
@@ -34,7 +34,7 @@
   </div>
   <div class="flex flex-col items-start justify-center">
     <h2 class="text-lg font-medium">{title}</h2>
-    <div class="flex space-x-2 text-light-gray">
+    <div class="text-light-gray flex space-x-2">
       <span>{formatPrice(price)}</span>
       {#if compareAtPrice}
         <s class="line-through">{formatPrice(compareAtPrice)}</s>

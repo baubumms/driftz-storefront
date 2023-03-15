@@ -13,12 +13,12 @@
   ];
 </script>
 
-<div class="py-10 mt-20 bg-bg-accent">
-  <div class="grid grid-cols-2 md:grid-cols-4 container text-center md:text-left gap-x-2 gap-y-7">
+<div class="mt-20 bg-bg-accent py-10">
+  <div class="container grid grid-cols-2 gap-x-2 gap-y-7 text-center md:grid-cols-4 md:text-left">
     {#each categories as category}
       <div>
-        <h3 class="md:text-xl font-black mb-3 uppercase">{category.title}</h3>
-        <ul class="flex flex-col space-y-3 text-sm md:text-base md:pl-2">
+        <h3 class="mb-3 font-black uppercase md:text-xl">{category.title}</h3>
+        <ul class="flex flex-col space-y-3 text-sm md:pl-2 md:text-base">
           {#each category.items as item}
             <Link href={item.url} target={item.newTab ? '_blank' : ''}>{item.title}</Link>
           {/each}

@@ -28,17 +28,17 @@
   }
 </script>
 
-<nav class="sticky top-0 z-20 bg-bg-accent-dark md:bg-accent">
+<nav class="md:bg-accent sticky top-0 z-20 bg-bg-accent-dark">
   <div class="flex flex-col">
-    <div class="flex items-center container py-3 md:py-4">
+    <div class="container flex items-center py-3 md:py-4">
       <div class="flex items-center ">
-        <Link href="/" class="text-2xl pt-2 md:pt-0 md:pb-1 font-bold font-aleo">driftz.</Link>
-        <div class="hidden md:flex md:pl-2 text-lg">
+        <Link href="/" class="pt-2 font-aleo text-2xl font-bold md:pt-0 md:pb-1">driftz.</Link>
+        <div class="hidden text-lg md:flex md:pl-2">
           {#each mainTabs as tab}
             <div class:active={currentRoute.startsWith(i18nUrl(tab.url))}>
               <Link
                 href={tab.url}
-                class={`hover:opacity-100 px-2 py-1 text-fg-primary rounded-lg ${
+                class={`rounded-lg px-2 py-1 text-fg-primary hover:opacity-100 ${
                   currentRoute.startsWith(i18nUrl(tab.url)) ? 'opacity-100' : 'opacity-75'
                 }`}>{tab.title}</Link
               >
@@ -48,7 +48,7 @@
       </div>
       <div class="flex-1" />
       <LanguageSwitcher />
-      <div class="hidden w-1/3 md:block md:mr-3">
+      <div class="hidden w-1/3 md:mr-3 md:block">
         <SearchBar />
       </div>
       <div class="ml-auto flex items-center text-fg-primary">
@@ -65,13 +65,13 @@
         <NavDrawer bind:show={showDrawer} {navigation} />
       </div>
     </div>
-    <div class="hidden md:block bg-bg-accent py-4">
+    <div class="hidden bg-bg-accent py-4 md:block">
       <div class="container flex">
         {#each collections as tab}
           <div class:active={currentRoute.startsWith(i18nUrl(tab.url))}>
             <Link
               href={tab.url}
-              class={`hover:opacity-100 pr-6 py-1 text-fg-primary rounded-lg ${
+              class={`rounded-lg py-1 pr-6 text-fg-primary hover:opacity-100 ${
                 currentRoute.startsWith(i18nUrl(tab.url)) ? 'opacity-100' : 'opacity-75'
               }`}>{tab.title}</Link
             >

@@ -16,7 +16,7 @@
 </script>
 
 <div class="container">
-  <ul class="grid grid-flow-row gap-4 grid-cols-2 md:flex md:flex-wrap md:w-full">
+  <ul class="grid grid-flow-row grid-cols-2 gap-4 md:flex md:w-full md:flex-wrap">
     {#each displayedProducts as product, i (product.node.id)}
       <li>
         <ProductCard

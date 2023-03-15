@@ -28,18 +28,18 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-1 gap-5 mt-5 md:grid-cols-3 xl:grid-cols-4 container">
+  <div class="container mt-5 grid grid-cols-1 gap-5 md:grid-cols-3 xl:grid-cols-4">
     {#each Object.entries(Calculators) as [handle, calculator]}
       <Link
         href={'calculator/' + handle}
-        class=" bg-bg-accent border-white border-opacity-10 border p-5 group flex flex-col hover:bg-opacity-100 bg-opacity-70 transition-opacity"
+        class=" group flex flex-col border border-white border-opacity-10 bg-bg-accent bg-opacity-70 p-5 transition-opacity hover:bg-opacity-100"
       >
         <H2>{calculator.title[$locale]}</H2>
-        <p class="flex-grow mt-1">{calculator.description[$locale]}</p>
+        <p class="mt-1 flex-grow">{calculator.description[$locale]}</p>
         <p class="mt-5 text-lg font-medium">
           {$_(`tool.calculator.calculate_now`)}<Icon
             src={ArrowRight}
-            class="w-4 inline transition-transform transform ml-1 group-hover:translate-x-2"
+            class="ml-1 inline w-4 transform transition-transform group-hover:translate-x-2"
             theme="solid"
           />
         </p>

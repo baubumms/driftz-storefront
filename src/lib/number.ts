@@ -1,6 +1,5 @@
 import { filledString } from '$lib/string';
 
-
 export const numberToString = (
   number: number,
   decimalPlaces: number,

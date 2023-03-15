@@ -126,7 +126,7 @@
   {/if}
 </svelte:head>
 
-<main class={`${showCart ? 'h-screen' : 'min-h-screen'} text-fg-primary font-overpass`}>
+<main class={`${showCart ? 'h-screen' : 'min-h-screen'} font-overpass text-fg-primary`}>
   {#if showCart}
     <ShoppingCart
       items={cartItems}
@@ -137,9 +137,9 @@
       bind:loading
     />
   {/if}
-  <div class="min-h-screen flex flex-col">
+  <div class="flex min-h-screen flex-col">
     <Header on:openCart={openCart} {navigation} />
-    <div class="flex-grow flex-shrink-0 md:mt-7">
+    <div class="flex-shrink-0 flex-grow md:mt-7">
       <slot />
     </div>
     <Footer {navigation} />

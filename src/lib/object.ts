@@ -1,9 +1,9 @@
 export const indexedObjToArray = (obj) => {
-  try{
+  try {
     return Object.keys(obj).map((k) => {
-        return obj[k];
-      });
-  }catch {
+      return obj[k];
+    });
+  } catch {
     return null;
   }
-}
+};

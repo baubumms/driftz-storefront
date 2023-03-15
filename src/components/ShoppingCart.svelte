@@ -41,28 +41,28 @@
   }
 </script>
 
-<div class="fixed right-0 top-0 z-50 w-full h-full bg-bg-accent md:w-[430px] flex flex-col">
+<div class="fixed right-0 top-0 z-50 flex h-full w-full flex-col bg-bg-accent md:w-[430px]">
   {#if loading}
     <div class="absolute inset-0  z-50" />
   {/if}
   <div class="flex w-full items-center justify-between">
-    <div class="text-2xl font-medium pl-6">{$_('cart.title')}</div>
+    <div class="pl-6 text-2xl font-medium">{$_('cart.title')}</div>
     <button on:click class="p-6 hover:opacity-100">X</button>
   </div>
-  <div class="flex-grow flex flex-col px-6">
+  <div class="flex flex-grow flex-col px-6">
     {#if items.length === 0}
-      <div class="flex-grow flex w-full flex-col items-center justify-center overflow-hidden">
+      <div class="flex w-full flex-grow flex-col items-center justify-center overflow-hidden">
         <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white">
           <Icon src={ShoppingBag} theme="solid" class="h-10 text-bg-accent" />
         </div>
         <span class="mt-6 text-center text-2xl font-bold">{$_('cart.empty')}</span>
       </div>
     {:else}
-      <div class="overflow-y-auto flex-grow">
+      <div class="flex-grow overflow-y-auto">
         {#each items as item, i (i)}
           <div class="mb-2 flex w-full">
             <ResponsiveImage
-              class="w-20 flex-none bg-white rounded-md"
+              class="w-20 flex-none rounded-md bg-white"
               alt={item.node.merchandise.product.title + ' ' + $_('general.picture')}
               height={item.node.merchandise.product.images.edges[0].node.height}
               width={item.node.merchandise.product.images.edges[0].node.width}
@@ -86,7 +86,7 @@
               </div>
             </div>
           </div>
-          <div class="my-4 flex w-full justify-between items-center">
+          <div class="my-4 flex w-full items-center justify-between">
             <label class="flex h-8 border border-gray-400 text-fg-primary">
               <button
                 on:click={() => {
@@ -97,7 +97,7 @@
                 <Icon src={Minus} theme="solid" class="h-full" />
               </button>
               <input
-                class="bg-transparent w-10 text-center pt-1"
+                class="w-10 bg-transparent pt-1 text-center"
                 disabled
                 value={item.node.quantity}
                 maxlength="3"

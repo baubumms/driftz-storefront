@@ -2,7 +2,7 @@
 <script>
   import BlogArticles from '$components/BlogArticles.svelte';
   import MetaTags from '$components/MetaTags.svelte';
-  import {_} from 'svelte-i18n';
+  import { _ } from 'svelte-i18n';
 
   /** @type {import('./$types').PageData} */
   export let data;

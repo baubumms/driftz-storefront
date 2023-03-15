@@ -63,14 +63,14 @@
           <Icon src={XMark} theme="solid" class="w-6" />
         </button>
       </div>
-      <div class="mt-10 flex w-full flex-col flex-grow">
+      <div class="mt-10 flex w-full flex-grow flex-col">
         <H1>Store</H1>
         <div class="mt-1 mb-7 flex flex-col">
           {#each collections as tab}
             <Link
               href={tab.url}
               class={cn(
-                'py-5 text-fg-primary font-bold text-2xl active:opacity-100 opacity-75 border-fg-primary border-t first:border-t-0',
+                'border-t border-fg-primary py-5 text-2xl font-bold text-fg-primary opacity-75 first:border-t-0 active:opacity-100',
                 {
                   'opacity-100': currentRoute.includes(i18nUrl(tab.url)),
                   'opacity-75': !currentRoute.includes(i18nUrl(tab.url))
@@ -85,7 +85,7 @@
             <Link
               href={tab.url}
               class={cn(
-                'py-5 text-fg-primary font-bold text-2xl active:opacity-100 opacity-75 border-fg-primary border-t first:border-t-0',
+                'border-t border-fg-primary py-5 text-2xl font-bold text-fg-primary opacity-75 first:border-t-0 active:opacity-100',
                 {
                   'opacity-100': currentRoute.includes(i18nUrl(tab.url)),
                   'opacity-75': !currentRoute.includes(i18nUrl(tab.url))

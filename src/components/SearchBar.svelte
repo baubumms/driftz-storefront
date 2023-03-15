@@ -17,17 +17,17 @@
 </script>
 
 <form on:submit|preventDefault={submit}>
-  <label for="default-search" class="mb-2 text-sm font-medium sr-only text-fg-primary">Search</label
+  <label for="default-search" class="sr-only mb-2 text-sm font-medium text-fg-primary">Search</label
   >
   <div class="relative">
-    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-      <Icon src={MagnifyingGlass} class="w-5 h-5 text-gray-500 dark:text-gray-400" />
+    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+      <Icon src={MagnifyingGlass} class="h-5 w-5 text-gray-500 dark:text-gray-400" />
     </div>
     <input
       bind:value
       type="search"
       id="default-search"
-      class="block w-full px-4 py-3 pl-10 text-sm  border border-gray-300 rounded-lg bg-transparent focus:ring-blue-500 focus:border-blue-500"
+      class="block w-full rounded-lg border border-gray-300 bg-transparent  px-4 py-3 pl-10 text-sm focus:border-blue-500 focus:ring-blue-500"
       placeholder={$_('search.search_prompt')}
       required
     />

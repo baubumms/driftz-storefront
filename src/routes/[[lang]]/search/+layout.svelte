@@ -1,7 +1,7 @@
 <script lang="ts">
 </script>
 
-<div class="flex mt-3 md:mt-0">
+<div class="mt-3 flex md:mt-0">
   <div class="container">
     <slot />
   </div>

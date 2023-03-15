@@ -9,16 +9,16 @@
 </script>
 
 <!-- render the individual articles -->
-<div class="flex flex-col space-y-10 md:grid grid-cols-3">
+<div class="flex grid-cols-3 flex-col space-y-10 md:grid">
   {#each articles as article}
-    <Link href="/blog/{article.handle}" class="block group">
+    <Link href="/blog/{article.handle}" class="group block">
       {#if article.image}
         <ResponsiveImage
           {...toResponsiveImage(article.image)}
-          class="rounded-lg aspect-video object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+          class="aspect-video rounded-lg object-cover opacity-80 transition-opacity group-hover:opacity-100"
         />
       {/if}
-      <h2 class="text-2xl font-medium mt-3">
+      <h2 class="mt-3 text-2xl font-medium">
         <span>
           {article.title}
         </span>
