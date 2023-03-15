@@ -32,10 +32,7 @@
     selectedOptions[option.name] = option.value;
   });
 
-  console.log({ selectedVariant });
   $: inStock = selectedVariant?.availableForSale ?? false;
-
-  console.log(product.quantityUnitSingle);
 
   const getVariantBySelectedOptions = (options) => {
     let ret = null;
@@ -65,11 +62,9 @@
 
     if (browser) {
       cartId = JSON.parse(localStorage.getItem('cartId'));
-      console.log({ cartId });
     }
 
     const variantId = selectedVariant.id;
-    console.log({ variantId });
     if (!variantId) {
       return;
     }
@@ -82,7 +77,6 @@
     await getCartItems();
 
     const body = await ret.body.getReader().read();
-    console.log({ body });
 
     cartLoading = false;
   }
