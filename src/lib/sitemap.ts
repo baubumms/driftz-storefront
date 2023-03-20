@@ -29,7 +29,9 @@ export const generateSiteMap = async (locale: LangCode) => {
 };
 
 const formatUrl = (localePath: string, urlEnding: string) =>
-  `${STOREFRONT_URL}${localePath}/${urlEnding}`;
+  urlEnding == ''
+    ? `${STOREFRONT_URL}${localePath}`
+    : `${STOREFRONT_URL}${localePath}/${urlEnding}`;
 
 const formatedTag = (url: string, updatedAt?: string, priority?: string) => {
   const xml = localeUrlHandles.map(
