@@ -81,6 +81,10 @@ export const transformRelativeI18nUrl = (
     return relativeUrl;
   }
 
+  if (relativeUrl == '/') {
+    relativeUrl = '';
+  }
+
   let newUrl = '';
   if (defaultLocale == currentLocale) {
     newUrl += '/' + targetLocale + relativeUrl;
