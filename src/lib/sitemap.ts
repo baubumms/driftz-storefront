@@ -69,7 +69,7 @@ const formatedProducts = async () => {
   const products = await getAllProducts();
 
   const xml = products.body.data.products.edges.map((product) =>
-    formatedTag(`products/${product.node.handle}`, product.node.updatedAt)
+    formatedTag(`product/${product.node.handle}`, product.node.updatedAt)
   );
 
   return xml.join('');
