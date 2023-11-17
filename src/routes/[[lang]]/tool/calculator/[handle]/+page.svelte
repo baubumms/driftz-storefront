@@ -127,11 +127,12 @@
               {field.unit}
             </div>
             <input
-              type="text"
               id="input-group-1"
               name={field.id}
+              type="number"
               bind:value={values[field.id]}
               on:change={() => evaluate()}
+              on:keyup={() => evaluate()}
               disabled={selected == field.id}
               class={cn(
                 'block  w-full rounded-lg border p-2.5 pr-16 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-fg-primary dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500',
