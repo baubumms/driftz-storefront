@@ -9,7 +9,9 @@ export async function load({ params, data }) {
   ]);
 
   if (collectionsResponse.status === 200 && articlesResponse.status === 200) {
-    const collections = collectionsResponse.body?.data?.collections?.edges;
+    const collections = collectionsResponse.body?.data?.collections?.edges?.filter((collection) =>
+      collection?.node?.products?.edges?.some((product) => product?.node?.availableForSale)
+    );
     const blogArticles = articlesResponse.body.data.articles.nodes;
 
     if (collections) {
