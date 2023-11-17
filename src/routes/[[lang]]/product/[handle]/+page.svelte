@@ -28,6 +28,8 @@
     (variant) => variant.node.availableForSale
   )?.node;
 
+  selectedVariant == undefined && (selectedVariant = data.body.product.variants.edges[0]?.node);
+
   selectedVariant?.selectedOptions.forEach((option) => {
     selectedOptions[option.name] = option.value;
   });
@@ -64,7 +66,7 @@
       cartId = JSON.parse(localStorage.getItem('cartId'));
     }
 
-    const variantId = selectedVariant.id;
+    const variantId = selectedVariant?.id;
     if (!variantId) {
       return;
     }
@@ -186,15 +188,15 @@
           <h1 class="text-3xl font-bold">{product.title}</h1>
           <div>
             <span class="text-2xl">
-              {strPrice(selectedVariant.priceV2.amount)}
+              {strPrice(selectedVariant?.priceV2.amount)}
             </span>
-            {#if selectedVariant.compareAtPriceV2}
+            {#if selectedVariant?.compareAtPriceV2}
               <span class="ml-2 text-sm text-fg-secondary line-through">
-                {strPrice(selectedVariant.compareAtPriceV2.amount)}
+                {strPrice(selectedVariant?.compareAtPriceV2.amount)}
               </span>
             {/if}
             <p class="text-sm font-light text-fg-secondary">
-              {selectedVariant.quantityAvailable}{selectedVariant.quantityAvailable <= 1
+              {selectedVariant?.quantityAvailable}{selectedVariant?.quantityAvailable <= 1
                 ? product.quantityUnitSingle?.value
                 : product.quantityUnitMultiple?.value}
               {$_('general.available')}
@@ -234,7 +236,7 @@
                       'opacity-50': !getVariantBySelectedOptions({
                         ...selectedOptions,
                         [option.name]: value
-                      }).availableForSale
+                      })?.availableForSale
                     }
                   )}
                 >
