@@ -30,14 +30,24 @@
     });
   }
 
-  async function checkout() {
+  function checkout() {
     loading = true;
     const cartId = JSON.parse(localStorage.getItem('cartId'));
-    getCheckoutUrl(cartId).then((url) => {
-      window.open(url, '_blank');
-      loading = false;
-    });
-    loading = false;
+    // Open a new window immediately
+    const newWindow = window.open('', '_blank');
+
+    getCheckoutUrl(cartId)
+      .then((url) => {
+        // Change the URL of the new window once the promise resolves
+        newWindow.location = url;
+        loading = false;
+      })
+      .catch((error) => {
+        // Close the new window in case of error
+        newWindow.close();
+        console.error(error);
+        loading = false;
+      });
   }
 </script>
 
