@@ -4,7 +4,8 @@
     "page_description": "High quality parts and calculators for your nex go-kart, trike or whatever you want to roll on.",
     "posted_on": "Posted on",
     "step": "Step",
-    "available": "in Stock"
+    "available": "in Stock",
+    "out_of_stock": "out of stock"
   },
   "home": {
     "page_title": "dritz.eu - if it's supposed to roll",

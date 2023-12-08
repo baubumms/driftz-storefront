@@ -197,8 +197,8 @@
             {/if}
             <p class="text-sm font-light text-fg-secondary">
               {selectedVariant?.quantityAvailable}{selectedVariant?.quantityAvailable <= 1
-                ? product.quantityUnitSingle?.value
-                : product.quantityUnitMultiple?.value}
+                ? product.quantityUnitSingle?.value ?? ''
+                : product.quantityUnitMultiple?.value ?? ''}
               {$_('general.available')}
             </p>
           </div>

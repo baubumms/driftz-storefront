@@ -25,6 +25,7 @@
           compareAtPrice={product.node.priceRange.minVariantPrice.compareAtPrice}
           handle={product.node.handle}
           image={toResponsiveImage(product.node.images.edges[0].node)}
+          availableForSale={product.node.availableForSale}
         />
       </li>
     {:else}

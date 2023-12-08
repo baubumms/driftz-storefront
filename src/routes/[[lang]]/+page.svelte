@@ -52,11 +52,12 @@
 
           <div class="w-full overflow-x-auto">
             <div class="grid w-fit grid-cols-2 gap-2 overflow-x-auto md:flex md:gap-0 md:space-x-5">
-              {#each collection.node.products.edges as product}
+              {#each collection.node.products.edges.sort((a, b) => b.node.availableForSale - a.node.availableForSale) as product}
                 <ProductCard
                   title={product.node.shortTitle ?? product.node.title}
                   price={product.node.priceRange.maxVariantPrice.amount}
                   currencyCode={product.node.priceRange.maxVariantPrice.currencyCode}
+                  availableForSale={product.node.availableForSale}
                   image={{
                     width: product.node.images?.edges[0]?.node.width,
                     height: product.node.images?.edges[0]?.node.height,

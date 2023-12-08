@@ -4,7 +4,8 @@
     "page_description": "Qualitative Teile und Rechner für dein nächstes Go-Kart, Drift Trike oder anderes Fahrzeug.",
     "posted_on": "Veröffentlicht am",
     "step": "Schritt",
-    "available": "auf Lager"
+    "available": "auf Lager",
+    "out_of_stock": "ausverkauft"
   },
   "home": {
     "page_title": "dritz.eu - wenn es rollen soll",

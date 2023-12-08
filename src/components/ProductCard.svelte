@@ -1,11 +1,13 @@
 <script lang="ts">
   import type { IResponsiveImage } from '$/types/ResponsiveImage';
+  import { locale, _ } from 'svelte-i18n';
 
   export let title;
   export let price;
   export let compareAtPrice = null;
   export let image: IResponsiveImage;
   export let handle;
+  export let availableForSale;
 
   import { formatPrice } from '$lib/price';
   import Link from '$components/Link.svelte';
@@ -16,7 +18,7 @@
   href="/product/{handle}"
   class="group inline-flex flex-col space-y-2 rounded-lg transition-opacity duration-500 md:w-60 lg:w-64"
 >
-  <div class="flex w-full flex-col items-center justify-center">
+  <div class="relative flex w-full flex-col items-center justify-center">
     <ResponsiveImage
       class="aspect-square rounded-lg object-cover opacity-90 group-hover:opacity-100"
       srcSet={{
@@ -31,6 +33,13 @@
       height={image.height}
       width={image.width}
     />
+    {#if !availableForSale}
+      <div
+        class="absolute inset-0 flex items-center justify-center bg-black text-lg font-bold uppercase opacity-70"
+      >
+        <p>{$_('general.out_of_stock')}</p>
+      </div>
+    {/if}
   </div>
   <div class="flex flex-col items-start justify-center">
     <h2 class="text-lg font-medium">{title}</h2>

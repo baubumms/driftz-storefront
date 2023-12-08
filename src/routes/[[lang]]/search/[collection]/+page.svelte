@@ -40,6 +40,7 @@
             price={product.node.priceRange.maxVariantPrice.amount}
             handle={product.node.handle}
             image={toResponsiveImage(product.node.images.edges[0].node)}
+            availableForSale={product.node.availableForSale}
           />
         </li>
       {/each}

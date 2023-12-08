@@ -9,9 +9,15 @@ export async function load({ params, data }) {
   ]);
 
   if (collectionsResponse.status === 200 && articlesResponse.status === 200) {
-    const collections = collectionsResponse.body?.data?.collections?.edges?.filter((collection) =>
-      collection?.node?.products?.edges?.some((product) => product?.node?.availableForSale)
-    );
+    const collections = collectionsResponse.body?.data?.collections?.edges.sort((a, b) => {
+      const aAvailable = a?.node?.products?.edges?.some(
+        (product) => product?.node?.availableForSale
+      );
+      const bAvailable = b?.node?.products?.edges?.some(
+        (product) => product?.node?.availableForSale
+      );
+      return bAvailable - aAvailable;
+    });
     const blogArticles = articlesResponse.body.data.articles.nodes;
 
     if (collections) {
