@@ -48,24 +48,11 @@
       </div>
       <div class="flex-1" />
       <LanguageSwitcher />
-      <div class="hidden w-1/3 md:mr-3 md:block">
-        <SearchBar />
-      </div>
       <div class="ml-auto flex items-center text-fg-primary">
-        <button on:click={openCart} class="relative my-2 mx-4">
-          <Icon src={ShoppingBag} theme="solid" class="w-6" />
-          <div
-            data-test="cart-quantity"
-            class="absolute bottom-0 left-0 -ml-3 -mb-3 flex h-5 w-5 items-center justify-center rounded-full border border-black bg-white text-xs text-black"
-          >
-            {$cartQuantity}
-          </div>
-        </button>
-
         <NavDrawer bind:show={showDrawer} {navigation} />
       </div>
     </div>
-    <div class="hidden bg-bg-accent py-4 md:block">
+    <!-- <div class="hidden bg-bg-accent py-4 md:block">
       <div class="container flex">
         {#each collections as tab}
           <div class:active={currentRoute.startsWith(i18nUrl(tab.url))}>
@@ -78,6 +65,6 @@
           </div>
         {/each}
       </div>
-    </div>
+    </div> -->
   </div>
 </nav>

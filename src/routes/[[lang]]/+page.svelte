@@ -44,7 +44,7 @@
       </p>
     </div>
   </section>
-  <section>
+  <!-- <section>
     <div class="container flex flex-col space-y-10">
       {#each collections as collection}
         <div>
@@ -92,5 +92,5 @@
         /></H2
       ></Link
     >
-  </section>
+  </section> -->
 </main>

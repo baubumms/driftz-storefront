@@ -1,30 +1,10 @@
 import { writable, get } from 'svelte/store';
-import { getAllCollections } from '$lib/shopifyStorefront';
-import { indexedObjToArray } from '$lib/object';
-import type { INavigationItem } from '$/types/Navigation';
 import { _ } from 'svelte-i18n';
 import { Logger } from '$lib/logger';
 
 const logger = new Logger('navigation');
 
 export const generateNavigation = async () => {
-  const collections = await getAllCollections().then((resp) => {
-    if (resp.status == 200) {
-      const collections = indexedObjToArray(resp.body.data.collections.edges);
-
-      const tabs: INavigationItem[] = collections.map((collection) => {
-        return {
-          title: collection.node.title,
-          url: `/search/${collection.node.handle}`
-        };
-      });
-
-      return tabs;
-    }
-
-    throw new Error("Couldn't fetch collections");
-  });
-
   const t: (key: string) => string = get(_);
 
   const navigation = {
@@ -32,20 +12,20 @@ export const generateNavigation = async () => {
     main: {
       title: 'Shop',
       items: [
-        {
-          title: 'Blog',
-          url: '/blog'
-        },
+        // {
+        //   title: 'Blog',
+        //   url: '/blog'
+        // },
         {
           title: t('navigation.calculators'),
           url: '/tool/calculator'
         }
       ]
     },
-    collections: {
-      title: 'Collections',
-      items: collections
-    },
+    // collections: {
+    //   title: 'Collections',
+    //   items: collections
+    // },
     legal: {
       title: t('navigation.legal_title'),
       items: [
